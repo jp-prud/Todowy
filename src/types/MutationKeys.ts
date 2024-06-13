@@ -1,4 +1,4 @@
-export enum MutationKeys {
-  CreateReport = 'CreateReport',
-  CreateCustomer = 'CreateCustomer',
-}
+export const MutationKeys = {
+  completeTask: 'COMPLETE_TASK',
+  saveProfileImage: 'SAVE_PROFILE_IMAGE',
+};

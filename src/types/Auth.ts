@@ -1,16 +1,8 @@
-export interface SignInDTO {
-  name: string;
-  // password: string;
-}
-
-export interface SignUpDTO {
-  username: string;
-  fullName: string;
-  email: string;
-  password: string;
-  avatar: string;
-}
+import { AvatarListPresetUI } from '@components';
 
 export interface AuthCredentials {
-  accessToken: string;
+  avatar: AvatarListPresetUI;
+  username: string;
 }
+
+export type SaveProfileAvatarDTO = AuthCredentials['avatar'];

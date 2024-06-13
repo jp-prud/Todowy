@@ -1,12 +1,12 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
-import {ToastProps, ToastType} from '@context';
+import { ToastProps, ToastType } from '@context';
 
-import {$shadowProps} from '@theme';
+import { $shadowProps } from '@theme';
 
-import {Box, BoxProps} from '../../Box/Box';
-import {Icon, IconProps} from '../../Icon/Icon';
-import {Text} from '../../Text/Text';
+import { Box, BoxProps } from '../../Box/Box';
+import { Icon, IconProps } from '../../Icon/Icon';
+import { Text } from '../../Text/Text';
 
 const MAX_WIDTH = Dimensions.get('screen').width * 0.9;
 
@@ -14,7 +14,7 @@ interface ToastContentPros {
   toast: ToastProps;
 }
 
-export function ToastContent({toast}: ToastContentPros) {
+export function ToastContent({ toast }: ToastContentPros) {
   const type: ToastType = toast?.type || 'success';
 
   return (
@@ -28,11 +28,11 @@ export function ToastContent({toast}: ToastContentPros) {
 const mapTypeToIcon: Record<ToastType, IconProps> = {
   success: {
     color: 'success',
-    name: 'success',
+    name: 'checkmark',
   },
   info: {
     color: 'backgroundContrast',
-    name: 'message',
+    name: 'checkmarkAlert',
   },
 };
 

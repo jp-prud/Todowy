@@ -4,13 +4,13 @@ import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 
 import { ScreenProps } from '../Screen';
 
-const ICON_SIZE = 22;
+const ICON_SIZE = 24;
 
 export function ScreenHeader({
   title,
   canGoBack,
 }: Pick<ScreenProps, 'title' | 'canGoBack'>) {
-  const {goBack} = useNavigation();
+  const { goBack } = useNavigation();
 
   function renderBackButton() {
     return (
@@ -19,8 +19,8 @@ export function ScreenHeader({
         flexDirection="row"
         alignItems="center"
         onPress={goBack}>
-        <Box>
-          <Icon name="chevron" color="primary" />
+        <Box style={{ transform: [{ scaleX: -1 }] }}>
+          <Icon name="chevron" color="neutral400" />
         </Box>
 
         {!title && <Text bold>Voltar</Text>}

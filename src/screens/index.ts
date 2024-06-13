@@ -1,10 +1,9 @@
-export * from './auth/SignInScreen/SignInScreen';
-
-export * from './app/CreateCustomerScreen/CreateCustomerScreen';
-export * from './app/CreateReportScreen/CreateReportScreen';
-export * from './app/CustomerProfileScreen/CustomerProfileScreen';
+export * from './app/EditTaskScreen/EditTaskScreen';
 export * from './app/HomeScreen/HomeScreen';
-export * from './app/SeeAllCustomerScreen/SeeAllCustomerScreen';
-export * from './app/SeeAllReportScreen/SeeAllReportScreen';
-export * from './app/SuccessScreen/SuccessScreen';
+export * from './app/ProfileScreen/ProfileScreen';
+export * from './app/SettingsScreen/SettingsScreen';
+export * from './app/TaskDetailsScreen/TaskDetailsScreen';
+export * from './auth/SignInScreen/SignInScreen';
+export * from './onboarding/OnboardingScreen/OnboardingScreen';
+export * from './onboarding/SuccessScreen/SuccessScreen';
 

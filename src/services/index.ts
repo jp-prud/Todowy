@@ -1,8 +1,8 @@
 export * from './AuthService/AuthService';
-export * from './CompanyService/CompanyService';
-export * from './CustomerService/CustomerService';
-export * from './ReportService/ReportService';
-
-export * from './StorageService';
+export * from './ProfileService/ProfileService';
+export * from './SettingsService/SettingsService';
+export * from './StorageService/implementation/MMKVStorage';
+export * from './StorageService/storage';
+export * from './TaskService/TaskService';
 export * from './utils/HttpClient';
 

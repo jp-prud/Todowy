@@ -1,6 +1,6 @@
-import {MMKV} from 'react-native-mmkv';
+import { MMKV } from 'react-native-mmkv';
 
-import {Storage} from '../storage';
+import { Storage } from '../storage';
 
 const MMKVInstance = new MMKV();
 

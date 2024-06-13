@@ -2,35 +2,35 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 
-import { AppStackScreen } from './AppStack';
+import { ActivityIndicator, Box } from '@components';
 
-// import { ActivityIndicator, Box, Text } from '@components';
+import { AppStack } from './AppStack';
+import { Stacks } from './navigationTypes';
+import { OnboardingStack } from './OnboardingStack';
+import { useRouter } from './useRouter';
+
+function LoadingScreen() {
+  return (
+    <Box
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="background">
+      <ActivityIndicator size="large" />
+    </Box>
+  );
+}
+
+const stacks: Record<Stacks, React.ReactElement> = {
+  Loading: <LoadingScreen />,
+  App: <AppStack />,
+  Onboarding: <OnboardingStack />,
+};
 
 export function Router() {
-  // const {authCredentials, isLoading} = useAuthContext();
+  const stack = useRouter();
 
-  // console.log({isLoading, authCredentials});
+  const Stack = stacks[stack];
 
-  // if (isLoading) {
-  //   return (
-  //     <Box
-  //       flex={1}
-  //       justifyContent="center"
-  //       alignItems="center"
-  //       backgroundColor="background">
-  //       <ActivityIndicator size="large" />
-  //       <Text>teste</Text>
-  //     </Box>
-  //   );
-  // }
-  console.log('log');
-
-  return (
-    <NavigationContainer>
-      {/* {authCredentials ? <AppStackScreen /> : <AuthStackScreen />} */}
-      {/* <Text>teste</Text> */}
-      <AppStackScreen />
-      {/* <AuthStackScreen /> */}
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{Stack}</NavigationContainer>;
 }

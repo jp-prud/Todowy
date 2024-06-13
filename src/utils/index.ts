@@ -1,4 +1,4 @@
 export * from './delay';
 export * from './formatDateTime';
-export * from './getRangeDate';
-export * from './generateShareReportMessage'
+export * from './generateAvatarComposition';
+

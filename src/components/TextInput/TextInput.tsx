@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   Pressable,
   TextInput as RNTextInput,
@@ -7,9 +7,9 @@ import {
   TextStyle,
 } from 'react-native';
 
-import {useAppTheme} from '../../hooks/useAppTheme';
-import {Box, BoxProps} from '../Box/Box';
-import {$fontFamily, $fontSizes, Text} from '../Text/Text';
+import { useAppTheme } from '../../hooks/useAppTheme';
+import { Box, BoxProps } from '../Box/Box';
+import { $fontFamily, $fontSizes, Text } from '../Text/Text';
 
 export interface TextInputProps extends RNTextInputProps {
   label?: string;
@@ -19,6 +19,7 @@ export interface TextInputProps extends RNTextInputProps {
   sufix?: string;
   boxContainerStyles?: RNViewProps['style'];
   errorMessageContainerStyles?: RNViewProps['style'];
+  description?: string;
 }
 
 export function TextInput({
@@ -29,9 +30,10 @@ export function TextInput({
   RightComponent,
   boxContainerStyles,
   errorMessageContainerStyles,
+  description,
   ...rNTextInputProps
 }: TextInputProps) {
-  const {colors} = useAppTheme();
+  const { colors } = useAppTheme();
 
   const inputRef = useRef<RNTextInput>(null);
 
@@ -39,7 +41,8 @@ export function TextInput({
     borderWidth: errorMessage ? 2 : 1,
     borderColor: errorMessage ? 'error' : 'neutral300',
     borderRadius: 's16',
-    p: 's16',
+    py: 's12',
+    px: 's16',
     flexDirection: 'row',
     alignItems: 'center',
   };
@@ -51,21 +54,25 @@ export function TextInput({
   return (
     <Pressable onPress={handleClickInputFocus}>
       <Box g="s4">
-        {label && <Text semiBold>{label}</Text>}
+        {label && (
+          <Text semiBold color="neutral500">
+            {label}
+          </Text>
+        )}
 
         <Box {...$textInputContainer} style={[boxContainerStyles]}>
-          {prefix && <Text color={'gray2'}>{prefix}</Text>}
+          {prefix && <Text color="neutral600">{prefix}</Text>}
 
           <RNTextInput
             ref={inputRef}
-            placeholderTextColor={colors.gray2}
+            placeholderTextColor={colors.neutral700}
             style={$textInputStyle}
             autoCapitalize="none"
             {...rNTextInputProps}
           />
 
           {sufix && (
-            <Text color={'gray2'} ml="s12">
+            <Text color="neutral1000" ml="s12">
               {sufix}
             </Text>
           )}
@@ -78,6 +85,12 @@ export function TextInput({
               {errorMessage}
             </Text>
           </Box>
+        )}
+
+        {description && !errorMessage && (
+          <Text color="neutral600" preset="paragraphSmall">
+            {description}
+          </Text>
         )}
       </Box>
     </Pressable>

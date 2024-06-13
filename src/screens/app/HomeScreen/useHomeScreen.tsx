@@ -1,100 +1,67 @@
-// import {useRef} from 'react';
+import { useMemo } from 'react';
 
-import { useCallback, useRef, useState } from 'react';
-
+import { useAuthContext } from '@context';
 import { useNavigation } from '@react-navigation/native';
-import { CustomerProps } from '@types';
-import { useGetCustomers, useGetReportByDate } from '@useCases';
+import { useListTasks } from '@useCases';
+import { useForm } from 'react-hook-form';
 
-import { BottomSheetRefProps } from '@components';
+import { useDebounce } from '@hooks';
 
-// import {useScrollToTop} from '@react-navigation/native';
+import { searchFormDefaultValues } from './searchFormSchema';
 
 export function useHomeScreen() {
-  const {customersData, isLoading, isError, getCustomers} = useGetCustomers({
-    queryParams: {take: '2'},
-  });
+  const { authCredentials, isLoading: isAuthCredentialLoading } =
+    useAuthContext();
+
+  const { navigate } = useNavigation();
+
   const {
-    reportList,
-    isLoading: reportIsLoading,
-    isError: reportIsError,
-    error,
-    getReportListByDate,
-  } = useGetReportByDate({
-    queryParams: {
-      take: '2',
-    },
+    tasks,
+    numberOfCompletedTasks,
+    numberOfTotalTasks,
+    isLoading,
+    getLisTasks,
+  } = useListTasks();
+
+  const { control: searchControl, watch: searchWatch } = useForm({
+    mode: 'onChange',
+    defaultValues: searchFormDefaultValues,
   });
 
-  const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
+  const searchTerm = useDebounce(searchWatch('searchTerm'), 260);
 
-  const homeBottomSheetRef = useRef<BottomSheetRefProps>(null);
-
-  const navigation = useNavigation();
-
-  const onPressShowCustomerOptions = useCallback(() => {
-    const isActive = homeBottomSheetRef?.current?.isActive();
-    if (isActive) {
-      homeBottomSheetRef?.current?.scrollTo(0);
-    } else {
-      homeBottomSheetRef?.current?.scrollTo(-480);
+  const filteredTasks = useMemo(() => {
+    if (!tasks) {
+      return [];
     }
-  }, []);
 
-  const onPressVisibleDeleteCustomer = useCallback(() => {
-    setVisibleDeleteModal(true);
-  }, []);
+    if (!searchTerm) {
+      return tasks;
+    }
 
-  const onPressCloseDeleteCustomer = useCallback(() => {
-    setVisibleDeleteModal(false);
-  }, []);
+    return tasks.filter(task =>
+      task.descriptions.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [tasks, searchTerm]);
 
-  const [selectedCustomer, setSelecedCustomer] = useState<CustomerProps | null>(
-    null,
-  );
+  function onDetailsTask(taskId: string) {
+    console.log('onDetailsTask', taskId);
 
-  function handlePressCreateReport() {
-    navigation.navigate('CreateReportScreen', {
-      customerId: selectedCustomer!.id,
+    navigate('TaskDetailsScreen', {
+      taskId,
     });
-
-    onPressShowCustomerOptions();
   }
 
-  function handlePressCustomerProfile() {
-    navigation.navigate('CustomerProfileScreen', {
-      customerId: selectedCustomer!.id,
-    });
-
-    onPressShowCustomerOptions();
-  }
-
-  function handlePressCreateCustomer() {
-    navigation.navigate('CreateCustomerScreen');
-
-    onPressShowCustomerOptions();
-  }
-
-  // const homeContentRef = useRef(null);
-  // useScrollToTop(homeContentRef);
   return {
-    customersData,
-    reportList,
+    filteredTasks,
+    control: searchControl,
+    searchTerm,
+    numberOfCompletedTasks,
+    numberOfTotalTasks,
     isLoading,
-    error,
-    isError,
-    homeBottomSheetRef,
-    visibleDeleteModal,
-    reportIsLoading,
-    reportIsError,
-    getReportListByDate,
-    getCustomers,
-    onPressShowCustomerOptions,
-    onPressVisibleDeleteCustomer,
-    onPressCloseDeleteCustomer,
-    handlePressCreateReport,
-    handlePressCustomerProfile,
-    handlePressCreateCustomer,
-    setSelecedCustomer,
+    getLisTasks,
+    authCredentials,
+    isAuthCredentialLoading,
+    onDetailsTask,
   };
 }

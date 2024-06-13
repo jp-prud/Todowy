@@ -1,46 +1,39 @@
-import {AuthCredentials, SignInDTO, SignUpDTO} from '@types';
-import {delay} from '@utils';
+import { AuthCredentials, SaveProfileAvatarDTO, StorageKeys } from '@types';
 
-import {HttpClient} from '../utils/HttpClient';
+import { storage } from '../StorageService/storage';
 
 export function AuthService() {
-  async function signIn(signInDTO: SignInDTO) {
-    const response = await HttpClient.post<AuthCredentials>(
-      'sign-in',
-      signInDTO,
-    );
+  const AUTH_KEY = StorageKeys.Auth;
 
-    return response.data;
+  async function save(authCredentials: AuthCredentials): Promise<void> {
+    await storage.setItem(AUTH_KEY, authCredentials);
   }
 
-  async function signUp(signUpDTO: SignUpDTO) {
-    const response = await HttpClient.post<AuthCredentials>(
-      'auth/signup',
-      signUpDTO,
-    );
+  async function load(): Promise<AuthCredentials | null> {
+    const authCredentials = await storage.getItem<AuthCredentials>(AUTH_KEY);
 
-    return response.data;
+    return authCredentials;
   }
 
-  async function signOut() {
-    await delay();
+  function saveProfileImage(avatar: SaveProfileAvatarDTO): Promise<void> {
+    const storagedAuthCredentials = storage.getItem(StorageKeys.Auth);
 
-    return Promise.resolve();
+    const updatedAuthCredentials = {
+      ...storagedAuthCredentials,
+      avatar,
+    };
+
+    return storage.setItem(StorageKeys.Auth, updatedAuthCredentials);
   }
 
-  function updateAccessToken(accessToken: AuthCredentials['accessToken']) {
-    HttpClient.defaults.headers.Authorization = `Bearer ${accessToken}`;
-  }
-
-  function removeAccessToken() {
-    HttpClient.defaults.headers.Authorization = null;
+  async function remove(): Promise<void> {
+    await storage.removeItem(AUTH_KEY);
   }
 
   return {
-    signIn,
-    signUp,
-    signOut,
-    updateAccessToken,
-    removeAccessToken,
+    save,
+    load,
+    saveProfileImage,
+    remove,
   };
 }

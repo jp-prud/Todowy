@@ -1,47 +1,44 @@
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 
-import {UserProps} from '@types';
+import { AvatarListPresets } from '@utils';
 
-import {Box} from '../Box/Box';
-import {RenderIfElse} from '../RenderIfElse/RenderIfElse';
+import { ThemeColors } from '@theme';
+
+import { Box } from '../Box/Box';
 
 export interface AvatarProps {
   size?: number;
-  user: Pick<UserProps, 'name' | 'avatar'>;
+  avatar: AvatarListPresetUI;
 }
 
-export function Avatar({size = 32, user}: AvatarProps) {
-  if (!user) {
+export interface AvatarListPresetUI {
+  id: string;
+  icon: string;
+  color: string | ThemeColors;
+}
+
+export function Avatar({ size = 32, avatar }: AvatarProps) {
+  if (!avatar) {
     return <></>;
   }
 
-  const {avatar, name} = user;
+  const { icon, color } = avatar;
+
+  const imageSize = size / 2;
 
   return (
     <Box
       width={size}
       height={size}
-      borderRadius="s32"
-      backgroundColor="gray1"
+      borderRadius="s16"
+      backgroundColor={color}
       justifyContent="center"
       alignItems="center"
       testID="avatar-component">
       <Box borderRadius="s32" overflow="hidden">
-        <RenderIfElse
-          condition={Boolean(!user.avatar)}
-          renderElse={
-            <Image
-              source={{
-                uri: avatar,
-              }}
-              alt={name}
-              width={size}
-              height={size}
-            />
-          }
-          renderIf={
-            <Box width={size} height={size} backgroundColor="primary" />
-          }
+        <Image
+          source={icon || AvatarListPresets[icon].icon}
+          style={{ height: imageSize, width: imageSize }}
         />
       </Box>
     </Box>

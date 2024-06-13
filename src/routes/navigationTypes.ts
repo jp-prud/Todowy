@@ -4,37 +4,33 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { ReportProps } from '@types';
 
 export type AuthStackParamList = {
   SignInScreen: undefined;
-  SignUpScreen: undefined;
-  RecoveryPasswordScreen: undefined;
 };
 
 export type AppStackParamList = {
   AppTabNavigator: undefined;
   HomeScreen: undefined;
-  CreateCustomerScreen: undefined;
-  SeeAllCustomerScreen: undefined;
-  SeeAllReportScreen: undefined;
-  CreateReportScreen: {
-    customerId: string;
+  SettingsScreen: undefined;
+  ProfileScreen: undefined;
+  SuccessScreen?: undefined;
+  EditTaskScreen: {
+    taskId: string;
   };
-  EditCustomerScreen: {
-    customerId: string;
-  };
-  CustomerProfileScreen: {
-    customerId: string;
-  };
-
-  SuccessScreen: {
-    report: ReportProps;
+  TaskDetailsScreen: {
+    taskId: string;
   };
 };
 
 export type AppTabNavigatorParamList = {
   HomeScreen: undefined;
+  SearchScreen: undefined;
+};
+
+export type OnboardingStackParamList = {
+  OnboardingScreen: undefined;
+  SuccessScreen?: undefined;
 };
 
 export type AppScreenProps<RouteScreenName extends keyof AppStackParamList> =
@@ -42,6 +38,10 @@ export type AppScreenProps<RouteScreenName extends keyof AppStackParamList> =
 
 export type AuthScreenProps<RouteScreenName extends keyof AuthStackParamList> =
   NativeStackScreenProps<AuthStackParamList, RouteScreenName>;
+
+export type OnboardingScreenProps<
+  RouteScreenName extends keyof OnboardingStackParamList,
+> = NativeStackScreenProps<OnboardingStackParamList, RouteScreenName>;
 
 export type RootStackParamList = AuthStackParamList & AppStackParamList;
 
@@ -51,6 +51,8 @@ export type AppTabScreenProps<
   BottomTabScreenProps<AppTabNavigatorParamList, RouteName>,
   NativeStackScreenProps<AppStackParamList, 'AppTabNavigator'>
 >;
+
+export type Stacks = 'Loading' | 'App' | 'Onboarding';
 
 declare global {
   namespace ReactNavigation {

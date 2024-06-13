@@ -1,33 +1,15 @@
-import {Svg, Path} from 'react-native-svg';
+import React from 'react';
 
-import {IconBase} from '@components';
+import Svg, { Path } from 'react-native-svg';
 
-export function PencilIcon({color = 'black', size = 24}: IconBase) {
+import { IconBase } from '@components';
+
+export function PencilIcon({ color = 'black', size = 28 }: IconBase) {
   return (
-    <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none">
+    <Svg width={size} height={size} fill="none">
       <Path
-        d="M13.2601 3.59997L5.0501 12.29C4.7401 12.62 4.4401 13.27 4.3801 13.72L4.0101 16.96C3.8801 18.13 4.7201 18.93 5.8801 18.73L9.1001 18.18C9.5501 18.1 10.1801 17.77 10.4901 17.43L18.7001 8.73997C20.1201 7.23997 20.7601 5.52997 18.5501 3.43997C16.3501 1.36997 14.6801 2.09997 13.2601 3.59997Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeMiterlimit="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M11.8899 5.04999C12.3199 7.80999 14.5599 9.91999 17.3399 10.2"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeMiterlimit="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M3 22H21"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeMiterlimit="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        fill={color}
+        d="m20.012 9.497.958-.95c.474-.474.492-.992.061-1.432l-.342-.351c-.431-.431-.967-.387-1.433.079l-.958.94zM9.245 20.247l9.923-9.924-1.705-1.696-9.923 9.905-.861 2.074c-.097.264.175.554.44.457z"
       />
     </Svg>
   );

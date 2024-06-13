@@ -1,25 +1,25 @@
 import React from 'react';
 
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-import {Box, ScreenTabBarButton} from '@components';
-import {useAppSafeArea} from '@hooks';
-import {$shadowProps} from '@theme';
+import { Box, ScreenTabBarButton } from '@components';
+import { useAppSafeArea } from '@hooks';
+import { $shadowProps } from '@theme';
 
-import {mappedScreensToProps} from './mappedScreensToProps';
-import {AppTabNavigatorParamList} from './navigationTypes';
+import { mappedScreensToProps } from './mappedScreensToProps';
+import { AppTabNavigatorParamList } from './navigationTypes';
 
-export function TabBar({state, descriptors, navigation}: BottomTabBarProps) {
-  const {bottom} = useAppSafeArea();
+export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  const { bottom } = useAppSafeArea();
 
   return (
     <Box
       flexDirection="row"
-      style={[{paddingBottom: bottom}, $shadowProps]}
+      style={[{ paddingBottom: bottom }, $shadowProps]}
       pt="s12"
       backgroundColor="background">
       {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
+        const { options } = descriptors[route.key];
 
         const tabItemProps =
           mappedScreensToProps[route.name as keyof AppTabNavigatorParamList];
@@ -53,7 +53,7 @@ export function TabBar({state, descriptors, navigation}: BottomTabBarProps) {
           <ScreenTabBarButton
             key={route.name}
             accessibilityRole="button"
-            accessibilityState={isFocused ? {selected: true} : {}}
+            accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             onPress={onPress}
             onLongPress={onLongPress}

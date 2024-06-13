@@ -13,11 +13,9 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@api": ["src/api"],
-      "@assets": ["src/assets/*"],
+      "@assets": ["src/assets"],
       "@context": ["src/context"],
       "@components": ["src/components"],
-      "@domain": ["src/domain"],
       "@hooks": ["src/hooks"],
       "@routes": ["src/routes"],
       "@screens": ["src/screens"],

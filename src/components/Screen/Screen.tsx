@@ -21,6 +21,8 @@ export interface ScreenProps extends BoxProps {
   footerContainerStyle?: BoxProps['style'];
 }
 
+export const HORIZONTAL_PADDING = 24;
+
 export function Screen({
   children,
   isLoading,
@@ -29,13 +31,12 @@ export function Screen({
   canGoBack = false,
   scrollable = false,
   FooterComponent,
-  style,
   title,
   footerContainerStyle,
   ...boxProps
 }: ScreenProps) {
-  const {top, bottom} = useAppSafeArea();
-  const {colors} = useAppTheme();
+  const { top, bottom } = useAppSafeArea();
+  const { colors } = useAppTheme();
 
   const Container =
     scrollable && !isLoading ? ScrollableViewContainer : ViewContainer;
@@ -50,7 +51,11 @@ export function Screen({
 
   return (
     <KeyboardAvoidingView
-      style={{flex: 1, backgroundColor: colors.background}}
+      style={{
+        flex: 1,
+        backgroundColor: colors.background,
+        position: 'relative',
+      }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       testID="screen-component">
       <Container backgroundColor={colors.background}>
@@ -61,9 +66,8 @@ export function Screen({
             {
               paddingTop: top,
               paddingBottom: bottom,
-              paddingHorizontal: 24,
+              paddingHorizontal: HORIZONTAL_PADDING,
             },
-            style,
           ]}
           {...boxProps}>
           {!isLoading && (title || canGoBack) && (
@@ -81,7 +85,7 @@ export function Screen({
       {FooterComponent && !isLoading && !isError && (
         <Box
           style={[
-            {paddingBottom: bottom, backgroundColor: colors.background},
+            { paddingBottom: bottom, backgroundColor: colors.background },
             footerContainerStyle,
           ]}
           testID="footer-component">

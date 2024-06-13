@@ -1,4 +1,4 @@
-import {Box, Icon, Text, TouchableOpacityBox} from '@components';
+import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 
 export interface LinkStandAloneProps {
   text: string;
@@ -26,7 +26,7 @@ export function LinkStandAlone({
         <Box
           testID="link-stand-alone-icon"
           style={{
-            transform: [{scaleX: -1}],
+            transform: [{ scaleX: -1 }],
           }}>
           <Icon name="chevron" color="primary" />
         </Box>

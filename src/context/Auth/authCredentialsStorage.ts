@@ -1,5 +1,5 @@
-import {storage} from '@services';
-import {AuthCredentials, StorageKeys} from '@types';
+import { storage } from '@services';
+import { AuthCredentials, SaveProfileAvatarDTO, StorageKeys } from '@types';
 
 const AUTH_KEY = StorageKeys.Auth;
 
@@ -13,6 +13,17 @@ async function load(): Promise<AuthCredentials | null> {
   return authCredentials;
 }
 
+function saveProfileImage(avatar: SaveProfileAvatarDTO): Promise<void> {
+  const storagedAuthCredentials = storage.getItem(StorageKeys.Auth);
+
+  const updatedAuthCredentials = {
+    ...storagedAuthCredentials,
+    avatar,
+  };
+
+  return storage.setItem(StorageKeys.Auth, updatedAuthCredentials);
+}
+
 async function remove(): Promise<void> {
   await storage.removeItem(AUTH_KEY);
 }
@@ -21,4 +32,5 @@ export const authCredentialsStorage = {
   save,
   load,
   remove,
+  saveProfileImage,
 };

@@ -1,9 +1,4 @@
-export enum QueryKeys {
-  ListCustomers = 'ListCustomers',
-  ListReports = 'ListReports',
-  GetCustomer = 'GetCustomer',
-  UserMe = 'UserMe',
-  SignIn = 'SignIn',
-  SignOut = 'SignOut',
-  SignUp = 'SignUp',
-}
+export const QueryKeys = {
+  getTasks: 'GET_TASKS',
+  getCredentials: 'GET_CREDENTIALS',
+};

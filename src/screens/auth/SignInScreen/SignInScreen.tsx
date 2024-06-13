@@ -1,12 +1,12 @@
-import {Pressable} from 'react-native';
+import { Pressable } from 'react-native';
 
-import {Box, Button, FormTextInput, Screen, Text} from '@components';
-import {AuthScreenProps} from '@routes';
+import { Box, Button, FormTextInput, Screen, Text } from '@components';
+import { AuthScreenProps } from '@routes';
 
-import {useSignInScreen} from './useSignInScreen';
+import { useSignInScreen } from './useSignInScreen';
 
 export function SignInScreen({}: AuthScreenProps<'SignInScreen'>) {
-  const {control, onSubmit, isPending} = useSignInScreen();
+  const { control, onSubmit, isPending } = useSignInScreen();
 
   return (
     <Screen scrollable>

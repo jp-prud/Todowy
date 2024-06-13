@@ -6,6 +6,7 @@ import { ButtonPreset } from './Button';
 interface ButtonUI {
   container: TouchableOpacityBoxProps;
   content: ThemeColors;
+  icon?: ThemeColors;
 }
 
 export const buttonPresets: Record<
@@ -21,12 +22,14 @@ export const buttonPresets: Record<
         backgroundColor: 'primary',
       },
       content: 'primaryContrast',
+      icon: 'primaryContrast',
     },
     disabled: {
       container: {
         backgroundColor: 'neutral200',
       },
       content: 'neutral400',
+      icon: 'neutral400',
     },
   },
   secondary: {
@@ -35,26 +38,30 @@ export const buttonPresets: Record<
         backgroundColor: 'white',
       },
       content: 'primary',
+      icon: 'primary',
     },
     disabled: {
       container: {
         backgroundColor: 'neutral200',
       },
       content: 'neutral400',
+      icon: 'neutral400',
     },
   },
   positive: {
     default: {
       container: {
-        backgroundColor: 'green600',
+        backgroundColor: 'greenLight',
       },
       content: 'primaryContrast',
+      icon: 'primaryContrast',
     },
     disabled: {
       container: {
         backgroundColor: 'neutral200',
       },
       content: 'neutral400',
+      icon: 'neutral400',
     },
   },
   negative: {
@@ -63,12 +70,14 @@ export const buttonPresets: Record<
         backgroundColor: 'red600',
       },
       content: 'primaryContrast',
+      icon: 'primaryContrast',
     },
     disabled: {
       container: {
         backgroundColor: 'neutral200',
       },
       content: 'neutral400',
+      icon: 'neutral400',
     },
   },
   outline: {
@@ -78,6 +87,7 @@ export const buttonPresets: Record<
         borderColor: 'primary',
       },
       content: 'primary',
+      icon: 'primary',
     },
     disabled: {
       container: {
@@ -85,6 +95,7 @@ export const buttonPresets: Record<
         borderColor: 'neutral300',
       },
       content: 'neutral300',
+      icon: 'neutral300',
     },
   },
   invertedOutline: {
@@ -94,6 +105,7 @@ export const buttonPresets: Record<
         borderColor: 'white',
       },
       content: 'white',
+      icon: 'white',
     },
     disabled: {
       container: {
@@ -101,6 +113,7 @@ export const buttonPresets: Record<
         borderColor: 'neutral300',
       },
       content: 'neutral300',
+      icon: 'neutral300',
     },
   },
 };

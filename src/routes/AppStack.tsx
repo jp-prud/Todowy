@@ -3,13 +3,12 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
-  CreateCustomerScreen,
-  CreateReportScreen,
-  CustomerProfileScreen,
+  EditTaskScreen,
   HomeScreen,
-  SeeAllCustomerScreen,
-  SeeAllReportScreen,
+  ProfileScreen,
+  SettingsScreen,
   SuccessScreen,
+  TaskDetailsScreen,
 } from '../screens';
 
 import {
@@ -18,9 +17,9 @@ import {
 } from './navigationTypes';
 import { TabNavigationStack } from './TabNavigationStack';
 
-const {Navigator, Screen} = createNativeStackNavigator<AppStackParamList>();
+const { Navigator, Screen } = createNativeStackNavigator<AppStackParamList>();
 
-export function AppStackScreen() {
+export function AppStack() {
   return (
     <Navigator
       initialRouteName="HomeScreen"
@@ -28,12 +27,11 @@ export function AppStackScreen() {
       <Screen name="AppTabNavigator" component={TabNavigationStack} />
 
       <Screen name="HomeScreen" component={HomeScreen} />
-      <Screen name="CreateReportScreen" component={CreateReportScreen} />
-      <Screen name="CreateCustomerScreen" component={CreateCustomerScreen} />
-      <Screen name="CustomerProfileScreen" component={CustomerProfileScreen} />
+      <Screen name="EditTaskScreen" component={EditTaskScreen} />
+      <Screen name="SettingsScreen" component={SettingsScreen} />
+      <Screen name="ProfileScreen" component={ProfileScreen} />
+      <Screen name="TaskDetailsScreen" component={TaskDetailsScreen} />
       <Screen name="SuccessScreen" component={SuccessScreen} />
-      <Screen name="SeeAllCustomerScreen" component={SeeAllCustomerScreen} />
-      <Screen name="SeeAllReportScreen" component={SeeAllReportScreen} />
     </Navigator>
   );
 }

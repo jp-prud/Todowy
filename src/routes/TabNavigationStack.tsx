@@ -4,12 +4,12 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 
-import {HomeScreen} from '@screens';
+import { HomeScreen } from '@screens';
 
-import {AppTabNavigatorParamList} from './navigationTypes';
-import {TabBar} from './TabBar';
+import { AppTabNavigatorParamList } from './navigationTypes';
+import { TabBar } from './TabBar';
 
-const {Navigator, Screen} =
+const { Navigator, Screen } =
   createBottomTabNavigator<AppTabNavigatorParamList>();
 
 export function TabNavigationStack() {
@@ -29,10 +29,7 @@ export function TabNavigationStack() {
       initialRouteName="HomeScreen">
       <Screen name="HomeScreen" component={HomeScreen} />
 
-      {/* <Screen name="SearchScreen" component={SearchScreen} />
-
-      <Screen name="ListScreen" component={ListScreen} />
-
+      {/* <Screen name="ListScreen" component={ListScreen} />
       <Screen name="ProfileScreen" component={ProfileScreen} /> */}
     </Navigator>
   );

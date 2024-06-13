@@ -1,18 +1,18 @@
-import {useWindowDimensions} from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
-import {useToast} from '@context';
+import { useToast } from '@context';
 
-import {useAppSafeArea} from '@hooks';
+import { useAppSafeArea } from '@hooks';
 
-import {Box, BoxProps} from '../Box/Box';
+import { Box, BoxProps } from '../Box/Box';
 
-import {ToastContent} from './components/ToastContent';
+import { ToastContent } from './components/ToastContent';
 
 export function Toast() {
   const toast = useToast();
 
-  const {height} = useWindowDimensions();
-  const {top} = useAppSafeArea();
+  const { height } = useWindowDimensions();
+  const { top } = useAppSafeArea();
 
   const HEIGHT_TOAST_CONTAINER = height * 0.8 - top;
 

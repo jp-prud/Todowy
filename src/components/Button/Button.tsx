@@ -1,5 +1,9 @@
 import {
   ActivityIndicator,
+  Box,
+  Icon,
+  IconProps,
+  RenderIf,
   RenderIfElse,
   Text,
   TouchableOpacityBox,
@@ -18,6 +22,8 @@ export type ButtonPreset =
 
 interface ButtonProps extends TouchableOpacityBoxProps {
   text: string;
+  icon?: IconProps['name'];
+  iconPosition?: 'left' | 'right';
   loading?: boolean;
   disabled?: boolean;
   preset?: ButtonPreset;
@@ -28,6 +34,8 @@ export function Button({
   loading,
   preset = 'primary',
   disabled,
+  icon,
+  iconPosition,
   ...touchableOpacityBoxProps
 }: ButtonProps) {
   const buttonPreset = buttonPresets[preset][disabled ? 'disabled' : 'default'];
@@ -46,9 +54,23 @@ export function Button({
         condition={Boolean(loading)}
         renderIf={<ActivityIndicator color={buttonPreset.content} />}
         renderElse={
-          <Text bold color={buttonPreset.content}>
-            {text}
-          </Text>
+          <Box
+            alignItems="center"
+            gap="s16"
+            justifyContent="center"
+            flexDirection="row">
+            <RenderIf
+              condition={!!icon && iconPosition === 'left'}
+              render={<Icon name={icon!} color={buttonPreset.icon} />}
+            />
+            <Text bold color={buttonPreset.content}>
+              {text}
+            </Text>
+            <RenderIf
+              condition={!!icon && iconPosition === 'right'}
+              render={<Icon name={icon!} color={buttonPreset.icon} />}
+            />
+          </Box>
         }
       />
     </TouchableOpacityBox>

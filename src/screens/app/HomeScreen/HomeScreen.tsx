@@ -1,105 +1,81 @@
 import React from 'react';
-import { ViewStyle } from 'react-native';
-
-import { Box, Button, Modal, Screen, Text } from '@components';
-import { AppScreenProps } from '@routes';
 
 import {
-  AddPostFixedButton,
-  HomeBottomSheet,
-  HomeErrorPostList,
-  HomeHeader,
-  ReportListContent,
-} from './components';
-import { CustomerListContent } from './components/CustomerListContent';
-import { DataPickerSection } from './components/DataPickerSection';
-import { HomeReportProgress } from './components/HomeReportProgress';
+  Avatar,
+  Box,
+  FormTextInput,
+  Icon,
+  Screen,
+  Text,
+  TitleBar,
+  TouchableOpacityBox,
+} from '@components';
+import { AppScreenProps } from '@routes';
+
+import { AddTaskButton, SliderTaskList } from './components';
 import { useHomeScreen } from './useHomeScreen';
 
-export function HomeScreen({}: AppScreenProps<'HomeScreen'>) {
+export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
   const {
-    customersData,
-    isError,
+    authCredentials,
+    filteredTasks,
+    control,
     isLoading,
-    homeBottomSheetRef,
-    visibleDeleteModal,
-    reportIsError,
-    reportIsLoading,
-    reportList,
-    getCustomers,
-    // getReportListByDate,
-    onPressShowCustomerOptions,
-    // onPressVisibleDeleteCustomer,
-    onPressCloseDeleteCustomer,
-    handlePressCreateCustomer,
-    handlePressCreateReport,
-    handlePressCustomerProfile,
-    setSelecedCustomer,
+    searchTerm,
+    onDetailsTask,
   } = useHomeScreen();
 
-  function renderHomeContent() {
-    return (
-      <Box>
-        <HomeHeader />
+  return (
+    <Screen isLoading={isLoading}>
+      <AddTaskButton />
+      <Box zIndex={-1}>
+        <Box mb="s32">
+          <Box alignItems="center" flexDirection="row" gap="s16">
+            <TouchableOpacityBox
+              width="auto"
+              onPress={() => navigation.navigate('ProfileScreen')}>
+              <Avatar avatar={authCredentials?.avatar} />
+            </TouchableOpacityBox>
 
-        <DataPickerSection />
+            <Box>
+              <Text preset="paragraphSmall" color="neutral500">
+                Welcome, {authCredentials?.username}!
+              </Text>
+              <Text semiBold>Lets get productive</Text>
+            </Box>
+          </Box>
+        </Box>
 
-        <CustomerListContent
-          customerList={customersData?.customers}
-          isError={isError}
-          onSelecedCustomer={customer => setSelecedCustomer(customer)}
-          onShowCustomerOptions={onPressShowCustomerOptions}
+        <FormTextInput
+          control={control}
+          name="searchTerm"
+          placeholder="Search for a task"
+          RightComponent={<Icon name="search" color="neutral600" />}
         />
 
-        <HomeReportProgress />
+        <Box
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between">
+          <TitleBar title="Your tasks" mb="s32" mt="s32" />
 
-        <Box mt="s24">
-          <ReportListContent isError={reportIsError} reportList={reportList} />
+          <Box
+            width={28}
+            height={28}
+            backgroundColor="neutral200"
+            borderRadius="s16"
+            justifyContent="center"
+            alignItems="center">
+            <Text semiBold>{filteredTasks.length}</Text>
+          </Box>
         </Box>
+
+        <SliderTaskList
+          data={filteredTasks}
+          searchTerm={searchTerm}
+          onPressItem={onDetailsTask}
+        />
       </Box>
-    );
-  }
-
-  return (
-    <>
-      <Screen
-        scrollable
-        style={$homeScreenStyleFooter}
-        footerContainerStyle={$homeScreenStyleContainer}
-        isLoading={isLoading || reportIsLoading}
-        FooterComponent={<AddPostFixedButton />}
-        isError={isError || reportIsError}
-        renderErrorComponent={
-          <HomeErrorPostList refetch={() => getCustomers} />
-        }>
-        {renderHomeContent()}
-      </Screen>
-
-      <HomeBottomSheet
-        homeBottomSheetRef={homeBottomSheetRef}
-        onCreateCustomer={handlePressCreateCustomer}
-        onCreateReport={handlePressCreateReport}
-        onCustomerProfile={handlePressCustomerProfile}
-      />
-
-      <Modal
-        isVisible={visibleDeleteModal}
-        onClose={onPressCloseDeleteCustomer}>
-        <Text>Deseja realmente excluir esse usuário?</Text>
-        <Box mt="s32" gap="s16" alignItems="center">
-          <Button text="Remover" />
-          <Button text="Remover" />
-        </Box>
-      </Modal>
-    </>
+    </Screen>
   );
 }
-
-const $homeScreenStyleContainer: ViewStyle = {
-  paddingBottom: 0,
-};
-
-const $homeScreenStyleFooter: ViewStyle = {
-  paddingHorizontal: 0,
-  paddingVertical: 0,
-};

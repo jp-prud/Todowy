@@ -33,7 +33,7 @@ jobs:
         run: yarn install
 
       - name: Decode Keystore
-        run: echo ${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }} | base64 --decode > app/upload.jks
+        run: echo "${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }}" | base64 --decode > app/upload.jks
 
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew

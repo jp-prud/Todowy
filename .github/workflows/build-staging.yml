@@ -1,4 +1,4 @@
-name: Build Staging Version
+name: Build Staging (Android and iOS)
 
 env: 
   APK_PATH: android/app/build/outputs/apk/release/app-release.apk
@@ -45,8 +45,8 @@ jobs:
           TODOWY_ALIAS_PASSWORD: ${{ secrets.TODOWY_ALIAS_PASSWORD }}
           TODOWY_KEY_PASSWORD: ${{ secrets.TODOWY_KEY_PASSWORD }}
 
-      - name: Upload APK to Atifact
-        use: actions/upload-artifact@v4
+      - name: Upload APK to Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
           path: ${{ env.APK_PATH }}

@@ -1,5 +1,8 @@
 name: Build Staging Version
 
+env: 
+  APK_PATH: android/app/build/outputs/apk/release/app-release.apk
+
 on: 
   workflow_dispatch:
 
@@ -37,6 +40,16 @@ jobs:
 
       - name: Build APK
         run: ./gradlew assembleRelease
+        env: 
+          TODOWY_STORE_PASSWORD: ${{ secrets.TODOWY_STORE_PASSWORD }}
+          TODOWY_ALIAS_PASSWORD: ${{ secrets.TODOWY_ALIAS_PASSWORD }}
+          TODOWY_KEY_PASSWORD: ${{ secrets.TODOWY_KEY_PASSWORD }}
 
+      - name: Upload APK to Atifact
+        use: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: ${{ env.APK_PATH }}
+          retention-days: 7
 
 

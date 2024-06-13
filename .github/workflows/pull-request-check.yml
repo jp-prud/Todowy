@@ -1,0 +1,28 @@
+name: Pull Request Checks
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches:
+      - master
+
+jobs: 
+  pull-request-checks:
+    runs-on: ubutu-20.4
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Packages
+        run: yarn install
+
+      - name: Run Lint
+        run: yarn lint
+
+      - name: Run Typescript compiler
+        run: yarn tsc --noEmit

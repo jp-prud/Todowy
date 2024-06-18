@@ -13,8 +13,10 @@ export function PriorityFlag({ priority }: PriorityFlagProps) {
   const { container, content } = PriorityFlagPreset[priority];
 
   return (
-    <Box backgroundColor={container} px="s8" py="s4" borderRadius="s32">
-      <Text color={content}>{priority}</Text>
+    <Box backgroundColor={container} px="s8" py="s4" borderRadius="s12">
+      <Text color={content} preset="paragraphSmall" semiBold>
+        {priority}
+      </Text>
     </Box>
   );
 }

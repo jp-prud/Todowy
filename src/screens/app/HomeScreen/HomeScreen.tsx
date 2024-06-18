@@ -22,19 +22,20 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
     control,
     isLoading,
     searchTerm,
-    onDetailsTask,
+    isAuthCredentialLoading,
+    getLisTasks,
   } = useHomeScreen();
 
   return (
-    <Screen isLoading={isLoading}>
+    <Screen isLoading={isAuthCredentialLoading}>
       <AddTaskButton />
-      <Box zIndex={-1}>
+      <Box zIndex={-1} flex={1}>
         <Box mb="s32">
           <Box alignItems="center" flexDirection="row" gap="s16">
             <TouchableOpacityBox
               width="auto"
               onPress={() => navigation.navigate('ProfileScreen')}>
-              <Avatar avatar={authCredentials?.avatar} />
+              <Avatar avatar={authCredentials?.avatar} size={46} />
             </TouchableOpacityBox>
 
             <Box>
@@ -56,13 +57,15 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
         <Box
           flexDirection="row"
           alignItems="center"
-          justifyContent="space-between">
-          <TitleBar title="Your tasks" mb="s32" mt="s32" />
+          justifyContent="space-between"
+          mb="s16"
+          mt="s32">
+          <TitleBar title="Your tasks" />
 
           <Box
-            width={28}
-            height={28}
-            backgroundColor="neutral200"
+            width={24}
+            height={24}
+            backgroundColor="neutral100"
             borderRadius="s16"
             justifyContent="center"
             alignItems="center">
@@ -70,11 +73,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
           </Box>
         </Box>
 
-        <SliderTaskList
-          data={filteredTasks}
-          searchTerm={searchTerm}
-          onPressItem={onDetailsTask}
-        />
+        <SliderTaskList data={filteredTasks} searchTerm={searchTerm} />
       </Box>
     </Screen>
   );

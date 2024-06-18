@@ -43,6 +43,7 @@ export function RubberBandingList<TData>({
   styles,
   index = 0,
   translateX,
+  onRefresh,
 }: RubberBandingListProps<TData>) {
   const { width } = useWindowDimensions();
   const startingEnteringValue = useRef<boolean>(true);
@@ -113,6 +114,9 @@ function AnimatedItem(props: AnimatedItemProps) {
 const flatListStyles = StyleSheet.create({
   wrapperView: {
     width: WIDTH_SCREEN - 48,
+    flex: 1,
   },
-  contentContainer: {},
+  contentContainer: {
+    flex: 1,
+  },
 });

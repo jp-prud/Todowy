@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { z } from 'zod';
 
 export const CreateTaskForm = z.object({
@@ -6,6 +7,7 @@ export const CreateTaskForm = z.object({
   priority: z.enum(['low', 'medium', 'high'], {
     required_error: 'Priority is required',
   }),
+  due_date: z.string(),
 });
 
 export type CreateTaskFormSchema = z.infer<typeof CreateTaskForm>;
@@ -14,4 +16,5 @@ export const createTaskFormDefaultValues: CreateTaskFormSchema = {
   title: '',
   description: '',
   priority: 'medium',
+  due_date: dayjs().toISOString(),
 };

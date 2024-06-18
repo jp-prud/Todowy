@@ -1,9 +1,26 @@
 import React from 'react';
+import { Pressable } from 'react-native';
 
 import { useBottomSheet as ExternalLibModal } from '@gorhom/bottom-sheet';
 import { MOCKED_TASKS_PRIORITY } from '@types';
+import dayjs from 'dayjs';
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from 'react-native-reanimated';
+import DateTimePicker from 'react-native-ui-datepicker';
 
-import { Box, Button, Dropdown, FormTextInput, Icon, Text } from '@components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  FormTextInput,
+  Icon,
+  RenderIfElse,
+  Text,
+} from '@components';
+import { useAppTheme } from '@hooks';
 
 import { useCreateTaskForm } from '../useCreateTaskForm';
 
@@ -12,12 +29,18 @@ interface CreateTaskFormProps {
 }
 
 export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
+  const { colors } = useAppTheme();
+
   const {
     onSubmit,
     createTaskLoading,
     createTaskControl,
     isValidCreateTaskForm,
     handlePressSelectPriority,
+    currentStep,
+    handlePressToggleStep,
+    watch,
+    handlePressChangeDate,
   } = useCreateTaskForm();
 
   const { close } = ExternalLibModal();
@@ -29,22 +52,19 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
   }
 
   function handlePressCloseForm() {
+    if (currentStep === 'DatePicker') {
+      handlePressToggleStep();
+    }
+
     close();
   }
 
-  return (
-    <>
-      <Box p="s16">
-        <Box
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
-          mb="s24">
-          <Text preset="headingMedium">Creating task</Text>
-
-          <Icon name="close" color="black400" onPress={handlePressCloseForm} />
-        </Box>
-
+  function renderForm() {
+    return (
+      <Animated.View
+        layout={LinearTransition.delay(100)}
+        entering={FadeIn}
+        exiting={FadeOut}>
         <Box gap="s20">
           <FormTextInput
             label="Title"
@@ -63,22 +83,101 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
             enterKeyHint="enter"
           />
 
-          <Dropdown
-            label="Priority"
-            closeModalWhenSelectedItem
-            onChange={handlePressSelectPriority}
-            data={MOCKED_TASKS_PRIORITY}
-          />
+          <Box flexDirection="row" alignItems="center" g="s16">
+            <Pressable onPress={handlePressToggleStep} style={{ flex: 1 }}>
+              <Box alignItems="stretch" g="s4">
+                <Text semiBold color="neutral500">
+                  Deadline
+                </Text>
+
+                <Box
+                  borderWidth={1}
+                  borderColor="neutral300"
+                  borderRadius="s16"
+                  px="s16"
+                  py="s16"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                  g="s8">
+                  <Text>
+                    {dayjs(watch('due_date')).format('MMM D, h:mm A')}
+                  </Text>
+                  <Icon name="calendar" color="neutral600" />
+                </Box>
+              </Box>
+            </Pressable>
+
+            <Dropdown
+              label="Priority"
+              closeModalWhenSelectedItem
+              onChange={handlePressSelectPriority}
+              data={MOCKED_TASKS_PRIORITY}
+            />
+          </Box>
         </Box>
 
         <Button
           mt="s24"
-          text="Create"
+          text="Create Task"
           loading={createTaskLoading}
           onPress={onHandleSubmitPress}
           disabled={!isValidCreateTaskForm}
         />
+      </Animated.View>
+    );
+  }
+
+  function renderDatePicker() {
+    const minDateSelector = dayjs()
+      .date(dayjs().date() - 1)
+      .toDate();
+
+    return (
+      <>
+        <DateTimePicker
+          mode="single"
+          headerButtonsPosition="right"
+          headerButtonColor={colors.primary}
+          selectedItemColor={colors.primary}
+          date={watch('due_date')}
+          minDate={minDateSelector}
+          onChange={params => handlePressChangeDate(params.date)}
+          timePicker
+          displayFullDays
+        />
+
+        <Button
+          text="Confirm due date"
+          onPress={handlePressToggleStep}
+          mt="s24"
+        />
+      </>
+    );
+  }
+
+  return (
+    <Box p="s16">
+      <Box
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb="s24">
+        <Text preset="headingMedium">Creating task</Text>
+
+        <Icon name="close" color="black400" onPress={handlePressCloseForm} />
       </Box>
-    </>
+
+      <Animated.View
+        layout={LinearTransition.delay(100)}
+        entering={FadeIn}
+        exiting={FadeOut}>
+        <RenderIfElse
+          condition={currentStep === 'Form'}
+          renderIf={renderForm()}
+          renderElse={renderDatePicker()}
+        />
+      </Animated.View>
+    </Box>
   );
 }

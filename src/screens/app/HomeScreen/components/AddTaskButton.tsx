@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, useWindowDimensions } from 'react-native';
 
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheetModal, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -29,6 +29,7 @@ export function AddTaskButton() {
     status: 'closed',
     selectedOption: 'createTask',
   });
+
   const { bottomSheetRef, renderBackdrop, BOTTOM_SHEET_STYLES } =
     useBottomSheet();
 
@@ -182,20 +183,20 @@ export function AddTaskButton() {
         )}
       </Animated.View>
 
-      <BottomSheet
+      <BottomSheetModal
         ref={bottomSheetRef}
         enablePanDownToClose
-        snapPoints={['70%']}
+        snapPoints={['65%']}
         animationConfigs={{
           duration: 400,
         }}
         backdropComponent={renderBackdrop}
         containerStyle={BOTTOM_SHEET_STYLES.container}
         index={-1}>
-        <BottomSheetView>
+        <BottomSheetScrollView>
           <CreateTaskForm onClose={onClose} />
-        </BottomSheetView>
-      </BottomSheet>
+        </BottomSheetScrollView>
+      </BottomSheetModal>
     </>
   );
 }

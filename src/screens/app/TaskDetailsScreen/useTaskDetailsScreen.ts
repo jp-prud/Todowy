@@ -3,8 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useDeleteTaskById, useGetTaskById } from '@useCases';
 
 export function useTaskDetailsScreen(taskId: string) {
-  console.log(taskId)
-
   const { task, isError, isLoading } = useGetTaskById(taskId);
   const { showToast } = useToastService();
 
@@ -15,6 +13,13 @@ export function useTaskDetailsScreen(taskId: string) {
       showToast({
         message: 'Task deleted',
         type: 'success',
+        position: 'bottom',
+      });
+    },
+    onError() {
+      showToast({
+        message: 'Error deleting task',
+        type: 'info',
         position: 'bottom',
       });
     },

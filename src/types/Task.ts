@@ -4,6 +4,10 @@ export type TaskPriority = 'low' | 'medium' | 'high';
 
 export type TaskCategory = 'work' | 'personal' | 'others';
 
+export type UpdateTaskDTO = Pick<
+  TaskProps,
+  'title' | 'description' | 'priority' | 'due_date'
+>;
 export interface TaskProps {
   id: string;
   title: string;
@@ -26,6 +30,8 @@ interface TaskComments {
 }
 
 export type CreateTaskDTO = Omit<TaskProps, 'id' | 'status' | 'created_at'>;
+
+export type TaskFormSteps = 'Form' | 'DatePicker';
 
 export interface CompleteTaskDTO {
   id: string;

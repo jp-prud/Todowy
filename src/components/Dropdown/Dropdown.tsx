@@ -32,7 +32,7 @@ export function Dropdown(props: DropdownPropsCustom) {
   }
 
   return (
-    <Box g="s4">
+    <Box g="s4" flex={1}>
       {label && (
         <Text semiBold color="neutral500">
           {label}

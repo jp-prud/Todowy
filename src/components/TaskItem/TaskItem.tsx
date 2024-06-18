@@ -63,7 +63,7 @@ export function Task({ task, searchTerm, onPress }: TaskItemProps) {
             width={38}
             height={38}
             backgroundColor="neutral200"
-            borderRadius="s32"
+            borderRadius="s12"
             justifyContent="center"
             alignItems="center">
             <Animated.View style={rActiveButton}>
@@ -72,7 +72,7 @@ export function Task({ task, searchTerm, onPress }: TaskItemProps) {
                 height={38}
                 justifyContent="center"
                 alignItems="center"
-                borderRadius="s32"
+                borderRadius="s12"
                 backgroundColor="primary">
                 <Icon name="checkmark" color="white" />
               </Box>

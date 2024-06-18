@@ -1,4 +1,3 @@
-import { AvatarListPresets } from '@utils';
 import { useFormContext } from 'react-hook-form';
 import Animated, {
   FadeIn,
@@ -7,12 +6,11 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import {
-  Avatar,
+  AvatarListPicker,
   AvatarListPresetUI,
   Box,
   Button,
-  Text,
-  TouchableOpacityBox,
+  Text
 } from '@components';
 
 import { OnboardingFormSchemaTypes } from '../onboardingProfileFormSchema';
@@ -42,20 +40,7 @@ export function AvatarPicker({
         <Text color="neutral500">Let's get you started</Text>
       </Box>
 
-      <Box
-        mt="s24"
-        flexDirection="row"
-        flexWrap="wrap"
-        g="s16"
-        justifyContent="center">
-        {AvatarListPresets.map(currentAvatar => (
-          <TouchableOpacityBox
-            key={currentAvatar.id}
-            onPress={() => handlePressChangeAvatar(currentAvatar)}>
-            <Avatar avatar={currentAvatar} size={56} />
-          </TouchableOpacityBox>
-        ))}
-      </Box>
+      <AvatarListPicker mt="s24" onChangeAvatar={handlePressChangeAvatar} />
 
       <Button
         text="It's look cute"

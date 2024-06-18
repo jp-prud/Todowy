@@ -1,4 +1,13 @@
-import { Box, Icon, Screen, Text } from '@components';
+import {
+  Box,
+  CategoryFlag,
+  Icon,
+  PriorityFlag,
+  RenderIf,
+  RenderIfElse,
+  Screen,
+  Text,
+} from '@components';
 import { AppScreenProps } from '@routes';
 
 import { useTaskDetailsScreen } from './useTaskDetailsScreen';
@@ -12,11 +21,21 @@ export function TaskDetailsScreen({
   const { task, isLoading, handlePressDeleteTask } =
     useTaskDetailsScreen(taskId);
 
-  console.log(task);
+  function renderTaskDetails() {
+    if (isLoading) {
+      return null;
+    }
 
-  return (
-    <Screen title="Task Details" canGoBack isLoading={isLoading}>
+    const { id, title, created_at, due_date, description, category, priority } =
+      task!;
+
+    return (
       <Box>
+        <Box flexDirection="row" alignSelf="flex-start" mb="s16" g="s16">
+          <CategoryFlag label={category} />
+          <PriorityFlag priority={priority} />
+        </Box>
+
         <Box
           flexDirection="row"
           alignItems="center"
@@ -24,7 +43,7 @@ export function TaskDetailsScreen({
           gap="s32">
           <Box flex={1}>
             <Text preset="headingMedium" numberOfLines={2}>
-              {task!.title}
+              {title}
             </Text>
           </Box>
 
@@ -33,25 +52,62 @@ export function TaskDetailsScreen({
               name="pencil"
               onPress={() =>
                 navigation.navigate('EditTaskScreen', {
-                  taskId: task!.id,
+                  taskId: id,
                 })
               }
             />
-            <Icon
-              name="trash"
-              onPress={() => handlePressDeleteTask(task!.id)}
-            />
+            <Icon name="trash" onPress={() => handlePressDeleteTask(id)} />
           </Box>
         </Box>
 
-        <Box mt="s16" gap="s12">
-          {task!.description && (
-            <Text color="neutral600">{task!.description}</Text>
-          )}
-          <Text>{task!.category}</Text>
-          <Text>{task!.priority}</Text>
+        <Box flexDirection="row" mt="s16" justifyContent="space-between">
+          <Box>
+            <Text color="neutral600" preset="paragraphSmall" semiBold>
+              Start Date
+            </Text>
+            <Text preset="paragraphSmall" semiBold>
+              {new Date(created_at).toDateString()}
+            </Text>
+          </Box>
+          <Box>
+            <Text
+              color="neutral600"
+              preset="paragraphSmall"
+              semiBold
+              textAlign="right">
+              Due Date
+            </Text>
+            <Text preset="paragraphSmall" semiBold>
+              {new Date(due_date).toDateString()}
+            </Text>
+          </Box>
+        </Box>
+
+        <Box mt="s24" g="s12" justifyContent="center" alignItems="stretch">
+          <RenderIfElse
+            condition={Boolean(description)}
+            renderIf={
+              <Text color="neutral600" textAlign="justify">
+                {description}
+              </Text>
+            }
+            renderElse={
+              <Text color="neutral600" textAlign="center">
+                No description provided for this task
+              </Text>
+            }
+          />
         </Box>
       </Box>
+    );
+  }
+
+  return (
+    <Screen title="Task Details" canGoBack isLoading={isLoading}>
+      <RenderIf
+        condition={Boolean(task && !isLoading)}
+        render={renderTaskDetails()}
+      />
     </Screen>
   );
 }

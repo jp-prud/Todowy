@@ -10,12 +10,12 @@ export function useGetTaskById(taskId: string) {
     isPending,
     isError,
   } = useQuery({
-    queryKey: [StorageKeys.Tasks],
+    queryKey: [StorageKeys.Tasks, { taskId }],
     queryFn: () => getTaskById(taskId),
   });
 
   return {
-    task,
+    task: task,
     isLoading: isPending,
     isError,
   };

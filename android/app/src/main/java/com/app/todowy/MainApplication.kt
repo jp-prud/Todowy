@@ -1,4 +1,4 @@
-package com.todowy
+package com.app.todowy
 
 import android.app.Application
 import com.facebook.react.PackageList

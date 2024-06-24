@@ -1,4 +1,4 @@
-package com.todowy
+package com.app.todowy
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -11,7 +11,7 @@ on:
 
 jobs: 
   pull-request-checks:
-    runs-on: ubutu-20.4
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 

@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+import { Image, ImageSourcePropType } from 'react-native';
 
 import { AvatarListPresets } from '@utils';
 
@@ -14,7 +14,7 @@ export interface AvatarProps {
 export interface AvatarListPresetUI {
   id: string;
   icon: string;
-  color: string | ThemeColors;
+  color: ThemeColors;
 }
 
 export function Avatar({ size = 32, avatar }: AvatarProps) {
@@ -22,7 +22,7 @@ export function Avatar({ size = 32, avatar }: AvatarProps) {
     return <></>;
   }
 
-  const { icon, color } = avatar;
+  const { id, icon, color } = avatar;
 
   const imageSize = size / 2;
 
@@ -37,7 +37,7 @@ export function Avatar({ size = 32, avatar }: AvatarProps) {
       testID="avatar-component">
       <Box borderRadius="s32" overflow="hidden">
         <Image
-          source={icon || AvatarListPresets[icon].icon}
+          source={(icon || AvatarListPresets[Number(id)].icon) as ImageSourcePropType}
           style={{ height: imageSize, width: imageSize }}
         />
       </Box>

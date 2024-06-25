@@ -9,21 +9,20 @@ import { useAppTheme } from '@hooks';
 import { Box } from '../Box/Box';
 import { $fontFamily, $fontSizes, Text } from '../Text/Text';
 
-// interface DropdownItem {
-//   label: string;
-//   value: string;
-// }
-
-type DropdownPropsCustom = Partial<DropdownProps<any>> & {
+type DropdownPropsCustom<T> = DropdownProps<T> & {
   label?: string;
 };
 
-export function Dropdown(props: DropdownPropsCustom) {
+type CustomRenderItemProps<T> = T & {
+  label: string;
+};
+
+export function Dropdown<T>(props: DropdownPropsCustom<T>) {
   const { label } = props;
 
   const { colors } = useAppTheme();
 
-  function renderItem(item: { label: string }) {
+  function renderItem(item: CustomRenderItemProps<T>) {
     return (
       <Box p="s16" backgroundColor="white">
         <Text>{item.label}</Text>
@@ -48,7 +47,7 @@ export function Dropdown(props: DropdownPropsCustom) {
             ...$fontSizes.paragraphMedium,
           },
         ]}
-        renderItem={renderItem}
+        renderItem={(item: T) => renderItem(item as CustomRenderItemProps<T>)}
         placeholderStyle={{
           color: colors.neutral700,
         }}
@@ -56,7 +55,6 @@ export function Dropdown(props: DropdownPropsCustom) {
           color: colors.neutral1000,
         }}
         inputSearchStyle={styles.inputSearchStyle}
-        labelField="label"
         {...props}
       />
     </Box>

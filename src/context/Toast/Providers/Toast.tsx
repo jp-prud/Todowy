@@ -2,11 +2,7 @@ import { createContext, useCallback, useState } from 'react';
 
 import { HideToastProps, ToastProps, ToastService } from '../Toast.types';
 
-export const ToastContext = createContext<ToastService>({
-  toast: null,
-  showToast: () => {},
-  hideToast: () => {},
-});
+export const ToastContext = createContext<ToastService>({} as ToastService);
 
 export function ToastProvider({ children }: React.PropsWithChildren<{}>) {
   const [toast, setToast] = useState<ToastService['toast']>(null);
@@ -19,7 +15,9 @@ export function ToastProvider({ children }: React.PropsWithChildren<{}>) {
     setTimeout(() => setToast(null), _toast.duration || initialToastDuration);
   }, []);
 
-  const hideToast = useCallback(({ duration }: HideToastProps) => {
+  const hideToast = useCallback((props: HideToastProps | undefined) => {
+    const { duration } = props || {};
+
     setTimeout(() => setToast(null), duration || initialToastDuration);
   }, []);
 

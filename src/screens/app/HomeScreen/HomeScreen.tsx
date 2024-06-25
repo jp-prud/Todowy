@@ -20,10 +20,8 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
     authCredentials,
     filteredTasks,
     control,
-    isLoading,
     searchTerm,
     isAuthCredentialLoading,
-    getLisTasks,
   } = useHomeScreen();
 
   return (

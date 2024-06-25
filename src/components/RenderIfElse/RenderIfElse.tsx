@@ -4,6 +4,10 @@ interface RenderIfElse {
   renderElse: React.ReactNode;
 }
 
-export function RenderIfElse({condition, renderIf, renderElse}: RenderIfElse) {
+export function RenderIfElse({
+  condition,
+  renderIf,
+  renderElse,
+}: RenderIfElse) {
   return condition ? <>{renderIf}</> : <>{renderElse}</>;
 }

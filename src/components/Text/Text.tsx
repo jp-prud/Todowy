@@ -1,9 +1,9 @@
-import {ComponentProps} from 'react';
-import {TextStyle} from 'react-native';
+import { ComponentProps } from 'react';
+import { TextStyle } from 'react-native';
 
-import {createText} from '@shopify/restyle';
+import { createText } from '@shopify/restyle';
 
-import {Theme} from '@theme';
+import { Theme } from '@theme';
 
 const SRText = createText<Theme>();
 
@@ -32,7 +32,7 @@ export function Text({
   return (
     <SRText
       color="backgroundContrast"
-      style={[$fontSizes[preset], {fontFamily}, style]}
+      style={[$fontSizes[preset], { fontFamily }, style]}
       selectable={selectable}
       selectionColor={selectionColor}
       {...sRTextProps}>
@@ -78,16 +78,16 @@ type TextVariants =
   | 'paragraphCaptionSmall';
 
 export const $fontSizes: Record<TextVariants, TextStyle> = {
-  headingLarge: {fontSize: 32, lineHeight: 38.4},
-  headingMedium: {fontSize: 22, lineHeight: 26},
-  headingSmall: {fontSize: 18, lineHeight: 24},
+  headingLarge: { fontSize: 32, lineHeight: 38.4 },
+  headingMedium: { fontSize: 22, lineHeight: 26 },
+  headingSmall: { fontSize: 18, lineHeight: 24 },
 
-  paragraphLarge: {fontSize: 18, lineHeight: 24},
-  paragraphMedium: {fontSize: 16, lineHeight: 22},
-  paragraphSmall: {fontSize: 14, lineHeight: 20},
+  paragraphLarge: { fontSize: 18, lineHeight: 24 },
+  paragraphMedium: { fontSize: 16, lineHeight: 22 },
+  paragraphSmall: { fontSize: 14, lineHeight: 20 },
 
-  paragraphCaption: {fontSize: 12, lineHeight: 16.8},
-  paragraphCaptionSmall: {fontSize: 10, lineHeight: 14},
+  paragraphCaption: { fontSize: 12, lineHeight: 16.8 },
+  paragraphCaptionSmall: { fontSize: 10, lineHeight: 14 },
 };
 
 export const $fontFamily = {

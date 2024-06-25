@@ -6,4 +6,3 @@ export * from './app/TaskDetailsScreen/TaskDetailsScreen';
 export * from './auth/SignInScreen/SignInScreen';
 export * from './onboarding/OnboardingScreen/OnboardingScreen';
 export * from './onboarding/SuccessScreen/SuccessScreen';
-

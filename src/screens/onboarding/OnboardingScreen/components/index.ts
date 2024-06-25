@@ -4,4 +4,3 @@ export * from './Welcome';
 export * from './WrapperOnboardingForm';
 export * from './stepTypes';
 export * from './stepsData';
-

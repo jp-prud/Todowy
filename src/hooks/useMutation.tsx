@@ -1,6 +1,6 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {MutationOptions} from '../types/useMutation';
+import { MutationOptions } from '../types/useMutation';
 
 /**
  * @deprecated Use useMutation from `@tanstack/react-query`

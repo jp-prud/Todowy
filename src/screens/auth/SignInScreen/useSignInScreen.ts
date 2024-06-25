@@ -1,7 +1,7 @@
-import {zodResolver} from '@hookform/resolvers/zod';
-import {useNavigation} from '@react-navigation/native';
-import {useSignIn} from '@useCases';
-import {useForm} from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from '@react-navigation/native';
+import { useSignIn } from '@useCases';
+import { useForm } from 'react-hook-form';
 
 import {
   SignInFormSchemaTypes,
@@ -14,11 +14,11 @@ const defaultValues: SignInFormSchemaTypes = {
 };
 
 export function useSignInScreen() {
-  const {navigate} = useNavigation();
+  const { navigate } = useNavigation();
 
-  const {isPending, signIn} = useSignIn();
+  const { isPending, signIn } = useSignIn();
 
-  const {control, handleSubmit} = useForm<SignInFormSchemaTypes>({
+  const { control, handleSubmit } = useForm<SignInFormSchemaTypes>({
     defaultValues: {
       ...defaultValues,
     },
@@ -30,9 +30,9 @@ export function useSignInScreen() {
   }
 
   const onSubmit = handleSubmit(async data => {
-    const {email, password} = data;
+    const { email, password } = data;
 
-    signIn({email, password});
+    signIn({ email, password });
   });
 
   return {

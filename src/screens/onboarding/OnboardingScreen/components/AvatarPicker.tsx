@@ -10,7 +10,7 @@ import {
   AvatarListPresetUI,
   Box,
   Button,
-  Text
+  Text,
 } from '@components';
 
 import { OnboardingFormSchemaTypes } from '../onboardingProfileFormSchema';

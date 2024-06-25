@@ -43,7 +43,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Release
-        run: ./gradlew bundleRelease
+        run: ./gradlew assembleRelease
         env: 
           TODOWY_STORE_PASSWORD: "${{ secrets.TODOWY_STORE_PASSWORD }}"
           TODOWY_ALIAS_PASSWORD: "${{ secrets.TODOWY_ALIAS_PASSWORD }}"

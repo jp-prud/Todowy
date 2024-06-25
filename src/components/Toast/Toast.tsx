@@ -19,7 +19,7 @@ export function Toast() {
   const positionContent = toast?.position === 'top' ? 'flex-start' : 'flex-end';
 
   if (!toast) {
-    return <></>
+    return <></>;
   }
 
   return (

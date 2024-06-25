@@ -37,7 +37,9 @@ export function Avatar({ size = 32, avatar }: AvatarProps) {
       testID="avatar-component">
       <Box borderRadius="s32" overflow="hidden">
         <Image
-          source={(icon || AvatarListPresets[Number(id)].icon) as ImageSourcePropType}
+          source={
+            (icon || AvatarListPresets[Number(id)].icon) as ImageSourcePropType
+          }
           style={{ height: imageSize, width: imageSize }}
         />
       </Box>

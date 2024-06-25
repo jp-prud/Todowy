@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { AvatarListPresetUI } from '@components';
+
 import { AvatarPickerStep, ProfileFormStep, StepProps } from './components';
 import {
   DEFAULT_ONBOARDING_FORM_VALUES,

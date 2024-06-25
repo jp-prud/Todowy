@@ -8,7 +8,13 @@ import Animated, {
   LinearTransition,
 } from 'react-native-reanimated';
 
-import { Avatar, AvatarListPresetUI, Box, HORIZONTAL_PADDING, Icon } from '@components';
+import {
+  Avatar,
+  AvatarListPresetUI,
+  Box,
+  HORIZONTAL_PADDING,
+  Icon,
+} from '@components';
 
 import { OnboardingFormSchemaTypes } from '../onboardingProfileFormSchema';
 

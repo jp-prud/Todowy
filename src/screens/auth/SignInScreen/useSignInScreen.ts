@@ -20,10 +20,7 @@ export function useSignInScreen() {
 
   function onSignUpPress() {}
 
-  const onSubmit = handleSubmit(async data => {
-    const { name } = data;
-
-  });
+  const onSubmit = handleSubmit(() => {});
 
   return {
     control,

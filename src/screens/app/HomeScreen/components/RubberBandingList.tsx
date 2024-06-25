@@ -66,7 +66,7 @@ export function RubberBandingList<TData>({
   }: ListRenderItemInfo<TData>) {
     // @ts-ignore
     const renderedItem = renderItem && renderItem({ _index, ...rest });
-    
+
     return (
       <AnimatedItem
         index={index}

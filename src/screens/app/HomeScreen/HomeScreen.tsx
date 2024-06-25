@@ -33,7 +33,7 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
             <TouchableOpacityBox
               width="auto"
               onPress={() => navigation.navigate('ProfileScreen')}>
-              <Avatar avatar={authCredentials?.avatar} size={46} />
+              <Avatar avatar={authCredentials!.avatar} size={46} />
             </TouchableOpacityBox>
 
             <Box>

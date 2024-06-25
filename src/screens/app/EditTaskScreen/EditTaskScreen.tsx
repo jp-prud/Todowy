@@ -84,6 +84,7 @@ export function EditTaskScreen({ route }: AppScreenProps<'EditTaskScreen'>) {
             label="Priority"
             closeModalWhenSelectedItem
             value={watch('priority')}
+            // @ts-ignore
             onChange={handlePressSelectPriority}
             data={MOCKED_TASKS_PRIORITY}
           />

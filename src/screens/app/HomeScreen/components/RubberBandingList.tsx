@@ -30,7 +30,7 @@ interface RubberBandingListProps<TData> extends FlatListPropsWithLayout<TData> {
 interface AnimatedItemProps {
   index: number;
   startingEnteringValue: React.MutableRefObject<boolean>;
-  children: React.ReactNode;
+  render: React.ReactNode;
 }
 
 const { width: WIDTH_SCREEN } = Dimensions.get('window');
@@ -64,11 +64,14 @@ export function RubberBandingList<TData>({
     index: _index,
     ...rest
   }: ListRenderItemInfo<TData>) {
+    // @ts-ignore
+    const renderedItem = renderItem && renderItem({ _index, ...rest });
+    
     return (
       <AnimatedItem
         index={index}
         startingEnteringValue={startingEnteringValue}
-        children={renderItem({ _index, ...rest })}
+        render={renderedItem}
         key={index}
       />
     );
@@ -105,7 +108,7 @@ function AnimatedItem(props: AnimatedItemProps) {
       }
       exiting={FadeOut}
       layout={LinearTransition.delay(100)}>
-      {props.children}
+      {props.render}
     </Animated.View>
   );
 }

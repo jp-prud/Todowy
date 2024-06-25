@@ -4,6 +4,7 @@ import { useAuthContext } from '@context';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
+import { AvatarListPresetUI } from '@components';
 import { AvatarPickerStep, ProfileFormStep, StepProps } from './components';
 import {
   DEFAULT_ONBOARDING_FORM_VALUES,
@@ -28,7 +29,7 @@ export function useOnboardingScreen() {
       if (isLast) {
         await saveCredentials({
           username: formMethods.getValues('username'),
-          avatar: formMethods.getValues('avatar'),
+          avatar: formMethods.getValues('avatar') as AvatarListPresetUI,
         });
 
         return;

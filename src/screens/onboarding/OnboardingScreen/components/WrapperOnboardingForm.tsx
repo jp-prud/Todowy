@@ -8,7 +8,7 @@ import Animated, {
   LinearTransition,
 } from 'react-native-reanimated';
 
-import { Avatar, Box, HORIZONTAL_PADDING, Icon } from '@components';
+import { Avatar, AvatarListPresetUI, Box, HORIZONTAL_PADDING, Icon } from '@components';
 
 import { OnboardingFormSchemaTypes } from '../onboardingProfileFormSchema';
 
@@ -39,7 +39,7 @@ export function WrapperOnboardingForm({
         exiting={FadeOut}
         layout={LinearTransition.springify(2000)}>
         <Box mb="s24" alignSelf="center">
-          <Avatar size={120} avatar={watch('avatar')} />
+          <Avatar size={120} avatar={watch('avatar') as AvatarListPresetUI} />
           <Box
             position="absolute"
             right={-14}

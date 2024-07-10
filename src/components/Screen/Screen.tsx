@@ -18,6 +18,8 @@ export interface ScreenProps extends BoxProps {
   isError?: boolean;
   renderErrorComponent?: React.ReactNode;
   title?: string;
+  titleComponent?: React.ReactNode;
+  rightHeaderComponent?: React.ReactNode;
   footerContainerStyle?: BoxProps['style'];
 }
 
@@ -32,6 +34,8 @@ export function Screen({
   scrollable = false,
   FooterComponent,
   title,
+  titleComponent,
+  rightHeaderComponent,
   footerContainerStyle,
   ...boxProps
 }: ScreenProps) {
@@ -71,7 +75,7 @@ export function Screen({
           ]}
           {...boxProps}>
           {!isLoading && (title || canGoBack) && (
-            <ScreenHeader title={title} canGoBack={canGoBack} />
+            <ScreenHeader titleComponent={titleComponent} title={title} canGoBack={canGoBack} rightHeaderComponent={rightHeaderComponent} />
           )}
 
           {isLoading && renderLoadingScreenState()}

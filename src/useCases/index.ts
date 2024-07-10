@@ -10,3 +10,5 @@ export * from './Profile/useSaveProfileImage/useSaveProfileImage';
 export * from './Settings/useSettings';
 
 export * from './Auth/useGetCredentials/useGetCredentials';
+
+export * from './Projects/useListProjects/useListProjects';

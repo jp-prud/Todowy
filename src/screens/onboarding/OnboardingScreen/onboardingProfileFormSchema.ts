@@ -4,8 +4,8 @@ import { z } from 'zod';
 export const OnboardingFormSchema = z.object({
   username: z
     .string()
-    .min(6, {
-      message: 'Username must be at least 6 characters',
+    .min(4, {
+      message: 'Username must be at least 4 characters',
     })
     .max(20, {
       message: 'Username must be at most 20 characters',

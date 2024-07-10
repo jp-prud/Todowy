@@ -9,7 +9,6 @@ export function generateAvatarComposition() {
   const randomIcon: AvatarListPresetUI = {
     id: AvatarListPresets[randomIconIndex].id,
     icon: AvatarListPresets[randomIconIndex].icon,
-
     color: AvatarListPresets[randomColorIndex].color,
   };
 

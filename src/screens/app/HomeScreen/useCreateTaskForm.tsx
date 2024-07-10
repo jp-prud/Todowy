@@ -39,7 +39,7 @@ export function useCreateTaskForm() {
       ...data,
       assigned_to: 'me',
       category: 'personal',
-      tags: ['personal', 'work', 'others', 'important'],
+      tags: [],
     });
 
     Keyboard.dismiss();

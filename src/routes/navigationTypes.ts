@@ -12,6 +12,8 @@ export type AuthStackParamList = {
 export type AppStackParamList = {
   AppTabNavigator: undefined;
   HomeScreen: undefined;
+  ProjectsScreen: undefined;
+  CreateProjectScreen: undefined;
   SettingsScreen: undefined;
   ProfileScreen: undefined;
   SuccessScreen?: undefined;
@@ -25,7 +27,7 @@ export type AppStackParamList = {
 
 export type AppTabNavigatorParamList = {
   HomeScreen: undefined;
-  SearchScreen: undefined;
+  ProjectsScreen: undefined;
 };
 
 export type OnboardingStackParamList = {

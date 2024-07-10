@@ -61,6 +61,7 @@ export const palette = {
   addButtonTaskBackground: '#fafafa',
   pink: '#e792de',
   iconGreen: '#51c98f',
+  green: '#16b69e',
   yellow: '#ffe27b',
   purple: '#9d79ea',
   lightPurple: '#c0c2fc',
@@ -103,9 +104,12 @@ export const theme = createTheme({
     s56: 56,
   },
   borderRadii: {
+    s2: 2,
+    s4: 4,
     s8: 8,
     s12: 12,
     s16: 16,
+    s24: 24,
     s32: 32,
   },
   textVariants: {

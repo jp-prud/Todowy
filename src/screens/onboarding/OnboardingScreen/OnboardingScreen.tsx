@@ -30,7 +30,7 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
           exiting={FadeOut}
           layout={LinearTransition.springify()}>
           <Box justifyContent="center" alignItems="center">
-            <Text preset="headingMedium">Welcome to</Text>
+            <Text mt="s24" preset="headingMedium">Welcome to</Text>
             <Text preset="headingLarge" color="primary">
               Todowy
             </Text>

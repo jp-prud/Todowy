@@ -7,31 +7,31 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withTiming,
+  withTiming
 } from 'react-native-reanimated';
 
 import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 import { useBottomSheet } from '@hooks';
 
 import { CreateTaskForm } from './CreateTaskForm';
+import { CreateCategoryForm } from './CreateCategoryForm';
 
 type Status = 'closed' | 'open';
-type Options = 'createTask' | 'createCategory';
 
 type AddTaskStatus = {
   status: Status;
-  selectedOption?: Options;
 };
 
 export function AddTaskButton() {
   const { width } = useWindowDimensions();
   const [addTaskStatus, setAddTaskStatus] = useState<AddTaskStatus>({
     status: 'closed',
-    selectedOption: 'createTask',
   });
 
-  const { bottomSheetRef, renderBackdrop, BOTTOM_SHEET_STYLES } =
+  const { bottomSheetRef: taskBottomSheetRef, renderBackdrop, BOTTOM_SHEET_STYLES } =
     useBottomSheet();
+  
+  const { bottomSheetRef: categoryBottomSheetRef } = useBottomSheet();
 
   const currentSharedStatus = useDerivedValue<AddTaskStatus>(
     () => ({
@@ -49,7 +49,7 @@ export function AddTaskButton() {
     const height = interpolate(
       defaultBoxSize.value.width,
       [46, width - 32, width],
-      [46, 160, 440],
+      [46, 240, 440],
     );
 
     const borderRadius = interpolate(
@@ -115,7 +115,13 @@ export function AddTaskButton() {
   }
 
   function onPressCreateTask() {
-    bottomSheetRef.current?.expand();
+    taskBottomSheetRef.current?.expand();
+
+    onClose();
+  }
+
+  function onPressCreateCategory() {
+    categoryBottomSheetRef.current?.expand();
 
     onClose();
   }
@@ -147,8 +153,43 @@ export function AddTaskButton() {
             </Text>
           </Box>
         </TouchableOpacityBox>
+
+         <TouchableOpacityBox
+          p="s8"
+          onPress={() => onPressCreateCategory()}
+          flexDirection="row"
+          gap="s16"
+          width="100%">
+          <Box
+            width={42}
+            height={42}
+            borderRadius="s32"
+            backgroundColor="green"
+            justifyContent="center"
+            alignItems="center">
+            <Icon name="plus" color="white" />
+          </Box>
+          <Box flex={1}>
+            <Text preset="paragraphLarge" semiBold color="black700">
+              Create category
+            </Text>
+            <Text preset="paragraphSmall" color="black500">
+              Create a new task to organize your day more efficiently.
+            </Text>
+          </Box>
+        </TouchableOpacityBox>
       </Animated.View>
     );
+  }
+
+  const bottomSheetProps = {
+    "enablePanDownToClose": true,
+    "animationConfigs": {
+      "duration": 400,
+    },
+    'backdropComponent': renderBackdrop,
+    'containerStyle': BOTTOM_SHEET_STYLES.container,
+    'index': -1
   }
 
   return (
@@ -166,7 +207,7 @@ export function AddTaskButton() {
               alignItems="center"
               mb="s8">
               <Text semiBold preset="paragraphLarge">
-                {addTaskStatus.status === 'open' ? 'Options' : 'Create Task'}
+                {addTaskStatus.status === 'open' ? 'Options' : 'Creating'}
               </Text>
 
               <Icon name="close" onPress={onClose} color="black400" />
@@ -184,17 +225,22 @@ export function AddTaskButton() {
       </Animated.View>
 
       <BottomSheetModal
-        ref={bottomSheetRef}
-        enablePanDownToClose
+        ref={taskBottomSheetRef}
         snapPoints={['65%']}
-        animationConfigs={{
-          duration: 400,
-        }}
-        backdropComponent={renderBackdrop}
-        containerStyle={BOTTOM_SHEET_STYLES.container}
-        index={-1}>
+        {...bottomSheetProps}
+      >
         <BottomSheetScrollView>
           <CreateTaskForm onClose={onClose} />
+        </BottomSheetScrollView>
+      </BottomSheetModal>
+
+      <BottomSheetModal
+        ref={categoryBottomSheetRef}
+        snapPoints={['35%']}
+        {...bottomSheetProps}
+        >
+        <BottomSheetScrollView>
+          <CreateCategoryForm onClose={onClose} />
         </BottomSheetScrollView>
       </BottomSheetModal>
     </>

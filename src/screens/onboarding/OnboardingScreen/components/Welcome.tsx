@@ -18,7 +18,7 @@ export function Welcome({ onPressStartOnboarding }: WelcomeProps) {
       exiting={FadeOut}
       layout={LinearTransition.springify(2000)}>
       <Box gap="s20" width={320} justifyContent="flex-start">
-        <Box alignItems="center" g="s4" mb="s16" mt="s12">
+        <Box alignItems="center" g="s4" mb="s16">
           <Text preset="headingMedium">Create a task</Text>
           <Text color="neutral500" textAlign="center">
             Write down your task so you don't forget.

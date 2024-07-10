@@ -1,9 +1,10 @@
-import { Image, ImageSourcePropType } from 'react-native';
 
-import { AvatarListPresets } from '@utils';
+import React from 'react';
 
+import { Image } from 'react-native'
 import { ThemeColors } from '@theme';
-
+import { AvatarListPresets } from '@utils';
+import { ImageSourcePropType } from 'react-native/types';
 import { Box } from '../Box/Box';
 
 export interface AvatarProps {
@@ -36,12 +37,14 @@ export function Avatar({ size = 32, avatar }: AvatarProps) {
       alignItems="center"
       testID="avatar-component">
       <Box borderRadius="s32" overflow="hidden">
-        <Image
-          source={
-            (icon || AvatarListPresets[Number(id)].icon) as ImageSourcePropType
-          }
-          style={{ height: imageSize, width: imageSize }}
-        />
+        {(icon || AvatarListPresets[Number(id)].icon) && (
+          <Image
+            source={
+              (icon || AvatarListPresets[Number(id)].icon) as ImageSourcePropType
+            }
+            style={{ height: imageSize, width: imageSize }}
+          />
+        )}
       </Box>
     </Box>
   );

@@ -110,8 +110,10 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
 
             <Dropdown
               label="Priority"
+              labelField="label"
+              valueField="value"
               closeModalWhenSelectedItem
-              // @ts-ignore
+              value={watch('priority')}
               onChange={handlePressSelectPriority}
               data={MOCKED_TASKS_PRIORITY}
             />

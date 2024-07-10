@@ -12,8 +12,8 @@ export const mappedScreensToProps: Record<
       unfocused: 'house',
     },
   },
-  SearchScreen: {
-    label: 'Busca',
+  ProjectsScreen: {
+    label: 'Projects',
     icon: {
       focused: 'search',
       unfocused: 'search',

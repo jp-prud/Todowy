@@ -1,4 +1,8 @@
 export const images = {
+  brand: {
+    logoSpash: require('./svgs/logo-splash.svg'),
+    logo: require('./brand/logo.png'),
+  },
   emojis: {
     blowFish: require('./emojis/Blowfish.png'),
     fox: require('./emojis/Fox.png'),

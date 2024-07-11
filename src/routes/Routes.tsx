@@ -5,8 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ActivityIndicator, Box } from '@components';
 
 import { AppStack } from './AppStack';
-import { Stacks } from './navigationTypes';
+import { AuthStack } from './AuthStack';
 import { OnboardingStack } from './OnboardingStack';
+import { Stacks } from './navigationTypes';
 import { useRouter } from './useRouter';
 
 function LoadingScreen() {
@@ -24,6 +25,7 @@ function LoadingScreen() {
 const stacks: Record<Stacks, React.ReactElement> = {
   Loading: <LoadingScreen />,
   App: <AppStack />,
+  Auth: <AuthStack />,
   Onboarding: <OnboardingStack />,
 };
 

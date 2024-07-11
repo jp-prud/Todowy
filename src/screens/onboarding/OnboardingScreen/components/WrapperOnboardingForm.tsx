@@ -1,51 +1,67 @@
-import { useWindowDimensions } from 'react-native';
 
 import { generateAvatarComposition } from '@utils';
 import { useFormContext } from 'react-hook-form';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition,
-} from 'react-native-reanimated';
 
 import {
   Avatar,
   AvatarListPresetUI,
   Box,
-  HORIZONTAL_PADDING,
   Icon,
+  Stepper
 } from '@components';
 
+import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 import { OnboardingFormSchemaTypes } from '../onboardingProfileFormSchema';
+import { AvatarPickerStep } from './steps/AvatarPickerStep';
+import { OTPStep } from './steps/OTPStep';
+import { ProfileFormStep } from './steps/ProfileFormStep';
+import { SignUpFormStep } from './steps/SignUpFormStep';
 
-interface WrapperOnboardingFormProps {
-  children: React.ReactNode;
+export function WrapperOnboardingForm() {
+  return (
+    <>
+      <Stepper
+        steps={[
+          {content: (
+            <>
+              <PreviewAvatar />
+              <AvatarPickerStep />
+            </>
+          )},
+          {content: (
+            <>
+              <PreviewAvatar />
+              <ProfileFormStep />
+            </>
+          )},
+          { content: <SignUpFormStep /> },
+          { content: <OTPStep /> },
+        ]}
+      />
+    </>
+  );
 }
 
-export function WrapperOnboardingForm({
-  children,
-}: WrapperOnboardingFormProps) {
-  const { width } = useWindowDimensions();
-
+function PreviewAvatar() {
   const { watch, setValue } = useFormContext<OnboardingFormSchemaTypes>();
 
   function handlePressChangeAvatar() {
     const _avatar = generateAvatarComposition();
 
-    setValue('avatar', _avatar, {
+    setValue('avatarStep', _avatar, {
       shouldDirty: true,
       shouldValidate: true,
     });
   }
 
   return (
-    <>
-      <Animated.View
+    <Animated.View
         entering={FadeIn}
         exiting={FadeOut}
-        layout={LinearTransition.springify(2000)}>
+        layout={LinearTransition.springify(2000)}
+      >
         <Box mb="s24" alignSelf="center">
-          <Avatar size={120} avatar={watch('avatar') as AvatarListPresetUI} />
+          <Avatar size={120} avatar={watch('avatarStep') as AvatarListPresetUI} />
           <Box
             position="absolute"
             right={-14}
@@ -61,10 +77,5 @@ export function WrapperOnboardingForm({
           </Box>
         </Box>
       </Animated.View>
-
-      <Box alignSelf="center" width={width - HORIZONTAL_PADDING * 2}>
-        {children}
-      </Box>
-    </>
   );
 }

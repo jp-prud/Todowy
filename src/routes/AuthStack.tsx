@@ -11,7 +11,7 @@ import {
 
 const { Navigator, Screen } = createNativeStackNavigator<AuthStackParamList>();
 
-export function AuthStackScreen() {
+export function AuthStack() {
   return (
     <Navigator
       initialRouteName="SignInScreen"

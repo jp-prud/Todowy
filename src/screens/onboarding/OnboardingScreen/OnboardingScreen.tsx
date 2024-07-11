@@ -10,15 +10,14 @@ import Animated, {
 import { Box, Screen, Text } from '@components';
 import { OnboardingScreenProps } from '@routes';
 
-import { WrapperOnboardingForm } from './components';
-import { Welcome } from './components/Welcome';
+import { Welcome, WrapperOnboardingForm } from './components';
 import { useOnboardingScreen } from './useOnboardingScreen';
 
 export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) {
   const {
-    CurretStep,
     renderStarterStep,
     handlePressStartOnboarding,
+    handlePressFinishOnboarding,
     formMethods,
   } = useOnboardingScreen();
 
@@ -29,8 +28,8 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
           entering={FadeIn}
           exiting={FadeOut}
           layout={LinearTransition.springify()}>
-          <Box justifyContent="center" alignItems="center">
-            <Text mt="s24" preset="headingMedium">Welcome to</Text>
+          <Box justifyContent="center" alignItems="center" mt="s24">
+            <Text preset="headingMedium">Welcome to</Text>
             <Text preset="headingLarge" color="primary">
               Todowy
             </Text>
@@ -39,12 +38,13 @@ export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) 
 
         <Box justifyContent="center" alignItems="center">
           {renderStarterStep ? (
-            <Welcome onPressStartOnboarding={handlePressStartOnboarding} />
+            <Welcome 
+              onPressStartOnboarding={handlePressStartOnboarding} 
+              onPressFinishOnboarding={handlePressFinishOnboarding}
+            />
           ) : (
             <FormProvider {...formMethods}>
-              <WrapperOnboardingForm>
-                <CurretStep.Component {...CurretStep} />
-              </WrapperOnboardingForm>
+              <WrapperOnboardingForm />
             </FormProvider>
           )}
         </Box>

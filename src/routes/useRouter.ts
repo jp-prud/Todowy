@@ -2,16 +2,15 @@ import { useEffect } from 'react';
 
 import { useAuthContext } from '@context';
 
+import { useSettings } from '@useCases';
 import { Stacks } from './navigationTypes';
 
-import { useSettings } from '@useCases'
-  
 export function useRouter(): Stacks {
   const { authCredentials, isLoading } = useAuthContext();
 
-  const { hideSplashScreen} = useSettings()
+  const { hideSplashScreen, showOnboarding } = useSettings()
 
-  useEffect(() => {
+  useEffect(() => {    
     if (!isLoading) {
       hideSplashScreen();
     }
@@ -21,9 +20,13 @@ export function useRouter(): Stacks {
     return 'Loading';
   }
 
+  if (showOnboarding) {
+    return 'Onboarding';
+  }
+
   if (authCredentials) {
     return 'App';
   }
 
-  return 'Onboarding';
+  return 'Auth';
 }

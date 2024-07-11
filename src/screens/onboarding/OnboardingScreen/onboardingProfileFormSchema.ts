@@ -1,7 +1,7 @@
 import { generateAvatarComposition } from '@utils';
 import { z } from 'zod';
 
-export const OnboardingFormSchema = z.object({
+const profileStepSchema = z.object({
   username: z
     .string()
     .min(4, {
@@ -10,21 +10,42 @@ export const OnboardingFormSchema = z.object({
     .max(20, {
       message: 'Username must be at most 20 characters',
     }),
-  avatar: z.object(
-    {
-      id: z.string(),
-      color: z.string(),
-      icon: z.string(),
-    },
-    {
-      required_error: 'You must choose an avatar',
-    },
-  ),
+})
+
+const signUpStepSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(10),
+})
+
+const avatarStepSchema = z.object({
+  id: z.string(),
+  color: z.string(),
+  icon: z.string(),
+})
+
+const OTPSStepchema = z.object({
+  otp: z.string().length(4),
+})
+
+export const OnboardingFormSchema = z.object({
+  profileStep: profileStepSchema,
+  signUpStep: signUpStepSchema,
+  avatarStep: avatarStepSchema,
+  OTPStep: OTPSStepchema
 });
 
 export type OnboardingFormSchemaTypes = z.infer<typeof OnboardingFormSchema>;
 
 export const DEFAULT_ONBOARDING_FORM_VALUES: OnboardingFormSchemaTypes = {
-  username: '',
-  avatar: generateAvatarComposition(),
+  avatarStep: generateAvatarComposition(),
+  profileStep: {
+    username: '',
+  },
+  signUpStep: {
+    email: '',
+    password: '',
+  },
+  OTPStep: {
+    otp: '',
+  }
 };

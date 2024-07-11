@@ -20,7 +20,7 @@ export type ButtonPreset =
   | 'outline'
   | 'invertedOutline';
 
-interface ButtonProps extends TouchableOpacityBoxProps {
+export interface ButtonProps extends TouchableOpacityBoxProps {
   text: string;
   icon?: IconProps['name'];
   iconPosition?: 'left' | 'right';

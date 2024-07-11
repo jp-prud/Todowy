@@ -1,14 +1,29 @@
-import { SettingService } from '@services';
-
+import { storage } from '@services';
 import BootSplash from 'react-native-bootsplash';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+export type SettingsStore = {
+  showOnboarding: boolean;
+  finishOnboarding: () => void;
+};
+
+const useSettingsStore = create<SettingsStore>()(
+  persist(
+    (set, get) => ({
+      showOnboarding: true,
+      finishOnboarding: () => {
+        set({showOnboarding: false});
+      },
+    }),
+    {
+      name: '@Settings',
+      storage: storage,
+    },
+  ),
+);
 
 export function useSettings() {
-  const { getSettings: getSettingsService } = SettingService();
-
-  function getSettings() {
-    return getSettingsService();
-  }
-
   async function hideSplashScreen() {
     try {
       const isVisible = await BootSplash.isVisible();
@@ -20,8 +35,13 @@ export function useSettings() {
     }
   }
 
+  const showOnboarding = useSettingsStore(state => state.showOnboarding);
+
+  const toggleOnboardingStatus = useSettingsStore(state => state.finishOnboarding);
+
   return {
-    getSettings,
+    showOnboarding,
+    toggleOnboardingStatus,
     hideSplashScreen,
   };
 }

@@ -75,7 +75,12 @@ export function Screen({
           ]}
           {...boxProps}>
           {!isLoading && (title || canGoBack) && (
-            <ScreenHeader titleComponent={titleComponent} title={title} canGoBack={canGoBack} rightHeaderComponent={rightHeaderComponent} />
+            <ScreenHeader
+              titleComponent={titleComponent}
+              title={title}
+              canGoBack={canGoBack}
+              rightHeaderComponent={rightHeaderComponent}
+            />
           )}
 
           {isLoading && renderLoadingScreenState()}

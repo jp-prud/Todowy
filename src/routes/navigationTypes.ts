@@ -54,7 +54,7 @@ export type AppTabScreenProps<
   NativeStackScreenProps<AppStackParamList, 'AppTabNavigator'>
 >;
 
-export type Stacks = 'Loading' | 'App' | 'Onboarding';
+export type Stacks = 'Loading' | 'App' | 'Auth' | 'Onboarding';
 
 declare global {
   namespace ReactNavigation {

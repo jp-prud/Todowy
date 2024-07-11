@@ -4,9 +4,7 @@ import { storage } from '../StorageService/storage';
 
 export function SettingService() {
   async function getSettings() {
-    const settings = await storage.getItem<Settings>(StorageKeys.Settings);
-
-    return settings;
+    return storage.getItem<Settings>(StorageKeys.Settings);
   }
 
   async function finishOnboarding() {

@@ -6,12 +6,14 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Box, Button, Task, Text } from '@components';
+import React from 'react';
 
 interface WelcomeProps {
   onPressStartOnboarding: () => void;
+  onPressFinishOnboarding: () => void;
 }
 
-export function Welcome({ onPressStartOnboarding }: WelcomeProps) {
+export function Welcome({ onPressStartOnboarding, onPressFinishOnboarding }: WelcomeProps) {
   return (
     <Animated.View
       entering={FadeIn}
@@ -27,7 +29,10 @@ export function Welcome({ onPressStartOnboarding }: WelcomeProps) {
 
         <Task task={ONBOARDING_MOCKED_TASKS[0]} />
 
-        <Button text="Let's start" mt="s16" onPress={onPressStartOnboarding} />
+        <Box mt="s32" g="s16">
+          <Button text="I'm new. Let's start" onPress={onPressStartOnboarding} />
+          <Button text="Log in" preset="outline" onPress={onPressFinishOnboarding} />
+        </Box>
       </Box>
     </Animated.View>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+
+import { AnimatedBox } from '../Box/AnimatedBox';
 import { Box, BoxProps } from '../Box/Box';
 
 type ProgressIndicatorProps = BoxProps & {
@@ -14,20 +15,16 @@ export function ProgressIndicator({
   ...boxProps
 }: ProgressIndicatorProps) {
   return (
-    <Box flexDirection="row" alignItems="center" {...boxProps} g="s8"> 
+    <Box flexDirection="row" alignItems="center" {...boxProps} g="s8">
       {Array.from({ length: total }).map((_, index) => (
-        <Animated.View
-          key={index}
-          entering={FadeIn}
-          exiting={FadeOut}
-        >
+        <AnimatedBox key={index}>
           <Box
             width={index === currentIndex ? 40 : 20}
             height={6}
-            borderRadius='s4'
+            borderRadius="s4"
             backgroundColor={index === currentIndex ? 'primary' : 'neutral200'}
           />
-        </Animated.View>
+        </AnimatedBox>
       ))}
     </Box>
   );

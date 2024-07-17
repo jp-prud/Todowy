@@ -55,7 +55,7 @@ export function TextInput({
     <Pressable onPress={handleClickInputFocus}>
       <Box g="s4">
         {label && (
-          <Text semiBold color="neutral500">
+          <Text semiBold color="neutral600">
             {label}
           </Text>
         )}
@@ -65,7 +65,7 @@ export function TextInput({
 
           <RNTextInput
             ref={inputRef}
-            placeholderTextColor={colors.neutral700}
+            placeholderTextColor={colors.neutral400}
             style={$textInputStyle}
             autoCapitalize="none"
             {...rNTextInputProps}

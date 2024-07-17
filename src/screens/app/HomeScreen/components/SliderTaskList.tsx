@@ -1,11 +1,14 @@
+import { useEffect, useRef } from 'react';
 import { Dimensions, ListRenderItemInfo, StyleSheet } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { TaskProps } from '@types';
-import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeOut
+} from 'react-native-reanimated';
 
 import { Box, Task, Text } from '@components';
-import { useRef, useEffect } from 'react';
 
 interface SliderTaskListProps {
   searchTerm: string;
@@ -28,10 +31,7 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
     return <Box height={20} />;
   }
 
-  function renderTask({
-    index,
-    item: task
-  }: ListRenderItemInfo<TaskProps>) {
+  function renderTask({ index, item: task }: ListRenderItemInfo<TaskProps>) {
     return (
       <AnimatedItem
         index={index}
@@ -54,7 +54,8 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        g="s4">
+        g="s4"
+      >
         <Text preset="paragraphLarge" semiBold>
           No task for today :(
         </Text>
@@ -73,7 +74,7 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
     <Animated.FlatList
       style={[flatListStyles.wrapperView]}
       data={data}
-      keyExtractor={(_item) => _item.id}
+      keyExtractor={_item => _item.id}
       renderItem={renderTask}
       ItemSeparatorComponent={renderItemSeparator}
       ListEmptyComponent={renderEmptyList}
@@ -89,13 +90,11 @@ function AnimatedItem(props: AnimatedItemProps) {
           ? FadeIn.delay(100 * props.index)
           : FadeIn
       }
-      exiting={FadeOut}
-      layout={LinearTransition.delay(100)}>
+      exiting={FadeOut}>
       {props.render}
     </Animated.View>
   );
 }
-
 
 const flatListStyles = StyleSheet.create({
   wrapperView: {

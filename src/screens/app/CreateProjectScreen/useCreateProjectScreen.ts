@@ -1,49 +1,35 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { CreateProjectFormSchema, CreateProjectFormSchemaTypes, DEFAULT_CREATE_PROJECT_FORM_VALUES } from "./createProjectFormSchema";
-import { steps } from "./createProjectScreenData";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
+import {
+  CreateProjectFormSchema,
+  CreateProjectFormSchemaTypes,
+  DEFAULT_CREATE_PROJECT_FORM_VALUES,
+} from './createProjectFormSchema';
 
 export function useCreateProjectScreen() {
   const formMethods = useForm<CreateProjectFormSchemaTypes>({
     defaultValues: DEFAULT_CREATE_PROJECT_FORM_VALUES,
     resolver: zodResolver(CreateProjectFormSchema),
-  })
+    mode: 'onChange',
+  });
+  const onInvalid = errors => {
+    console.log(
+      'nome',
+      formMethods.getValues('name'),
+      formMethods.getValues('color'),
+    );
 
-  const [currentStep, setCurrentStep] = useState(0);
-  
-  const handlePressNextStep = useCallback(
-    async (isLast?: boolean) => {
-      if (isLast) {
-        onFormSubmit()
-      }
+    console.error(errors);
+  };
 
-      setCurrentStep(currentStep + 1);
-    },
-    [currentStep],
-  );
-
-  const handlePressBackStep = useCallback(() => {
-    setCurrentStep(currentStep - 1);
-  }, [currentStep]);
-
-  const CurrentStepRenderComponent = useMemo(
-    () => steps[currentStep],
-    [steps, currentStep],
-  );
-
-  const isLastPage = useMemo(() => currentStep === steps.length - 1, [currentStep]);
-
-  const onFormSubmit = formMethods.handleSubmit((data) => { 
-    console.log(data)
-  })
+  const onFormSubmit = formMethods.handleSubmit(data => {
+    console.log('teste');
+    console.log(data);
+  }, onInvalid);
 
   return {
+    onFormSubmit,
     formMethods,
-    currentStep,
-    handlePressNextStep,
-    handlePressBackStep,
-    CurrentStepRenderComponent,
-    isLastPage,
   };
 }

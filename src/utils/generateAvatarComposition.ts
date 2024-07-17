@@ -1,15 +1,17 @@
 import { AvatarListPresetUI } from '@components';
 
+import { ThemeColors } from '@theme';
 import { images } from '../assets';
 
 export function generateAvatarComposition() {
-  const randomColorIndex = randomIndex(AvatarListPresets.length);
-  const randomIconIndex = randomIndex(AvatarListPresets.length);
+  const { length } = AvatarListPresets
+
+  const randomColorIndex = randomIndex(length);
+  const randomIconIndex = randomIndex(length);
 
   const randomIcon: AvatarListPresetUI = {
-    id: AvatarListPresets[randomIconIndex].id,
     icon: AvatarListPresets[randomIconIndex].icon,
-    color: AvatarListPresets[randomColorIndex].color,
+    color: AvatarListPresets[randomColorIndex].color as ThemeColors,
   };
 
   return randomIcon;
@@ -19,55 +21,20 @@ function randomIndex(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-export const AvatarListPresets: AvatarListPresetUI[] = [
-  {
-    id: '1',
-    icon: images.emojis.blowFish,
-    color: 'yellow',
-  },
-  {
-    id: '2',
-    icon: images.emojis.fox,
-    color: 'blue',
-  },
-  {
-    id: '3',
-    icon: images.emojis.hamster,
-    color: 'lightBlue',
-  },
-  {
-    id: '4',
-    icon: images.emojis.honeyBee,
-    color: 'yellow',
-  },
-  {
-    id: '5',
-    icon: images.emojis.lion,
-    color: 'pink',
-  },
-  {
-    id: '6',
-    icon: images.emojis.pig,
-    color: 'yellow',
-  },
-  {
-    id: '7',
-    icon: images.emojis.polarBear,
-    color: 'lightBlue',
-  },
-  {
-    id: '8',
-    icon: images.emojis.rabbit,
-    color: 'pink',
-  },
-  {
-    id: '9',
-    icon: images.emojis.turtle,
-    color: 'purple',
-  },
-  {
-    id: '10',
-    icon: images.emojis.lizard,
-    color: 'iconGreen',
-  },
+export const AvatarListPresets: Array<AvatarListPresetUI> = [
+  { icon: images.emojis.blowFish, color: 'yellow' },
+  { icon: images.emojis.fox, color: 'blue' },
+  { icon: images.emojis.hamster, color: 'lightBlue' },
+  { icon: images.emojis.honeyBee, color: 'yellow' },
+  { icon: images.emojis.lion, color: 'pink' },
+  { icon: images.emojis.pig, color: 'yellow' },
+  { icon: images.emojis.polarBear, color: 'lightBlue' },
+  { icon: images.emojis.rabbit, color: 'pink' },
+  { icon: images.emojis.turtle, color: 'purple' },
+  { icon: images.emojis.bear, color: 'iconGreen' },
+  { icon: images.emojis.cow, color: 'lightBlue' },
+  { icon: images.emojis.frog, color: 'iconGreen' },
+  { icon: images.emojis.koala, color: 'yellow' },
+  { icon: images.emojis.dog, color: 'iconGreen' },
+  { icon: images.emojis.lizard, color: 'pink' },
 ];

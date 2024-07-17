@@ -1,8 +1,25 @@
 import { z } from 'zod';
 
 export const SignInFormSchema = z.object({
-  name: z.string(),
-  // password: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres'),
+  email: z
+    .string({
+      required_error: 'Email is required',
+    })
+    .email({
+      message: 'Invalid email',
+    }),
+  password: z
+    .string({
+      required_error: 'Password is required',
+    })
+    .min(10, {
+      message: 'Password must be at least 10 characters',
+    }),
 });
 
 export type SignInFormSchemaTypes = z.infer<typeof SignInFormSchema>;
+
+export const DEFAULT_SIGNIN_FORM_VALUES: SignInFormSchemaTypes = {
+  email: '',
+  password: '',
+};

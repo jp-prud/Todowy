@@ -13,7 +13,10 @@ const useSettingsStore = create<SettingsStore>()(
     (set, get) => ({
       showOnboarding: true,
       finishOnboarding: () => {
-        set({showOnboarding: false});
+        set({ showOnboarding: false });
+      },
+      toggleOnboardingStatus: () => {
+        set({ showOnboarding: !get().showOnboarding });
       },
     }),
     {
@@ -28,7 +31,7 @@ export function useSettings() {
     try {
       const isVisible = await BootSplash.isVisible();
       if (isVisible) {
-        BootSplash.hide({fade: true});
+        BootSplash.hide({ fade: true });
       }
     } catch (error) {
       BootSplash.hide();
@@ -37,7 +40,9 @@ export function useSettings() {
 
   const showOnboarding = useSettingsStore(state => state.showOnboarding);
 
-  const toggleOnboardingStatus = useSettingsStore(state => state.finishOnboarding);
+  const toggleOnboardingStatus = useSettingsStore(
+    state => state.finishOnboarding,
+  );
 
   return {
     showOnboarding,

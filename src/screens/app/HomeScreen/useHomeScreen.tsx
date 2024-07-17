@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useAuthContext } from '@context';
-import { useListTasks } from '@useCases';
+import { useGetUserProfile, useListTasks } from '@useCases';
 import { useForm } from 'react-hook-form';
 
 import { useDebounce } from '@hooks';
@@ -9,13 +9,12 @@ import { useDebounce } from '@hooks';
 import { searchFormDefaultValues } from './searchFormSchema';
 
 export function useHomeScreen() {
-  const { authCredentials, isLoading: isAuthCredentialLoading } =
-    useAuthContext();
+  const { isLoading: AuthCredentialIsLoading } = useAuthContext();
+  
+  const { userProfile, isLoading: userProfileIsLoading } = useGetUserProfile()
 
   const {
     tasks,
-    numberOfCompletedTasks,
-    numberOfTotalTasks,
     isLoading,
     getLisTasks,
   } = useListTasks();
@@ -45,11 +44,9 @@ export function useHomeScreen() {
     filteredTasks,
     control: searchControl,
     searchTerm,
-    numberOfCompletedTasks,
-    numberOfTotalTasks,
-    isLoading,
     getLisTasks,
-    authCredentials,
-    isAuthCredentialLoading,
+    userProfile,
+    isLoading,
+    globalLoading: userProfileIsLoading || AuthCredentialIsLoading
   };
 }

@@ -1,26 +1,27 @@
-import { Box, Icon, ProjectItem, Screen, Text, TitleBar } from "@components";
-import { AppScreenProps } from "@routes";
+import { FlatList, ListRenderItemInfo } from 'react-native';
 
 import { ProjectListProps } from '@types';
-import { FlatList, ListRenderItemInfo } from "react-native";
-import { useProjectsScreen } from "./useProjectsScreen";
 
-export function ProjectsScreen({ navigation }: AppScreenProps<'ProjectsScreen'>) {
-  const { projects, isLoading } = useProjectsScreen()
+import { Box, Icon, ProjectItem, Screen, Text, TitleBar } from '@components';
+import { AppScreenProps } from '@routes';
+
+import { useProjectsScreen } from './useProjectsScreen';
+
+export function ProjectsScreen({
+  navigation,
+}: AppScreenProps<'ProjectsScreen'>) {
+  const { projects, isLoading } = useProjectsScreen();
 
   function renderProjectItem({
-    item: project
-  }: ListRenderItemInfo<ProjectListProps>) { 
-    return (
-      <ProjectItem {...project} />
-    );
+    item: project,
+  }: ListRenderItemInfo<ProjectListProps>) {
+    return <ProjectItem {...project} />;
   }
 
-  function renderItemSeparator() { 
-    return <Box width={16} height={16} />
+  function renderItemSeparator() {
+    return <Box width={16} height={16} />;
   }
 
-  
   function renderEmptyList() {
     return (
       <Box
@@ -46,16 +47,20 @@ export function ProjectsScreen({ navigation }: AppScreenProps<'ProjectsScreen'>)
         alignItems="center"
         justifyContent="space-between"
         mb="s16">
-        <TitleBar title="Your projects" /> 
+        <TitleBar title="Your projects" />
 
-        <Icon name="plus" color="neutral500" onPress={() => navigation.navigate('CreateProjectScreen')} />
+        <Icon
+          name="plus"
+          color="neutral500"
+          onPress={() => navigation.navigate('CreateProjectScreen')}
+        />
       </Box>
 
       <Box flex={1}>
         <FlatList
           numColumns={2}
           data={projects}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           renderItem={renderProjectItem}
           ItemSeparatorComponent={renderItemSeparator}
           contentContainerStyle={{ gap: 16, flex: 1 }}
@@ -63,5 +68,5 @@ export function ProjectsScreen({ navigation }: AppScreenProps<'ProjectsScreen'>)
         />
       </Box>
     </Screen>
-  )
+  );
 }

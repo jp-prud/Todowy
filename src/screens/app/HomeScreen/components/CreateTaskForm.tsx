@@ -12,6 +12,7 @@ import Animated, {
 import DateTimePicker from 'react-native-ui-datepicker';
 
 import {
+  AnimatedBox,
   Box,
   Button,
   Dropdown,
@@ -61,10 +62,7 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
 
   function renderForm() {
     return (
-      <Animated.View
-        layout={LinearTransition.delay(100)}
-        entering={FadeIn}
-        exiting={FadeOut}>
+      <AnimatedBox>
         <Box gap="s20">
           <FormTextInput
             label="Title"
@@ -127,7 +125,7 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
           onPress={onHandleSubmitPress}
           disabled={!isValidCreateTaskForm}
         />
-      </Animated.View>
+      </AnimatedBox>
     );
   }
 
@@ -171,16 +169,13 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
         <Icon name="close" color="black400" onPress={handlePressCloseForm} />
       </Box>
 
-      <Animated.View
-        layout={LinearTransition.delay(100)}
-        entering={FadeIn}
-        exiting={FadeOut}>
+      <AnimatedBox>
         <RenderIfElse
           condition={currentStep === 'Form'}
           renderIf={renderForm()}
           renderElse={renderDatePicker()}
         />
-      </Animated.View>
+      </AnimatedBox>
     </Box>
   );
 }

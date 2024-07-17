@@ -1,26 +1,11 @@
-import { useState } from 'react';
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 
 import { useSettings } from '@useCases';
-import {
-  DEFAULT_ONBOARDING_FORM_VALUES,
-  OnboardingFormSchema,
-  OnboardingFormSchemaTypes,
-} from './onboardingProfileFormSchema';
 
 export function useOnboardingScreen() {
-  const { toggleOnboardingStatus } = useSettings()
-  // const { saveCredentials } = useAuthContext();
+  const { toggleOnboardingStatus } = useSettings();
 
   const [renderWelcomeStep, setRenderWelcomeStep] = useState(true);
-
-  const formMethods = useForm<OnboardingFormSchemaTypes>({
-    defaultValues: DEFAULT_ONBOARDING_FORM_VALUES,
-    resolver: zodResolver(OnboardingFormSchema),
-    mode: 'onChange',
-  });
 
   function handlePressFinishOnboarding() {
     toggleOnboardingStatus();
@@ -30,10 +15,20 @@ export function useOnboardingScreen() {
     setRenderWelcomeStep(false);
   }
 
+  function handlePressReturnWelcomeStep() {
+    setRenderWelcomeStep(true);
+  }
+
+  useEffect(() => {
+    () => {
+      setRenderWelcomeStep(true);
+    };
+  }, []);
+
   return {
+    handlePressReturnWelcomeStep,
     renderStarterStep: renderWelcomeStep,
     handlePressStartOnboarding,
     handlePressFinishOnboarding,
-    formMethods,
   };
 }

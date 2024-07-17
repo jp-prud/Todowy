@@ -7,11 +7,15 @@ import {
   ArchiveBoxFillIcon,
   ArchiveBoxIcon,
   BellIcon,
+  BlocksIcon,
+  BlocksIconFill,
   CalendarIcon,
   CheckmarkAlertShield,
   CheckmarkIcon,
   ChevronIcon,
   CloseIcon,
+  EyeIcon,
+  EyeSlashIcon,
   GearshapeIcon,
   HouseFillIcon,
   HouseIcon,
@@ -77,6 +81,10 @@ const iconRegistry = {
   tag: TagIcon,
   reload: ReloadIcon,
   checkmarkAlert: CheckmarkAlertShield,
+  eye: EyeIcon,
+  eyeSlash: EyeSlashIcon,
+  blocks: BlocksIcon,
+  blocksFill: BlocksIconFill,
 };
 
 type IconType = typeof iconRegistry;

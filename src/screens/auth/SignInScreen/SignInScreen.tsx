@@ -1,24 +1,30 @@
 import { Pressable } from 'react-native';
 
-import { Box, Button, FormPasswordInput, FormTextInput, Screen, Text } from '@components';
+
+import {
+  AnimatedBox,
+  Box,
+  Button,
+  FormPasswordInput,
+  FormTextInput,
+  Screen,
+  Text,
+} from '@components';
 import { AuthScreenProps } from '@routes';
 
-import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 import { useSignInScreen } from './useSignInScreen';
 
-export function SignInScreen({}: AuthScreenProps<'SignInScreen'>) {
-  const { control, onSubmit } = useSignInScreen();
+export function SignInScreen({ navigation }: AuthScreenProps<'SignInScreen'>) {
+  const { control, onSubmit, isSubmitting } = useSignInScreen();
 
   return (
     <Screen>
-      <Box justifyContent='center' flex={1}>
-        <Animated.View
-          entering={FadeIn}
-          exiting={FadeOut}
-          layout={LinearTransition.springify()}
-        >
-          <Box justifyContent="center" alignItems="center" mb="s48">
-            <Text mt="s24" preset="headingMedium">Welcome back to</Text>
+      <Box justifyContent="center" flex={1}>
+        <AnimatedBox>
+          <Box justifyContent="center" alignItems="center" mb="s56">
+            <Text mt="s24" preset="headingMedium">
+              Welcome to
+            </Text>
             <Text preset="headingLarge" color="primary">
               Todowy
             </Text>
@@ -27,33 +33,39 @@ export function SignInScreen({}: AuthScreenProps<'SignInScreen'>) {
           <Box gap="s16" mb="s8">
             <FormTextInput
               control={control}
-              name="name"
+              name="email"
               label="Email"
               placeholder="Insert your email"
             />
             <FormPasswordInput
               control={control}
-              name="name"
+              name="password"
               label="Password"
               placeholder="Insert your password"
             />
           </Box>
 
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate("RecoveryPasswordScreen")}>
             <Text bold color="primary">
               Forgot your password?
             </Text>
           </Pressable>
 
-          <Box mt="s48" gap="s12">
-            <Button text="Log in" onPress={onSubmit} />
-            {/* <Button
-              text="Criar uma conta"
-              onPress={onSignUpPress}
-              preset="outline"
-            /> */}
+          <Box mt="s32" gap="s16">
+            <Button 
+              text="Login" 
+              onPress={onSubmit} 
+              disabled={isSubmitting} 
+              loading={isSubmitting} 
+            />
+            <Button 
+              text="I'm new. Let's start" 
+              preset="outline" 
+              onPress={() => navigation.navigate('SignUpScreen')} 
+              disabled={isSubmitting}
+            />
           </Box>
-        </Animated.View>
+        </AnimatedBox>
       </Box>
     </Screen>
   );

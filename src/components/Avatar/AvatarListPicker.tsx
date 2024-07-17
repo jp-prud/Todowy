@@ -23,13 +23,24 @@ export function AvatarListPicker({
       g="s16"
       justifyContent="center"
       {...boxStyles}>
-      {AvatarListPresets.map(currentAvatar => (
-        <TouchableOpacityBox
-          key={currentAvatar.id}
-          onPress={() => onChangeAvatar(currentAvatar)}>
-          <Avatar avatar={currentAvatar} size={56} />
-        </TouchableOpacityBox>
-      ))}
+      {AvatarListPresets.map((currentAvatar, index) => {
+        console.log(currentAvatar)
+
+        return (
+          <TouchableOpacityBox
+            key={currentAvatar.icon}
+            onPress={() => onChangeAvatar({
+              ...currentAvatar,
+              icon: String(index)
+            })}>
+            
+            <Avatar avatar={{
+              ...currentAvatar,
+              icon: String(index)
+            }} size={56} />
+          </TouchableOpacityBox>
+        )
+      })}
     </Box>
   );
 }

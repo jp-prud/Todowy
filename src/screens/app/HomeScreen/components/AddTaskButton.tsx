@@ -7,14 +7,13 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
-  withTiming
+  withTiming,
 } from 'react-native-reanimated';
 
 import { Box, Icon, Text, TouchableOpacityBox } from '@components';
 import { useBottomSheet } from '@hooks';
 
 import { CreateTaskForm } from './CreateTaskForm';
-import { CreateCategoryForm } from './CreateCategoryForm';
 
 type Status = 'closed' | 'open';
 
@@ -28,9 +27,12 @@ export function AddTaskButton() {
     status: 'closed',
   });
 
-  const { bottomSheetRef: taskBottomSheetRef, renderBackdrop, BOTTOM_SHEET_STYLES } =
-    useBottomSheet();
-  
+  const {
+    bottomSheetRef: taskBottomSheetRef,
+    renderBackdrop,
+    BOTTOM_SHEET_STYLES,
+  } = useBottomSheet();
+
   const { bottomSheetRef: categoryBottomSheetRef } = useBottomSheet();
 
   const currentSharedStatus = useDerivedValue<AddTaskStatus>(
@@ -49,7 +51,8 @@ export function AddTaskButton() {
     const height = interpolate(
       defaultBoxSize.value.width,
       [46, width - 32, width],
-      [46, 240, 440],
+      [46, 160, 280],
+      // [46, 240, 440], // category height
     );
 
     const borderRadius = interpolate(
@@ -120,11 +123,11 @@ export function AddTaskButton() {
     onClose();
   }
 
-  function onPressCreateCategory() {
-    categoryBottomSheetRef.current?.expand();
+  // function onPressCreateCategory() {
+  //   categoryBottomSheetRef.current?.expand();
 
-    onClose();
-  }
+  //   onClose();
+  // }
 
   function renderOptions() {
     return (
@@ -154,7 +157,7 @@ export function AddTaskButton() {
           </Box>
         </TouchableOpacityBox>
 
-         <TouchableOpacityBox
+        {/* <TouchableOpacityBox
           p="s8"
           onPress={() => onPressCreateCategory()}
           flexDirection="row"
@@ -177,20 +180,20 @@ export function AddTaskButton() {
               Create a new task to organize your day more efficiently.
             </Text>
           </Box>
-        </TouchableOpacityBox>
+        </TouchableOpacityBox> */}
       </Animated.View>
     );
   }
 
   const bottomSheetProps = {
-    "enablePanDownToClose": true,
-    "animationConfigs": {
-      "duration": 400,
+    enablePanDownToClose: true,
+    animationConfigs: {
+      duration: 400,
     },
-    'backdropComponent': renderBackdrop,
-    'containerStyle': BOTTOM_SHEET_STYLES.container,
-    'index': -1
-  }
+    backdropComponent: renderBackdrop,
+    containerStyle: BOTTOM_SHEET_STYLES.container,
+    index: -1,
+  };
 
   return (
     <>
@@ -227,22 +230,20 @@ export function AddTaskButton() {
       <BottomSheetModal
         ref={taskBottomSheetRef}
         snapPoints={['65%']}
-        {...bottomSheetProps}
-      >
+        {...bottomSheetProps}>
         <BottomSheetScrollView>
           <CreateTaskForm onClose={onClose} />
         </BottomSheetScrollView>
       </BottomSheetModal>
-
+{/* 
       <BottomSheetModal
         ref={categoryBottomSheetRef}
         snapPoints={['35%']}
-        {...bottomSheetProps}
-        >
+        {...bottomSheetProps}>
         <BottomSheetScrollView>
           <CreateCategoryForm onClose={onClose} />
         </BottomSheetScrollView>
-      </BottomSheetModal>
+      </BottomSheetModal> */}
     </>
   );
 }

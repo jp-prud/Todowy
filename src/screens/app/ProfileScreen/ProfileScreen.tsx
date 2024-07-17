@@ -6,6 +6,8 @@ import {
   Avatar,
   AvatarListPicker,
   Box,
+  Button,
+  HORIZONTAL_PADDING,
   Icon,
   Screen,
   Text,
@@ -17,7 +19,7 @@ import { AppScreenProps } from '@routes';
 import { useProfileScreen } from './useProfileScreen';
 
 export function ProfileScreen({}: AppScreenProps<'ProfileScreen'>) {
-  const { authCredentials, isLoading, handleSelectAvatar } = useProfileScreen();
+  const { userProfile, isLoading, handleSelectAvatar, signOut } = useProfileScreen();
 
   function handlePressChangeAvatar() {
     const _avatar = generateAvatarComposition();
@@ -26,14 +28,20 @@ export function ProfileScreen({}: AppScreenProps<'ProfileScreen'>) {
   }
 
   return (
-    <Screen canGoBack title="Edit Profile" isLoading={isLoading}>
+    <Screen 
+      canGoBack 
+      title="Edit Profile" 
+      isLoading={isLoading} 
+      FooterComponent={<Button text="Logout" preset="outline" onPress={signOut} />}
+      footerContainerStyle={{padding: HORIZONTAL_PADDING }}
+    >
       <Box justifyContent="center" alignItems="center" gap="s24" mt="s16">
         <Text textAlign="center">
           Choose an avatar to represent you. You can change this at any time.
         </Text>
 
         <Box mb="s24" alignSelf="center">
-          <Avatar size={120} avatar={authCredentials!.avatar} />
+          <Avatar size={120} avatar={userProfile!.profile.avatar} />
           <Box
             position="absolute"
             right={-14}
@@ -57,11 +65,12 @@ export function ProfileScreen({}: AppScreenProps<'ProfileScreen'>) {
 
         <TextInput
           label="Username"
-          value={`@${authCredentials!.username}`}
+          value={`@${userProfile!.profile.username}`}
           pointerEvents="none"
           focusable={false}
           readOnly
         />
+
       </Box>
     </Screen>
   );

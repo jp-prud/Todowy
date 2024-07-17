@@ -23,7 +23,7 @@ const { Navigator, Screen } = createNativeStackNavigator<AppStackParamList>();
 export function AppStack() {
   return (
     <Navigator
-      initialRouteName="AppTabNavigator"
+      initialRouteName="HomeScreen"
       screenOptions={NAVIGATOR_STACK_SCREEN_OPTIONS}>
       <Screen name="AppTabNavigator" component={TabNavigationStack} />
 

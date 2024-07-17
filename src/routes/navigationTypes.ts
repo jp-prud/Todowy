@@ -7,6 +7,15 @@ import {
 
 export type AuthStackParamList = {
   SignInScreen: undefined;
+  SignUpScreen: undefined;
+  RecoveryPasswordScreen: undefined;
+  SuccessScreen: {
+    title: string;
+    subtitle: string;
+  };
+  OTPScreen: {
+    email: string;
+  };
 };
 
 export type AppStackParamList = {
@@ -16,7 +25,6 @@ export type AppStackParamList = {
   CreateProjectScreen: undefined;
   SettingsScreen: undefined;
   ProfileScreen: undefined;
-  SuccessScreen?: undefined;
   EditTaskScreen: {
     taskId: string;
   };
@@ -32,7 +40,6 @@ export type AppTabNavigatorParamList = {
 
 export type OnboardingStackParamList = {
   OnboardingScreen: undefined;
-  SuccessScreen?: undefined;
 };
 
 export type AppScreenProps<RouteScreenName extends keyof AppStackParamList> =

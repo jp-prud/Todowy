@@ -17,7 +17,7 @@ export function PasswordInput({ ...passwordInputProps }: PasswordInputProps) {
       {...passwordInputProps}
       RightComponent={
         <Icon
-          name={isSecureTextEntry ? 'archiveBox' : 'archiveBoxFill'}
+          name={isSecureTextEntry ? 'eye' : 'eyeSlash'}
           color="neutral900"
           onPress={handleToggleSecureTextEntry}
         />

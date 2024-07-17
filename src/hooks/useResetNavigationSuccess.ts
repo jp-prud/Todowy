@@ -10,6 +10,9 @@ export function useResetNavigationSuccess() {
       index: 1,
       routes: [
         {
+          name: 'SignInScreen'
+        },
+        {
           name: 'SuccessScreen',
           params,
         },

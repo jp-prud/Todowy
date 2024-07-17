@@ -1,8 +1,10 @@
 import { useAuthContext, useToastService } from '@context';
 import { SaveProfileAvatarDTO } from '@types';
-import { useSaveProfileImage } from '@useCases';
+import { useGetUserProfile, useSaveProfileImage, useSignOut } from '@useCases';
 
 export function useProfileScreen() {
+  const { userProfile, isLoading} = useGetUserProfile()
+  const { signOut } = useSignOut()
   const { showToast } = useToastService();
 
   const { saveProfileImage } = useSaveProfileImage({
@@ -23,15 +25,14 @@ export function useProfileScreen() {
     },
   });
 
-  const { authCredentials, isLoading } = useAuthContext();
-
   async function handleSelectAvatar(avatar: SaveProfileAvatarDTO) {
     await saveProfileImage(avatar);
   }
 
   return {
     isLoading,
-    authCredentials,
+    userProfile,
     handleSelectAvatar,
+    signOut,
   };
 }

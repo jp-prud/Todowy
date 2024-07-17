@@ -15,8 +15,8 @@ export const mappedScreensToProps: Record<
   ProjectsScreen: {
     label: 'Projects',
     icon: {
-      focused: 'search',
-      unfocused: 'search',
+      focused: 'blocksFill',
+      unfocused: 'blocks',
     },
   },
   // ListScreen: {

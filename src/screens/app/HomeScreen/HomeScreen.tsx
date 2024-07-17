@@ -17,15 +17,15 @@ import { useHomeScreen } from './useHomeScreen';
 
 export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
   const {
-    authCredentials,
+    userProfile,
     filteredTasks,
     control,
     searchTerm,
-    isAuthCredentialLoading,
+    globalLoading
   } = useHomeScreen();
 
   return (
-    <Screen isLoading={isAuthCredentialLoading}>
+    <Screen isLoading={globalLoading}>
       <AddTaskButton />
       <Box zIndex={-1} flex={1}>
         <Box mb="s32">
@@ -33,12 +33,12 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
             <TouchableOpacityBox
               width="auto"
               onPress={() => navigation.navigate('ProfileScreen')}>
-              <Avatar avatar={authCredentials!.avatar} size={46} />
+              <Avatar avatar={userProfile?.profile.avatar} size={46} />
             </TouchableOpacityBox>
 
             <Box>
               <Text preset="paragraphSmall" color="neutral500">
-                Welcome, {authCredentials?.username}!
+                Welcome, {userProfile?.profile.username}!
               </Text>
               <Text semiBold>Lets get productive</Text>
             </Box>

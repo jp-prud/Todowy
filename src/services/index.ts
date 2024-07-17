@@ -1,5 +1,5 @@
 export * from './AuthService/AuthService';
-export * from './ProfileService/ProfileService';
+export * from './UserService/UserService';
 export * from './SettingsService/SettingsService';
 export * from './TaskService/TaskService';
 export * from './ProjectService/ProjectService';

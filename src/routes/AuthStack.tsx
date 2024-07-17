@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { SignInScreen } from '../screens';
+import { OTPScreen, RecoveryPasswordScreen, SignInScreen, SignUpScreen, SuccessScreen } from '../screens';
 
 import {
   AuthStackParamList,
@@ -17,6 +17,10 @@ export function AuthStack() {
       initialRouteName="SignInScreen"
       screenOptions={NAVIGATOR_STACK_SCREEN_OPTIONS}>
       <Screen name="SignInScreen" component={SignInScreen} />
+      <Screen name="SignUpScreen" component={SignUpScreen} />
+      <Screen name="RecoveryPasswordScreen" component={RecoveryPasswordScreen} />
+      <Screen name="OTPScreen" component={OTPScreen}/>
+      <Screen name="SuccessScreen" component={SuccessScreen} />
     </Navigator>
   );
 }

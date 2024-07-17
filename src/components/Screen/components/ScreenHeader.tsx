@@ -11,21 +11,24 @@ export function ScreenHeader({
   titleComponent,
   rightHeaderComponent,
   canGoBack,
-}: Pick<ScreenProps, 'title' | 'canGoBack' | 'titleComponent' | 'rightHeaderComponent'>) {
+}: Pick<
+  ScreenProps,
+  'title' | 'canGoBack' | 'titleComponent' | 'rightHeaderComponent'
+>) {
   const { goBack } = useNavigation();
 
   function renderBackButton() {
     return (
       <TouchableOpacityBox
-        gap="s8"
+        gap="s4"
         flexDirection="row"
         alignItems="center"
         onPress={goBack}>
         <Box style={{ transform: [{ scaleX: -1 }] }}>
-          <Icon name="chevron" color="neutral400" />
+          <Icon name="chevron" color="neutral700" />
         </Box>
 
-        {!title && !titleComponent && <Text bold>Voltar</Text>}
+        {!title && !titleComponent && <Text semiBold color="neutral700">Back</Text>}
       </TouchableOpacityBox>
     );
   }
@@ -40,7 +43,7 @@ export function ScreenHeader({
       {canGoBack && renderBackButton()}
 
       {titleComponent && !title && (
-        <Box flex={1} justifyContent='center' alignItems='center'>
+        <Box flex={1} justifyContent="center" alignItems="center">
           {titleComponent}
         </Box>
       )}
@@ -54,7 +57,9 @@ export function ScreenHeader({
       )}
 
       {title && canGoBack && !rightHeaderComponent && <Box width={ICON_SIZE} />}
-      {title && canGoBack && rightHeaderComponent && <Box width={ICON_SIZE} >{rightHeaderComponent}</Box>}
+      {title && canGoBack && rightHeaderComponent && (
+        <Box width={ICON_SIZE}>{rightHeaderComponent}</Box>
+      )}
     </Box>
   );
 }

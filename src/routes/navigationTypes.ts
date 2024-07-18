@@ -27,9 +27,11 @@ export type AppStackParamList = {
   ProfileScreen: undefined;
   EditTaskScreen: {
     taskId: string;
+    taskAuthor: string;
   };
   TaskDetailsScreen: {
     taskId: string;
+    taskAuthor: string;
   };
 };
 

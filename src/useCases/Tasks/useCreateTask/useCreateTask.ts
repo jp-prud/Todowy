@@ -1,4 +1,5 @@
-import { TaskService } from '@services';
+import { useAuthContext } from '@context';
+import { AuthService, TaskService } from '@services';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CreateTaskDTO, MutationOptions, StorageKeys } from '@types';
 import uuid from 'react-native-uuid';
@@ -17,9 +18,9 @@ export function useCreateTask(options?: MutationOptions<void>) {
         created_at: new Date().toISOString(),
         ...taskProps,
       }),
-    onSuccess(data) {
+    onSuccess(data, variables) {
       queryClient.invalidateQueries({
-        queryKey: [StorageKeys.Tasks],
+        queryKey: [`${StorageKeys.Tasks}-${variables.author}`],
       });
 
       if (options?.onSuccess) {

@@ -40,7 +40,7 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
           <Task
             task={task}
             searchTerm={searchTerm}
-            onPress={() => navigate('TaskDetailsScreen', { taskId: task.id })}
+            onPress={() => navigate('TaskDetailsScreen', { taskId: task.id, taskAuthor: task.author})}
           />
         }
       />

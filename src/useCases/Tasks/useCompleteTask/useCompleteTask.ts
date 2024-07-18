@@ -13,7 +13,7 @@ export function useCompleteTaskUseCase(options?: MutationOptions<void>) {
     CompleteTaskDTO
   >({
     mutationKey: [StorageKeys.Tasks],
-    mutationFn: taskProps => completeTask(taskProps.id),
+    mutationFn: taskProps => completeTask(taskProps.id, taskProps.author),
     onSuccess() {
       queryClient.invalidateQueries({
         queryKey: [StorageKeys.Tasks],

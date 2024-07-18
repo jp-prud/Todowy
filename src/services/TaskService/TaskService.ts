@@ -3,16 +3,16 @@ import { StorageKeys, TaskProps, UpdateTaskDTO } from '@types';
 import { storage } from '../StorageService/storage';
 
 export function TaskService() {
-  async function getTaskById(taskId: string): Promise<TaskProps> {
-    const tasksList = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+  async function getTaskById(taskId: string, email: string): Promise<TaskProps> {
+    const tasksList = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${email}`);
 
     const task = tasksList!.find(_task => _task.id === taskId);
 
     return task!;
   }
 
-  async function listTasks() {
-    const tasks = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+  async function listTasks(email: string) {
+    const tasks = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${email}`);
 
     if (!tasks) {
       return [];
@@ -22,15 +22,15 @@ export function TaskService() {
   }
 
   async function createTask(task: TaskProps) {
-    const tasks = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+    const tasks = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${task.author}`);
 
     const updatedTasks = tasks ? [task, ...tasks] : [task];
 
-    await storage.setItem(StorageKeys.Tasks, updatedTasks);
+    await storage.setItem(`${StorageKeys.Tasks}-${task.author}`, updatedTasks);
   }
 
-  async function updateTask(taskId: string, updateTaskDTO: UpdateTaskDTO) {
-    const tasks = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+  async function updateTask(taskId: string, email: string, updateTaskDTO: UpdateTaskDTO) {
+    const tasks = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${email}`);
 
     const updatedTasks = tasks!.map(_task => {
       if (_task.id === taskId) {
@@ -39,19 +39,17 @@ export function TaskService() {
           ...updateTaskDTO,
         };
 
-        console.log(updatedTask);
-
         return updatedTask;
       }
 
       return _task;
     });
 
-    await storage.setItem(StorageKeys.Tasks, updatedTasks);
+    await storage.setItem(`${StorageKeys.Tasks}-${email}`, updatedTasks);
   }
 
-  async function completeTask(taskId: string) {
-    const tasks = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+  async function completeTask(taskId: string, email: string) {
+    const tasks = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${email}`);
 
     const updatedTasks = tasks!.map(task => {
       if (task.id === taskId) {
@@ -67,15 +65,15 @@ export function TaskService() {
       return task;
     });
 
-    await storage.setItem(StorageKeys.Tasks, updatedTasks);
+    await storage.setItem(`${StorageKeys.Tasks}-${email}`, updatedTasks);
   }
 
-  async function deleteTaskById(taskId: string) {
-    const tasks = await storage.getItem<TaskProps[]>(StorageKeys.Tasks);
+  async function deleteTaskById(taskId: string, email: string) {
+    const tasks = await storage.getItem<TaskProps[]>(`${StorageKeys.Tasks}-${email}`);
 
     const updatedTasks = tasks!.filter(task => task.id !== taskId);
 
-    return storage.setItem(StorageKeys.Tasks, updatedTasks);
+    return storage.setItem(`${StorageKeys.Tasks}-${email}`, updatedTasks);
   }
 
   return {

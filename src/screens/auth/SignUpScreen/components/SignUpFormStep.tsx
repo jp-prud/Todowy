@@ -25,8 +25,6 @@ export function SignUpFormStep() {
   } = useFormContext<SignUpFormSchemaTypes>();
 
   const onSubmit = handleSubmit(async data => { 
-    console.log(data.profile.avatar)
-
     return await signUp({
       ...data,
       profile: {

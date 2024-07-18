@@ -11,6 +11,7 @@ import {
 import { AppScreenProps } from '@routes';
 
 import { useTaskDetailsScreen } from './useTaskDetailsScreen';
+import { useAuthContext } from '@context';
 
 export function TaskDetailsScreen({
   route,
@@ -18,15 +19,17 @@ export function TaskDetailsScreen({
 }: AppScreenProps<'TaskDetailsScreen'>) {
   const { taskId } = route.params;
 
+  const { authCredentials } = useAuthContext()
+
   const { task, isLoading, handlePressDeleteTask } =
-    useTaskDetailsScreen(taskId);
+    useTaskDetailsScreen(taskId, authCredentials!.email);
 
   function renderTaskDetails() {
     if (isLoading) {
       return null;
     }
 
-    const { id, title, created_at, due_date, description, category, priority } =
+    const { id, title, created_at, due_date, description, category, priority, author } =
       task!;
 
     return (
@@ -53,6 +56,7 @@ export function TaskDetailsScreen({
               onPress={() =>
                 navigation.navigate('EditTaskScreen', {
                   taskId: id,
+                  taskAuthor: author
                 })
               }
             />

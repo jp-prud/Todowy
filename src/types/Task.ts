@@ -15,9 +15,9 @@ export interface TaskProps {
   status: TaskStatus;
   priority: TaskPriority;
   category: TaskCategory;
+  author: string;
   created_at: string;
   due_date: string;
-  assigned_to: string;
   tags?: string[];
   note?: string;
   comments?: TaskComments[];
@@ -35,6 +35,7 @@ export type TaskFormSteps = 'Form' | 'DatePicker';
 
 export interface CompleteTaskDTO {
   id: string;
+  author: string;
 }
 
 export type TaskPriorityItemType = {

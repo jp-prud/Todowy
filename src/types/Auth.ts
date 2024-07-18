@@ -2,10 +2,6 @@ import { AvatarListPresetUI } from '@components';
 
 export type AuthCredentials = AccessTokenProps & {
   email: string;
-  profile: {
-    username: string;
-    avatar: AvatarListPresetUI;
-  }
 }
 
 export interface AccessTokenProps {

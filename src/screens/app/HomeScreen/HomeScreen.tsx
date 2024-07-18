@@ -33,12 +33,12 @@ export function HomeScreen({ navigation }: AppScreenProps<'HomeScreen'>) {
             <TouchableOpacityBox
               width="auto"
               onPress={() => navigation.navigate('ProfileScreen')}>
-              <Avatar avatar={userProfile?.profile.avatar} size={46} />
+              {/* {userProfile?.email !== '' && <Avatar avatar={userProfile?.profile?.avatar} size={46} />} */}
             </TouchableOpacityBox>
 
             <Box>
               <Text preset="paragraphSmall" color="neutral500">
-                Welcome, {userProfile?.profile.username}!
+                {/* Welcome, {userProfile?.profile.username}! */}
               </Text>
               <Text semiBold>Lets get productive</Text>
             </Box>

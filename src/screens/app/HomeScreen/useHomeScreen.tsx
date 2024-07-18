@@ -9,7 +9,7 @@ import { useDebounce } from '@hooks';
 import { searchFormDefaultValues } from './searchFormSchema';
 
 export function useHomeScreen() {
-  const { isLoading: AuthCredentialIsLoading } = useAuthContext();
+  const { isLoading: AuthCredentialIsLoading, authCredentials } = useAuthContext();
   
   const { userProfile, isLoading: userProfileIsLoading } = useGetUserProfile()
 
@@ -17,7 +17,7 @@ export function useHomeScreen() {
     tasks,
     isLoading,
     getLisTasks,
-  } = useListTasks();
+  } = useListTasks(authCredentials?.email!);
 
   const { control: searchControl, watch: searchWatch } = useForm({
     mode: 'onChange',

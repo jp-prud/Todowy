@@ -10,9 +10,12 @@ export function useDeleteTaskById({
   const { deleteTaskById: deleteTaskByIdService } = TaskService();
   const queryClient = useQueryClient();
 
-  const { mutate: deleteTaskById } = useMutation<void, unknown, string>({
+  const { mutate: deleteTaskById } = useMutation<void, unknown, {
+    taskId: string;
+    email: string;
+  }>({
     mutationKey: [StorageKeys.Tasks],
-    mutationFn: taskId => deleteTaskByIdService(taskId),
+    mutationFn: task => deleteTaskByIdService(task.taskId, task.email),
     onError() {
       if (onError) {
         onError(errorMessage || 'An error occurred while deleting the task');

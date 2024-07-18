@@ -11,11 +11,13 @@ import {
   CreateTaskForm,
   createTaskFormDefaultValues,
 } from './createTaskFormSchema';
+import { useAuthContext } from '@context';
 
 export function useCreateTaskForm() {
-  const { createTask, createTaskLoading } = useCreateTask();
-
   const [currentStep, setCurrentStep] = useState<TaskFormSteps>('Form');
+  
+  const { createTask, createTaskLoading } = useCreateTask();
+  const { authCredentials } = useAuthContext()
 
   function handlePressToggleStep() {
     setCurrentStep(currentStep === 'Form' ? 'DatePicker' : 'Form');
@@ -37,8 +39,8 @@ export function useCreateTaskForm() {
   const onSubmit = handleSubmit(async data => {
     await createTask({
       ...data,
-      assigned_to: 'me',
       category: 'personal',
+      author: authCredentials!.email,
       tags: [],
     });
 

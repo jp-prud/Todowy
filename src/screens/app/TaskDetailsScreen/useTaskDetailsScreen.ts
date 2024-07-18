@@ -1,9 +1,11 @@
-import { useToastService } from '@context';
+import { useAuthContext, useToastService } from '@context';
 import { useNavigation } from '@react-navigation/native';
 import { useDeleteTaskById, useGetTaskById } from '@useCases';
 
 export function useTaskDetailsScreen(taskId: string) {
-  const { task, isError, isLoading } = useGetTaskById(taskId);
+  const { authCredentials } = useAuthContext()
+
+  const { task, isError, isLoading } = useGetTaskById(taskId, authCredentials!.email);
   const { showToast } = useToastService();
 
   const { reset } = useNavigation();
@@ -26,7 +28,9 @@ export function useTaskDetailsScreen(taskId: string) {
   });
 
   function handlePressDeleteTask(deleteTaskId: string) {
-    deleteTaskById(deleteTaskId);
+    deleteTaskById({
+      taskId: deleteTaskId, email: authCredentials!.email
+    });
 
     reset({
       index: 1,

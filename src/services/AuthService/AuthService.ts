@@ -8,11 +8,13 @@ import {
   StorageKeys
 } from '@types';
 
+import { AxiosRequestConfig } from 'axios';
 import { storage } from '../StorageService/storage';
 import { HttpClient } from '../utils/HttpClient';
 
 export function AuthService() {
   const AUTH_KEY = StorageKeys.Auth;
+  const REFRESH_TOKEN_URL = '/auth/refresh-token';
 
   async function signIn(credentials: SignInProps) {
     const { data } = await HttpClient.post<AuthCredentials>('/auth/sign-in', credentials);
@@ -47,9 +49,20 @@ export function AuthService() {
     return
   }
 
-  function updateToken(token: string) {
-    console.log('token', token);
+  async function refreshToken(refreshToken: string) {
+    const { data } = await HttpClient.post<string>(REFRESH_TOKEN_URL, {
+      refreshToken
+    });
 
+    return data
+  }
+
+  function isRefreshTokenRequest(request: AxiosRequestConfig): boolean {
+    const url = request.url;
+    return url === REFRESH_TOKEN_URL;
+  }
+
+  function updateToken(token: string) {
     HttpClient.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
 
@@ -88,6 +101,8 @@ export function AuthService() {
     forgotPassword,
     resetPassword,
     accountConfirmation,
+    refreshToken,
+    isRefreshTokenRequest,
     save,
     load,
     saveProfileImage,

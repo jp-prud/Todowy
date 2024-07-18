@@ -14,18 +14,10 @@ export function useCreateProjectScreen() {
     mode: 'onChange',
   });
   const onInvalid = errors => {
-    console.log(
-      'nome',
-      formMethods.getValues('name'),
-      formMethods.getValues('color'),
-    );
-
     console.error(errors);
   };
 
   const onFormSubmit = formMethods.handleSubmit(data => {
-    console.log('teste');
-    console.log(data);
   }, onInvalid);
 
   return {

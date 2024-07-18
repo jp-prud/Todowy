@@ -1,5 +1,6 @@
 import { storage } from '@services';
 import { AuthCredentials, SaveProfileAvatarDTO, StorageKeys } from '@types';
+import { jwtDecode } from 'jwt-decode';
 
 const AUTH_KEY = StorageKeys.Auth;
 

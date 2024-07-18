@@ -2,7 +2,7 @@ import { TaskService } from '@services';
 import { useQuery } from '@tanstack/react-query';
 import { StorageKeys } from '@types';
 
-export function useGetTaskById(taskId: string) {
+export function useGetTaskById(taskId: string, email: string) {
   const { getTaskById } = TaskService();
 
   const {
@@ -11,7 +11,7 @@ export function useGetTaskById(taskId: string) {
     isError,
   } = useQuery({
     queryKey: [StorageKeys.Tasks, { taskId }],
-    queryFn: () => getTaskById(taskId),
+    queryFn: () => getTaskById(taskId, email),
   });
 
   return {

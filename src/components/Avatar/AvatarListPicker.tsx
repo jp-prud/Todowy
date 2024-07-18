@@ -24,8 +24,6 @@ export function AvatarListPicker({
       justifyContent="center"
       {...boxStyles}>
       {AvatarListPresets.map((currentAvatar, index) => {
-        console.log(currentAvatar)
-
         return (
           <TouchableOpacityBox
             key={currentAvatar.icon}

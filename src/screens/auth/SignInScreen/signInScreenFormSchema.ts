@@ -20,6 +20,6 @@ export const SignInFormSchema = z.object({
 export type SignInFormSchemaTypes = z.infer<typeof SignInFormSchema>;
 
 export const DEFAULT_SIGNIN_FORM_VALUES: SignInFormSchemaTypes = {
-  email: '',
-  password: '',
+  email: 'joaopprudencio882@gmail.com',
+  password: 'Joao.prudencio*941',
 };

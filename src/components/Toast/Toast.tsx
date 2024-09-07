@@ -37,4 +37,5 @@ const $boxStyles: BoxProps = {
   alignSelf: 'center',
   top: 100,
   bottom: 100,
+  zIndex: 999
 };

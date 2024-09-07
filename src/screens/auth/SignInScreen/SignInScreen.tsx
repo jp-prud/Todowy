@@ -1,6 +1,5 @@
 import { Pressable } from 'react-native';
 
-
 import {
   AnimatedBox,
   Box,
@@ -45,23 +44,24 @@ export function SignInScreen({ navigation }: AuthScreenProps<'SignInScreen'>) {
             />
           </Box>
 
-          <Pressable onPress={() => navigation.navigate("RecoveryPasswordScreen")}>
+          <Pressable
+            onPress={() => navigation.navigate('RecoveryPasswordScreen')}>
             <Text bold color="primary">
               Forgot your password?
             </Text>
           </Pressable>
 
           <Box mt="s32" gap="s16">
-            <Button 
-              text="Login" 
-              onPress={onSubmit} 
-              disabled={isSubmitting} 
-              loading={isSubmitting} 
+            <Button
+              text="Login"
+              onPress={onSubmit}
+              disabled={isSubmitting}
+              loading={isSubmitting}
             />
-            <Button 
-              text="I'm new. Let's start" 
-              preset="outline" 
-              onPress={() => navigation.navigate('SignUpScreen')} 
+            <Button
+              text="I'm new. Let's start"
+              preset="outline"
+              onPress={() => navigation.navigate('SignUpScreen')}
               disabled={isSubmitting}
             />
           </Box>

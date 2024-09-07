@@ -3,4 +3,5 @@ export enum StorageKeys {
   Tasks = '@Tasks',
   Projects = '@Projects',
   Settings = '@Settings',
+  Categories = '@Categories',
 }

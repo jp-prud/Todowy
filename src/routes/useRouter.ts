@@ -14,7 +14,7 @@ export function useRouter(): Stacks {
     if (!isLoading) {
       hideSplashScreen();
     }
-  }, [isLoading]);
+  }, [isLoading, hideSplashScreen]);
 
   if (isLoading) {
     return 'Loading';

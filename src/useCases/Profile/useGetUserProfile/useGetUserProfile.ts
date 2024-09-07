@@ -1,9 +1,9 @@
-import { ProfileService } from "@services";
-import { useQuery } from "@tanstack/react-query";
-import { QueryKeys } from "@types";
+import { ProfileService } from '@services';
+import { useQuery } from '@tanstack/react-query';
+import { QueryKeys } from '@types';
 
-export function useGetUserProfile() { 
-  const { getProfile } = ProfileService()
+export function useGetUserProfile() {
+  const { getProfile } = ProfileService();
 
   const { data, isLoading, isPending, isError } = useQuery({
     queryKey: [QueryKeys.userProfile],

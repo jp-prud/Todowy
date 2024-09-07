@@ -1,4 +1,8 @@
-import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from 'react-native-reanimated';
 
 interface AnimatedBoxProps {
   children: React.ReactNode;
@@ -11,8 +15,7 @@ export function AnimatedBox({ children, ...props }: AnimatedBoxProps) {
       entering={FadeIn}
       exiting={FadeOut}
       layout={LinearTransition.springify()}
-      {...props}	
-    >
+      {...props}>
       {children}
     </Animated.View>
   );

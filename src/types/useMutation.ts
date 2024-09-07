@@ -1,4 +1,4 @@
-import { ResponseErrorProps } from "@services";
+import { ResponseErrorProps } from '@services';
 
 export interface MutationOptions<TData, TVariables = {}> {
   onSuccess?: (data: TData, variables?: TVariables) => void;

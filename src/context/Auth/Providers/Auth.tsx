@@ -1,15 +1,15 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 
 import { AuthServiceProps } from '@context';
+import { AuthService, registerInterceptor } from '@services';
 import { AuthCredentials } from '@types';
 
-import { AuthService, registerInterceptor } from '@services';
 import { authCredentialsStorage } from '../authCredentialsStorage';
 
 export const AuthContext = createContext({} as AuthServiceProps);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { updateToken, removeToken } = AuthService()
+  const { updateToken, removeToken } = AuthService();
 
   const [authCredentials, setAuthCredentials] =
     useState<AuthCredentials | null>(null);
@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (credentials) {
         setAuthCredentials(credentials);
-        // updateToken(credentials.refreshToken);
+        updateToken(credentials.refreshToken);
       }
     } catch (error) {
       // TODO: Handle error
@@ -44,33 +44,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(false);
   }
 
-  async function saveProfileImage(avatar: string) {
-    const storagedAuthCredentials = await authCredentialsStorage.load();
-
-    if (storagedAuthCredentials) {
-      const updatedAuthCredentials: AuthCredentials = {
-        ...storagedAuthCredentials,
-        // avatar,
-      };
-
-      await authCredentialsStorage.save(updatedAuthCredentials);
-      setAuthCredentials(updatedAuthCredentials);
-    }
-  }
-
   useEffect(() => {
     loadCredentials();
   }, [loadCredentials]);
 
   useEffect(() => {
     const interceptor = registerInterceptor({
-      authCredentials,
+      // authCredentials,
       removeCredentials,
-      saveCredentials,
+      // saveCredentials,
     });
 
-    return interceptor
-  }, [authCredentials])
+    return interceptor;
+  }, [removeCredentials]);
 
   return (
     <AuthContext.Provider
@@ -79,7 +65,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isLoading,
         saveCredentials,
         removeCredentials,
-        saveProfileImage,
       }}>
       {children}
     </AuthContext.Provider>

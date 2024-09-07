@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen, ProjectsScreen } from '@screens';
+import { HomeScreen } from '@screens';
 
 import { AppTabNavigatorParamList } from './navigationTypes';
 import { TabBar } from './TabBar';
@@ -28,7 +28,7 @@ export function TabNavigationStack() {
       tabBar={renderTabBar}
       initialRouteName="HomeScreen">
       <Screen name="HomeScreen" component={HomeScreen} />
-      <Screen name="ProjectsScreen" component={ProjectsScreen} />
+      {/* <Screen name="ProjectsScreen" component={ProjectsScreen} /> */}
     </Navigator>
   );
 }

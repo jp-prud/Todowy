@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
+import { env } from '@types';
+import { PostHogProvider } from 'posthog-react-native';
 
 import { ActivityIndicator, Box } from '@components';
 
@@ -34,5 +36,22 @@ export function Router() {
 
   const Stack = stacks[stack];
 
-  return <NavigationContainer>{Stack}</NavigationContainer>;
+  function renderAnalytics() {
+    return (
+      <PostHogProvider
+        apiKey={env.POSTHOG_API_KEY}
+        autocapture={{
+          captureScreens: false,
+          captureTouches: false,
+        }}>
+        {Stack}
+      </PostHogProvider>
+    );
+  }
+
+  return (
+    <NavigationContainer>
+      {env.ENV === 'production' ? renderAnalytics() : Stack}
+    </NavigationContainer>
+  );
 }

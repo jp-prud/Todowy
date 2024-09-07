@@ -5,17 +5,22 @@ export * from './Tasks/useEditTask/useEditTask';
 export * from './Tasks/useGetTaskById/useGetTaskById';
 export * from './Tasks/useListTasks/useListTasks';
 
-export * from './Profile/useSaveProfileImage/useSaveProfileImage';
+export * from './Categories/useGetCategories/useGetCategories';
+export * from './Categories/useCreateCategory/useCreateCategory';
+export * from './Categories/useGetCategoryByName/useGetCategoryByName';
+
+export * from './Projects/useListProjects/useListProjects';
+
 export * from './Profile/useGetUserProfile/useGetUserProfile';
+export * from './Profile/useSaveProfileImage/useSaveProfileImage';
 
 export * from './Settings/useSettings';
 
-export * from './Auth/useSignIn/useSignIn';
-export * from './Auth/useSignUp/useSignUp';
+export * from './Auth/useAccountConfirmation/useAccountConfirmation';
 export * from './Auth/useForgotPassword/useForgotPassword';
 export * from './Auth/useResetPassword/useResetPassword';
-export * from './Auth/useAccountConfirmation/useAccountConfirmation'
+export * from './Auth/useSignIn/useSignIn';
 export * from './Auth/useSignOut/useSignOut';
+export * from './Auth/useSignUp/useSignUp';
 
-export * from './Projects/useListProjects/useListProjects';
 

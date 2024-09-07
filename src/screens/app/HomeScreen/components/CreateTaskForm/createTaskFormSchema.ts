@@ -8,6 +8,7 @@ export const CreateTaskForm = z.object({
     required_error: 'Priority is required',
   }),
   due_date: z.string(),
+  category: z.string(),
 });
 
 export type CreateTaskFormSchema = z.infer<typeof CreateTaskForm>;
@@ -17,4 +18,5 @@ export const createTaskFormDefaultValues: CreateTaskFormSchema = {
   description: '',
   priority: 'medium',
   due_date: dayjs().toISOString(),
+  category: '',
 };

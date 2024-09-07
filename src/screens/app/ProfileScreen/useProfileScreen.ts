@@ -1,10 +1,10 @@
-import { useAuthContext, useToastService } from '@context';
+import { useToastService } from '@context';
 import { SaveProfileAvatarDTO } from '@types';
 import { useGetUserProfile, useSaveProfileImage, useSignOut } from '@useCases';
 
 export function useProfileScreen() {
-  const { userProfile, isLoading} = useGetUserProfile()
-  const { signOut } = useSignOut()
+  const { userProfile, isLoading } = useGetUserProfile();
+  const { signOut } = useSignOut();
   const { showToast } = useToastService();
 
   const { saveProfileImage } = useSaveProfileImage({

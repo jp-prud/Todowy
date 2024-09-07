@@ -2,8 +2,6 @@ export type TaskStatus = 'completed' | 'pending';
 
 export type TaskPriority = 'low' | 'medium' | 'high';
 
-export type TaskCategory = 'work' | 'personal' | 'others';
-
 export type UpdateTaskDTO = Pick<
   TaskProps,
   'title' | 'description' | 'priority' | 'due_date'
@@ -14,7 +12,7 @@ export interface TaskProps {
   description?: string;
   status: TaskStatus;
   priority: TaskPriority;
-  category: TaskCategory;
+  category?: string;
   author: string;
   created_at: string;
   due_date: string;
@@ -68,7 +66,7 @@ export const ONBOARDING_MOCKED_TASKS: TaskProps[] = [
     category: 'work',
     created_at: '2024-06-12T19:26:32.506Z',
     due_date: '2024-06-12T19:26:32.506Z',
-    assigned_to: 'John Doe',
+    author: 'John Doe',
     tags: ['work', 'personal'],
     note: 'This is a note',
   },
@@ -81,7 +79,7 @@ export const ONBOARDING_MOCKED_TASKS: TaskProps[] = [
     category: 'personal',
     created_at: '2024-06-12T19:26:32.506Z',
     due_date: '2024-06-12T19:26:32.506Z',
-    assigned_to: 'John Doe',
+    author: 'John Doe',
     tags: ['work', 'personal'],
   },
 ];

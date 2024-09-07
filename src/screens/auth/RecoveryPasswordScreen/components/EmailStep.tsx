@@ -1,24 +1,36 @@
-import { FormTextInput, StepperContent, StepperFooter, StepperHeader, StepperNextButton, useStepper } from "@components";
-import { useFormContext } from "react-hook-form";
-import { ResetPasswordFormSchemaTypes } from "../recoveryPasswordFormSchema";
-import { useRecoveryPassword } from "../useRecoveryPassword";
+import { useFormContext } from 'react-hook-form';
+
+import {
+  FormTextInput,
+  StepperContent,
+  StepperFooter,
+  StepperHeader,
+  StepperNextButton,
+  useStepper,
+} from '@components';
+
+import { ResetPasswordFormSchemaTypes } from '../recoveryPasswordFormSchema';
+import { useRecoveryPassword } from '../useRecoveryPassword';
 
 export function EmailStep() {
-  const { forgotPassword } = useRecoveryPassword()
+  const { forgotPassword } = useRecoveryPassword();
 
-  const { 
-    control, trigger, getValues, formState: { isSubmitting, isValidating } 
-} = useFormContext<ResetPasswordFormSchemaTypes>()
+  const {
+    control,
+    trigger,
+    getValues,
+    formState: { isSubmitting, isValidating },
+  } = useFormContext<ResetPasswordFormSchemaTypes>();
 
-  const { nextStep } = useStepper()
+  const { nextStep } = useStepper();
 
   async function handleOnPressNext() {
-    const isValid = await trigger('email')
+    const isValid = await trigger('email');
 
-    const { email } = getValues()
+    const { email } = getValues();
 
     if (isValid) {
-      await forgotPassword(email)
+      await forgotPassword(email);
 
       nextStep();
     }
@@ -42,11 +54,11 @@ export function EmailStep() {
       </StepperContent>
 
       <StepperFooter>
-        <StepperNextButton 
-          text="Send Code" 
-          onPress={handleOnPressNext} 
-          loading={isSubmitting || isValidating} 
-          disabled={isSubmitting || isValidating} 
+        <StepperNextButton
+          text="Send Code"
+          onPress={handleOnPressNext}
+          loading={isSubmitting || isValidating}
+          disabled={isSubmitting || isValidating}
         />
       </StepperFooter>
     </>

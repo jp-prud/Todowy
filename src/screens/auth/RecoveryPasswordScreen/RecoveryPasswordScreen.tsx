@@ -1,11 +1,13 @@
-import { Screen, Stepper } from "@components";
-import { AuthScreenProps } from "@routes";
-import { FormProvider } from "react-hook-form";
-import { EmailStep, NewPasswordStep, OTPStep } from "./components";
-import { useRecoveryPassword } from "./useRecoveryPassword";
+import { FormProvider } from 'react-hook-form';
 
-export function RecoveryPasswordScreen({ }: AuthScreenProps<'RecoveryPasswordScreen'>) {
-  const { formMethods } = useRecoveryPassword()
+import { Screen, Stepper } from '@components';
+import { AuthScreenProps } from '@routes';
+
+import { EmailStep, NewPasswordStep, OTPStep } from './components';
+import { useRecoveryPassword } from './useRecoveryPassword';
+
+export function RecoveryPasswordScreen({}: AuthScreenProps<'RecoveryPasswordScreen'>) {
+  const { formMethods } = useRecoveryPassword();
 
   return (
     <Screen canGoBack>
@@ -14,7 +16,7 @@ export function RecoveryPasswordScreen({ }: AuthScreenProps<'RecoveryPasswordScr
           steps={[
             { content: <EmailStep /> },
             { content: <OTPStep /> },
-            { content: <NewPasswordStep /> }
+            { content: <NewPasswordStep /> },
           ]}
         />
       </FormProvider>

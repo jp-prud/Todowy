@@ -8,7 +8,7 @@ import { OnboardingScreenProps } from '@routes';
 import { useOnboardingScreen } from './useOnboardingScreen';
 
 export function OnboardingScreen({}: OnboardingScreenProps<'OnboardingScreen'>) {
-  const {handlePressFinishOnboarding} = useOnboardingScreen();
+  const { handlePressFinishOnboarding } = useOnboardingScreen();
 
   return (
     <Screen>

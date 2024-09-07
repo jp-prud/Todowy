@@ -11,6 +11,7 @@ import {
   StepperPreviousButton,
   useStepper,
 } from '@components';
+
 import { SignUpFormSchemaTypes } from '../signUpFormSchema';
 
 export function ProfileFormStep() {
@@ -43,7 +44,12 @@ export function ProfileFormStep() {
           subtitle="How would you like to be called?"
         />
 
-        <FormTextInput control={control} prefix="@" name="profile.username" autoFocus />
+        <FormTextInput
+          control={control}
+          prefix="@"
+          name="profile.username"
+          autoFocus
+        />
       </StepperContent>
 
       <StepperFooter>

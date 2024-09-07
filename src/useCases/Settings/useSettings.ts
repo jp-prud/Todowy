@@ -1,9 +1,11 @@
 import { storage } from '@services';
+import { StorageKeys } from '@types';
 import BootSplash from 'react-native-bootsplash';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export type SettingsStore = {
+  createdMockCategories: boolean;
   showOnboarding: boolean;
   finishOnboarding: () => void;
 };
@@ -12,6 +14,7 @@ const useSettingsStore = create<SettingsStore>()(
   persist(
     (set, get) => ({
       showOnboarding: true,
+      createdMockCategories: false,
       finishOnboarding: () => {
         set({ showOnboarding: false });
       },
@@ -20,7 +23,7 @@ const useSettingsStore = create<SettingsStore>()(
       },
     }),
     {
-      name: '@Settings',
+      name: StorageKeys.Settings.toString(),
       storage: storage,
     },
   ),

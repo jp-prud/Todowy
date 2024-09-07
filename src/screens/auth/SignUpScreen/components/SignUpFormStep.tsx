@@ -11,9 +11,9 @@ import {
   StepperPreviousButton,
 } from '@components';
 import { ThemeColors } from '@theme';
+
 import { SignUpFormSchemaTypes } from '../signUpFormSchema';
 import { useSignUpScreen } from '../useSignUpScreen';
-
 
 export function SignUpFormStep() {
   const { signUp } = useSignUpScreen();
@@ -24,18 +24,21 @@ export function SignUpFormStep() {
     formState: { isSubmitting },
   } = useFormContext<SignUpFormSchemaTypes>();
 
-  const onSubmit = handleSubmit(async data => { 
-    return await signUp({
-      ...data,
-      profile: {
-        ...data.profile,
-        avatar: {
-          ...data.profile.avatar,
-          color: data.profile.avatar.color as ThemeColors
-        }
-      }
-    });
-  }, (error) => console.log('oi erro', error));
+  const onSubmit = handleSubmit(
+    async data => {
+      return await signUp({
+        ...data,
+        profile: {
+          ...data.profile,
+          avatar: {
+            ...data.profile.avatar,
+            color: data.profile.avatar.color as ThemeColors,
+          },
+        },
+      });
+    },
+    error => console.log('oi erro', error),
+  );
 
   return (
     <>

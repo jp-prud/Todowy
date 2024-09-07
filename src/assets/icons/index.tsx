@@ -19,3 +19,4 @@ export * from './ReloadIcon';
 export * from './SearchIcon';
 export * from './TagIcon';
 export * from './TrashIcon';
+export * from './FilterIcon';

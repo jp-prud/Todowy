@@ -1,29 +1,32 @@
 import { useEffect, useRef } from 'react';
-import { Dimensions, ListRenderItemInfo, StyleSheet } from 'react-native';
+import {
+  Dimensions,
+  ListRenderItemInfo,
+  RefreshControl,
+  StyleSheet,
+} from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { TaskProps } from '@types';
-import Animated, {
-  FadeIn,
-  FadeOut
-} from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-import { Box, Task, Text } from '@components';
+import { Box, RenderIfElse, Task, Text } from '@components';
 
-interface SliderTaskListProps {
-  searchTerm: string;
-  data: TaskProps[];
-}
+import { useHomeScreen } from '../useHomeScreen';
+
+import { Header } from './Header';
 
 interface AnimatedItemProps {
   index: number;
   startingEnteringValue: React.MutableRefObject<boolean>;
-  render: React.ReactNode;
+  render: any;
 }
 
 const { width: WIDTH_SCREEN } = Dimensions.get('window');
 
-export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
+export function SliderTaskList() {
+  const { filteredTasks, getLisTasks, isLoading, searchTerm } = useHomeScreen();
+
   const { navigate } = useNavigation();
   const startingEnteringValue = useRef<boolean>(true);
 
@@ -40,7 +43,12 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
           <Task
             task={task}
             searchTerm={searchTerm}
-            onPress={() => navigate('TaskDetailsScreen', { taskId: task.id, taskAuthor: task.author})}
+            onPress={() =>
+              navigate('TaskDetailsScreen', {
+                taskId: task.id,
+                taskAuthor: task.author,
+              })
+            }
           />
         }
       />
@@ -55,13 +63,31 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
         alignItems="center"
         flexDirection="column"
         g="s4"
-      >
-        <Text preset="paragraphLarge" semiBold>
-          No task for today :(
-        </Text>
-        <Text color="neutral500" textAlign="center">
-          There is no task for today. Create one ?
-        </Text>
+        mt="s48">
+        <RenderIfElse
+          condition={Boolean(searchTerm && filteredTasks.length === 0)}
+          renderIf={
+            <>
+              <Text preset="paragraphLarge" semiBold>
+                No task found
+              </Text>
+              <Text color="neutral500" textAlign="center">
+                There is no task found with the search term "{searchTerm}".
+              </Text>
+            </>
+          }
+          renderElse={
+            <>
+              <Text preset="paragraphLarge" semiBold>
+                No task for today :(
+              </Text>
+              <Text color="neutral500" textAlign="center">
+                There is no task for today. {'\n'} Select the "+" button to
+                create a new task.
+              </Text>
+            </>
+          }
+        />
       </Box>
     );
   }
@@ -72,12 +98,18 @@ export function SliderTaskList({ searchTerm, data }: SliderTaskListProps) {
 
   return (
     <Animated.FlatList
+      ListHeaderComponent={<Header />}
+      stickyHeaderIndices={[0]}
       style={[flatListStyles.wrapperView]}
-      data={data}
+      data={filteredTasks}
       keyExtractor={_item => _item.id}
       renderItem={renderTask}
+      showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={renderItemSeparator}
       ListEmptyComponent={renderEmptyList}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={getLisTasks} />
+      }
     />
   );
 }
@@ -100,6 +132,7 @@ const flatListStyles = StyleSheet.create({
   wrapperView: {
     width: WIDTH_SCREEN - 48,
     flex: 1,
+    zIndex: -1,
   },
   contentContainer: {
     flex: 1,

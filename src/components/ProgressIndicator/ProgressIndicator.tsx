@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { AnimatedBox } from '../Box/AnimatedBox';
 import { Box, BoxProps } from '../Box/Box';
 

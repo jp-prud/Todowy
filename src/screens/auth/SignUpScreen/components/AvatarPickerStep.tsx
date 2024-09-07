@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -10,34 +12,32 @@ import {
   StepperFooter,
   StepperHeader,
   StepperNextButton,
-  useStepper
+  useStepper,
 } from '@components';
-import React from 'react';
+
 import { SignUpFormSchemaTypes } from '../signUpFormSchema';
 
 export function AvatarPickerStep() {
-  const { nextStep } = useStepper()
+  const { nextStep } = useStepper();
 
-  const {
-    setValue, getValues
-  } = useFormContext<SignUpFormSchemaTypes>();
+  const { setValue, getValues } = useFormContext<SignUpFormSchemaTypes>();
 
-  const profileAvatar = getValues('profile.avatar')
+  const profileAvatar = getValues('profile.avatar');
 
   function handlePressChangeAvatar(_avatar: AvatarListPresetUI) {
     setValue('profile.avatar', {
       ..._avatar,
-      icon: String(_avatar.icon)
+      icon: String(_avatar.icon),
     });
   }
 
   async function handleOnPressNext() {
-    if(profileAvatar) {
+    if (profileAvatar) {
       nextStep();
     }
   }
 
-  console.log(profileAvatar)
+  console.log(profileAvatar);
 
   return (
     <>
@@ -53,8 +53,8 @@ export function AvatarPickerStep() {
       </StepperContent>
 
       <StepperFooter>
-        <StepperNextButton 
-          text="It's look cute" 
+        <StepperNextButton
+          text="It's look cute"
           onPress={handleOnPressNext}
           disabled={profileAvatar.icon === ''}
         />
@@ -65,7 +65,7 @@ export function AvatarPickerStep() {
 
 export function PreviewAvatar() {
   const { watch } = useFormContext<SignUpFormSchemaTypes>();
- 
+
   // function handlePressChangeAvatar() {
   //   const _avatar = generateAvatarComposition();
 
@@ -78,8 +78,7 @@ export function PreviewAvatar() {
   const avatar = watch('profile.avatar');
 
   return (
-    <AnimatedBox
-      style={{ marginBottom: -16 }}>
+    <AnimatedBox style={{ marginBottom: -16 }}>
       <Box alignSelf="center">
         {avatar.icon !== '' ? (
           <Avatar
@@ -87,9 +86,14 @@ export function PreviewAvatar() {
             avatar={watch('profile.avatar') as AvatarListPresetUI}
           />
         ) : (
-          <Box width={120} height={120} backgroundColor='neutral200' borderRadius="s16" />
+          <Box
+            width={120}
+            height={120}
+            backgroundColor="neutral200"
+            borderRadius="s16"
+          />
         )}
-        
+
         {/* <Box
           position="absolute"
           right={-14}

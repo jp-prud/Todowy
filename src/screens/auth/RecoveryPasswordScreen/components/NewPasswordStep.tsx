@@ -1,15 +1,28 @@
-import { FormPasswordInput, StepperContent, StepperFooter, StepperHeader, StepperNextButton, StepperPreviousButton } from "@components";
-import { useFormContext } from "react-hook-form";
-import { ResetPasswordFormSchemaTypes } from "../recoveryPasswordFormSchema";
-import { useRecoveryPassword } from "../useRecoveryPassword";
+import { useFormContext } from 'react-hook-form';
+
+import {
+  FormPasswordInput,
+  StepperContent,
+  StepperFooter,
+  StepperHeader,
+  StepperNextButton,
+  StepperPreviousButton,
+} from '@components';
+
+import { ResetPasswordFormSchemaTypes } from '../recoveryPasswordFormSchema';
+import { useRecoveryPassword } from '../useRecoveryPassword';
 
 export function NewPasswordStep() {
-  const { resetPassword } = useRecoveryPassword()
+  const { resetPassword } = useRecoveryPassword();
 
-  const { handleSubmit, control, formState: { isSubmitting } } = useFormContext<ResetPasswordFormSchemaTypes>()
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = useFormContext<ResetPasswordFormSchemaTypes>();
 
-  const onSubmit = handleSubmit(async (data) => {
-    await resetPassword(data)
+  const onSubmit = handleSubmit(async data => {
+    await resetPassword(data);
   });
 
   return (
@@ -32,7 +45,12 @@ export function NewPasswordStep() {
 
       <StepperFooter>
         <StepperPreviousButton disabled={isSubmitting} />
-        <StepperNextButton text="Create Password" onPress={onSubmit} disabled={isSubmitting} loading={isSubmitting} />
+        <StepperNextButton
+          text="Create Password"
+          onPress={onSubmit}
+          disabled={isSubmitting}
+          loading={isSubmitting}
+        />
       </StepperFooter>
     </>
   );

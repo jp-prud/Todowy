@@ -8,7 +8,6 @@ import {
   HomeScreen,
   ProfileScreen,
   SettingsScreen,
-  SuccessScreen,
   TaskDetailsScreen,
 } from '../screens';
 
@@ -23,7 +22,7 @@ const { Navigator, Screen } = createNativeStackNavigator<AppStackParamList>();
 export function AppStack() {
   return (
     <Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="AppTabNavigator"
       screenOptions={NAVIGATOR_STACK_SCREEN_OPTIONS}>
       <Screen name="AppTabNavigator" component={TabNavigationStack} />
 
@@ -33,7 +32,6 @@ export function AppStack() {
       <Screen name="SettingsScreen" component={SettingsScreen} />
       <Screen name="ProfileScreen" component={ProfileScreen} />
       <Screen name="TaskDetailsScreen" component={TaskDetailsScreen} />
-      <Screen name="SuccessScreen" component={SuccessScreen} />
     </Navigator>
   );
 }

@@ -27,17 +27,21 @@ export function AvatarListPicker({
         return (
           <TouchableOpacityBox
             key={currentAvatar.icon}
-            onPress={() => onChangeAvatar({
-              ...currentAvatar,
-              icon: String(index)
-            })}>
-            
-            <Avatar avatar={{
-              ...currentAvatar,
-              icon: String(index)
-            }} size={56} />
+            onPress={() =>
+              onChangeAvatar({
+                ...currentAvatar,
+                icon: String(index),
+              })
+            }>
+            <Avatar
+              avatar={{
+                ...currentAvatar,
+                icon: String(index),
+              }}
+              size={56}
+            />
           </TouchableOpacityBox>
-        )
+        );
       })}
     </Box>
   );

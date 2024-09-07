@@ -1,17 +1,20 @@
 import {
+  BottomSheet,
+  BottomSheetFooter,
+  BottomSheetHeader,
   Box,
+  Button,
   CategoryFlag,
   Icon,
   PriorityFlag,
-  RenderIf,
   RenderIfElse,
   Screen,
   Text,
 } from '@components';
+import { useBottomSheet } from '@hooks';
 import { AppScreenProps } from '@routes';
 
 import { useTaskDetailsScreen } from './useTaskDetailsScreen';
-import { useAuthContext } from '@context';
 
 export function TaskDetailsScreen({
   route,
@@ -19,18 +22,30 @@ export function TaskDetailsScreen({
 }: AppScreenProps<'TaskDetailsScreen'>) {
   const { taskId } = route.params;
 
-  const { authCredentials } = useAuthContext()
+  const { task, isLoading, handlePressDeleteTask, deleteTaskIsLoading } =
+    useTaskDetailsScreen(taskId);
 
-  const { task, isLoading, handlePressDeleteTask } =
-    useTaskDetailsScreen(taskId, authCredentials!.email);
+  const { bottomSheetRef, onClose, onOpen } = useBottomSheet();
+
+  function onHandlePressDeleteTask() {
+    onOpen();
+  }
 
   function renderTaskDetails() {
     if (isLoading) {
-      return null;
+      return <></>;
     }
 
-    const { id, title, created_at, due_date, description, category, priority, author } =
-      task!;
+    const {
+      id,
+      title,
+      created_at,
+      due_date,
+      description,
+      category,
+      priority,
+      author,
+    } = task!;
 
     return (
       <Box>
@@ -56,11 +71,11 @@ export function TaskDetailsScreen({
               onPress={() =>
                 navigation.navigate('EditTaskScreen', {
                   taskId: id,
-                  taskAuthor: author
+                  taskAuthor: author,
                 })
               }
             />
-            <Icon name="trash" onPress={() => handlePressDeleteTask(id)} />
+            <Icon name="trash" onPress={onHandlePressDeleteTask} />
           </Box>
         </Box>
 
@@ -108,10 +123,32 @@ export function TaskDetailsScreen({
 
   return (
     <Screen title="Task Details" canGoBack isLoading={isLoading}>
-      <RenderIf
-        condition={Boolean(task && !isLoading)}
-        render={renderTaskDetails()}
-      />
+      {renderTaskDetails()}
+
+      <BottomSheet ref={bottomSheetRef}>
+        <BottomSheetHeader
+          title="Delete Task"
+          description="Are you sure you want to delete this task? You can't undo this action."
+        />
+
+        <BottomSheetFooter>
+          <Button
+            text="Cancel"
+            disabled={deleteTaskIsLoading}
+            loading={deleteTaskIsLoading}
+            onPress={onClose}
+            preset="outline"
+            flex={1}
+          />
+          <Button
+            text="Delete"
+            disabled={deleteTaskIsLoading}
+            loading={deleteTaskIsLoading}
+            onPress={() => handlePressDeleteTask(taskId)}
+            flex={1}
+          />
+        </BottomSheetFooter>
+      </BottomSheet>
     </Screen>
   );
 }

@@ -1,3 +1,4 @@
-export * from './AddTaskButton';
-export * from './CompletedTaskProgressBar';
+export * from './FloatingButton';
+export * from './Header';
 export * from './SliderTaskList';
+

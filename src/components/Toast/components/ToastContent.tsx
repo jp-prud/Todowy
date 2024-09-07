@@ -18,8 +18,7 @@ export function ToastContent({ toast }: ToastContentPros) {
   const type: ToastType = toast?.type || 'success';
 
   return (
-    <Box {...$boxStyles} style={[$shadowProps, {
-    }]}>
+    <Box {...$boxStyles} style={[$shadowProps, {}]}>
       <Icon {...mapTypeToIcon[type]} />
       <Text>{toast?.message}</Text>
     </Box>

@@ -16,6 +16,7 @@ import {
   CloseIcon,
   EyeIcon,
   EyeSlashIcon,
+  FilterIcon,
   GearshapeIcon,
   HouseFillIcon,
   HouseIcon,
@@ -54,7 +55,7 @@ export function Icon({
 
   if (onPress) {
     return (
-      <Pressable testID="Icon" hitSlop={10} onPress={onPress} style={{}}>
+      <Pressable testID="Icon" hitSlop={16} onPress={onPress} style={{}}>
         {Icon}
       </Pressable>
     );
@@ -85,6 +86,7 @@ const iconRegistry = {
   eyeSlash: EyeSlashIcon,
   blocks: BlocksIcon,
   blocksFill: BlocksIconFill,
+  filter: FilterIcon,
 };
 
 type IconType = typeof iconRegistry;

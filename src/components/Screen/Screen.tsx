@@ -69,7 +69,6 @@ export function Screen({
           style={[
             {
               paddingTop: top,
-              paddingBottom: bottom,
               paddingHorizontal: HORIZONTAL_PADDING,
             },
           ]}
@@ -94,10 +93,13 @@ export function Screen({
       {FooterComponent && !isLoading && !isError && (
         <Box
           style={[
-            { paddingBottom: bottom, backgroundColor: colors.background },
+            {
+              paddingBottom: bottom,
+              paddingHorizontal: HORIZONTAL_PADDING,
+              backgroundColor: colors.background,
+            },
             footerContainerStyle,
-          ]}
-          testID="footer-component">
+          ]}>
           {FooterComponent}
         </Box>
       )}

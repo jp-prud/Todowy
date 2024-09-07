@@ -17,8 +17,7 @@ export function useCreateProjectScreen() {
     console.error(errors);
   };
 
-  const onFormSubmit = formMethods.handleSubmit(data => {
-  }, onInvalid);
+  const onFormSubmit = formMethods.handleSubmit(() => {}, onInvalid);
 
   return {
     onFormSubmit,

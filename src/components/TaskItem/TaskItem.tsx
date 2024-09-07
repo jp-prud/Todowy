@@ -38,7 +38,7 @@ export function Task({ task, searchTerm, onPress }: TaskItemProps) {
   function onCompletedTask() {
     'worklet';
 
-    completeTask({ id: task.id });
+    completeTask({ id: task.id, author: task.author });
     completedTask.value = !completedTask.value;
   }
 

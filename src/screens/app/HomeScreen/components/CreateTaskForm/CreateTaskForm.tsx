@@ -1,29 +1,25 @@
 import React from 'react';
 import { Pressable } from 'react-native';
 
-import { useBottomSheet as ExternalLibModal } from '@gorhom/bottom-sheet';
 import { MOCKED_TASKS_PRIORITY } from '@types';
 import dayjs from 'dayjs';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition,
-} from 'react-native-reanimated';
 import DateTimePicker from 'react-native-ui-datepicker';
 
 import {
+  ActivityIndicator,
   AnimatedBox,
+  BottomSheetHeader,
   Box,
   Button,
   Dropdown,
   FormTextInput,
   Icon,
   RenderIfElse,
-  Text,
+  Text
 } from '@components';
 import { useAppTheme } from '@hooks';
 
-import { useCreateTaskForm } from '../useCreateTaskForm';
+import { useCreateTaskForm } from './useCreateTaskForm';
 
 interface CreateTaskFormProps {
   onClose: () => void;
@@ -42,9 +38,10 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
     handlePressToggleStep,
     watch,
     handlePressChangeDate,
+    categoriesIsLoading,
+    categories,
+    handlePressSelectCategory,
   } = useCreateTaskForm();
-
-  const { close } = ExternalLibModal();
 
   async function onHandleSubmitPress(data: any) {
     await onSubmit(data);
@@ -52,12 +49,36 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
     onClose();
   }
 
-  function handlePressCloseForm() {
-    if (currentStep === 'DatePicker') {
-      handlePressToggleStep();
-    }
+  function renderCategories() {
+    const selectedCategory = watch('category');
 
-    close();
+    return (
+      <RenderIfElse
+        condition={!categories || categories.length === 0}
+        renderIf={<Text preset="paragraphSmall" textAlign='center' color="neutral500">No categories found.</Text>}
+        renderElse={<Box flexDirection='row' g="s8" alignItems='center' flexWrap="wrap">
+          {categories?.map(category => (
+            <Pressable
+              style={{
+                backgroundColor: selectedCategory === category.name ? colors.primary : colors.neutral200,
+                paddingVertical: 8,
+                paddingHorizontal: 16,
+                borderRadius: 100
+              }}
+              key={category.id}
+              onPress={() => handlePressSelectCategory(category.name)}
+            >
+              <Text
+                color={selectedCategory === category.name ? 'background' : 'neutral800'}
+              >
+                {category.name}
+              </Text>
+            </Pressable>
+          ))}
+        </Box>
+        }
+      />
+    )
   }
 
   function renderForm() {
@@ -116,6 +137,18 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
               data={MOCKED_TASKS_PRIORITY}
             />
           </Box>
+
+          <Box g="s4">
+            <Text semiBold color="neutral500">
+              Categories
+            </Text>
+
+            <RenderIfElse
+              condition={categoriesIsLoading}
+              renderIf={<ActivityIndicator size="small" />}
+              renderElse={renderCategories()}
+            />
+          </Box>
         </Box>
 
         <Button
@@ -158,16 +191,8 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
   }
 
   return (
-    <Box p="s16">
-      <Box
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        mb="s24">
-        <Text preset="headingMedium">Creating task</Text>
-
-        <Icon name="close" color="black400" onPress={handlePressCloseForm} />
-      </Box>
+    <>
+      <BottomSheetHeader title="Creating task" />
 
       <AnimatedBox>
         <RenderIfElse
@@ -176,6 +201,6 @@ export function CreateTaskForm({ onClose }: CreateTaskFormProps) {
           renderElse={renderDatePicker()}
         />
       </AnimatedBox>
-    </Box>
+    </>
   );
 }

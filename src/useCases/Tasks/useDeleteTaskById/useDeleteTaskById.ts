@@ -10,10 +10,14 @@ export function useDeleteTaskById({
   const { deleteTaskById: deleteTaskByIdService } = TaskService();
   const queryClient = useQueryClient();
 
-  const { mutate: deleteTaskById } = useMutation<void, unknown, {
-    taskId: string;
-    email: string;
-  }>({
+  const { mutate: deleteTaskById, isPending } = useMutation<
+    void,
+    unknown,
+    {
+      taskId: string;
+      email: string;
+    }
+  >({
     mutationKey: [StorageKeys.Tasks],
     mutationFn: task => deleteTaskByIdService(task.taskId, task.email),
     onError() {
@@ -21,9 +25,9 @@ export function useDeleteTaskById({
         onError(errorMessage || 'An error occurred while deleting the task');
       }
     },
-    onSuccess() {
+    onSuccess(data, variables) {
       queryClient.invalidateQueries({
-        queryKey: [StorageKeys.Tasks],
+        queryKey: [`${StorageKeys.Tasks}-${variables.email}`],
       });
 
       if (onSuccess) {
@@ -34,5 +38,6 @@ export function useDeleteTaskById({
 
   return {
     deleteTaskById,
+    deleteTaskIsLoading: isPending,
   };
 }

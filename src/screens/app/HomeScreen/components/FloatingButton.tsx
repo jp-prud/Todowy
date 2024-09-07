@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, useWindowDimensions } from 'react-native';
 
-import BottomSheetModal, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -10,10 +9,11 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { Box, Icon, Text, TouchableOpacityBox } from '@components';
+import { BottomSheet, Box, Icon, Text, TouchableOpacityBox } from '@components';
 import { useBottomSheet } from '@hooks';
+import { CreateCategoryForm } from './CreateCategoryForm/CreateCategoryForm';
+import { CreateTaskForm } from './CreateTaskForm/CreateTaskForm';
 
-import { CreateTaskForm } from './CreateTaskForm';
 
 type Status = 'closed' | 'open';
 
@@ -21,17 +21,13 @@ type AddTaskStatus = {
   status: Status;
 };
 
-export function AddTaskButton() {
+export function FloatingButton() {
   const { width } = useWindowDimensions();
   const [addTaskStatus, setAddTaskStatus] = useState<AddTaskStatus>({
     status: 'closed',
   });
 
-  const {
-    bottomSheetRef: taskBottomSheetRef,
-    renderBackdrop,
-    BOTTOM_SHEET_STYLES,
-  } = useBottomSheet();
+  const { bottomSheetRef: taskBottomSheetRef } = useBottomSheet();
 
   const { bottomSheetRef: categoryBottomSheetRef } = useBottomSheet();
 
@@ -44,27 +40,27 @@ export function AddTaskButton() {
   );
 
   const defaultBoxSize = useSharedValue({
-    width: 46,
+    width: 52,
   });
 
   const openContainerStyle = useAnimatedStyle(() => {
     const height = interpolate(
       defaultBoxSize.value.width,
-      [46, width - 32, width],
-      [46, 160, 280],
-      // [46, 240, 440], // category height
+      [52, width - 32, width],
+      // [52, 160, 280],
+      [46, 240, 440], // category height
     );
 
     const borderRadius = interpolate(
       defaultBoxSize.value.width,
-      [46, width - 32, width],
+      [52, width - 32, width],
       [30, 32, 16],
       'clamp',
     );
 
     const position = interpolate(
       defaultBoxSize.value.width,
-      [46, width - 32, width],
+      [52, width - 32, width],
       [16, 16, 0],
     );
 
@@ -113,21 +109,21 @@ export function AddTaskButton() {
     });
 
     defaultBoxSize.value = {
-      width: 46,
+      width: 52,
     };
   }
 
   function onPressCreateTask() {
-    taskBottomSheetRef.current?.expand();
+    taskBottomSheetRef.current?.present();
 
     onClose();
   }
 
-  // function onPressCreateCategory() {
-  //   categoryBottomSheetRef.current?.expand();
+  function onPressCreateCategory() {
+    categoryBottomSheetRef.current?.present();
 
-  //   onClose();
-  // }
+    onClose();
+  }
 
   function renderOptions() {
     return (
@@ -157,7 +153,7 @@ export function AddTaskButton() {
           </Box>
         </TouchableOpacityBox>
 
-        {/* <TouchableOpacityBox
+        <TouchableOpacityBox
           p="s8"
           onPress={() => onPressCreateCategory()}
           flexDirection="row"
@@ -180,20 +176,10 @@ export function AddTaskButton() {
               Create a new task to organize your day more efficiently.
             </Text>
           </Box>
-        </TouchableOpacityBox> */}
+        </TouchableOpacityBox>
       </Animated.View>
     );
   }
-
-  const bottomSheetProps = {
-    enablePanDownToClose: true,
-    animationConfigs: {
-      duration: 400,
-    },
-    backdropComponent: renderBackdrop,
-    containerStyle: BOTTOM_SHEET_STYLES.container,
-    index: -1,
-  };
 
   return (
     <>
@@ -221,29 +207,20 @@ export function AddTaskButton() {
         )}
 
         {addTaskStatus.status === 'closed' && (
-          <Animated.View style={openButtonRenderStyle}>
+          <Animated.View
+            style={[openButtonRenderStyle, { transform: [{ scale: 1.2 }] }]}>
             <Icon name="plus" color="black1000" onPress={onOpen} />
           </Animated.View>
         )}
       </Animated.View>
 
-      <BottomSheetModal
-        ref={taskBottomSheetRef}
-        snapPoints={['65%']}
-        {...bottomSheetProps}>
-        <BottomSheetScrollView>
-          <CreateTaskForm onClose={onClose} />
-        </BottomSheetScrollView>
-      </BottomSheetModal>
-{/* 
-      <BottomSheetModal
-        ref={categoryBottomSheetRef}
-        snapPoints={['35%']}
-        {...bottomSheetProps}>
-        <BottomSheetScrollView>
-          <CreateCategoryForm onClose={onClose} />
-        </BottomSheetScrollView>
-      </BottomSheetModal> */}
+      <BottomSheet enableOverDrag={false} ref={taskBottomSheetRef}>
+        <CreateTaskForm onClose={onClose} />
+      </BottomSheet>
+
+      <BottomSheet scrollable ref={categoryBottomSheetRef}>
+        <CreateCategoryForm onClose={onClose} />
+      </BottomSheet>
     </>
   );
 }
@@ -253,13 +230,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fafafa',
+    backgroundColor: 'white',
     zIndex: 2,
     overflow: 'hidden',
-    elevation: 5,
+    elevation: 3,
     right: 16,
     bottom: 16,
-    minHeight: 46,
+    minHeight: 52,
+    minWidth: 52,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

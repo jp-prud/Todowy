@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-
 import { useNavigation } from '@react-navigation/native';
 import { useSignUp } from '@useCases';
+import { useForm } from 'react-hook-form';
+
 import {
   DEFAULT_SIGNUP_FORM_VALUES,
   SignUpFormSchema,
@@ -10,27 +10,27 @@ import {
 } from './signUpFormSchema';
 
 export function useSignUpScreen() {
-  const { reset } = useNavigation()
+  const { reset } = useNavigation();
 
   const { signUp } = useSignUp({
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       reset({
         index: 1,
         routes: [
           {
-            name: 'SignInScreen'
+            name: 'SignInScreen',
           },
           {
             name: 'OTPScreen',
             params: {
-              email: variables!.email
+              email: variables!.email,
             },
           },
         ],
       });
     },
-    onError: (error) => console.log('Error creating user')
-  })
+    onError: () => console.log('Error creating user'),
+  });
 
   const formMethods = useForm<SignUpFormSchemaTypes>({
     defaultValues: DEFAULT_SIGNUP_FORM_VALUES,
@@ -40,6 +40,6 @@ export function useSignUpScreen() {
 
   return {
     formMethods,
-    signUp
+    signUp,
   };
 }

@@ -1,6 +1,5 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
-
 
 import {
   AnimatedBox,
@@ -44,13 +43,7 @@ export function Stepper({
 
   const nextStep = useCallback(() => {
     setCurrentStepIndex(prevState => Math.min(steps.length - 1, prevState + 1));
-  }, [steps]);
-
-  useEffect(() => {
-    () => {
-      setCurrentStepIndex(initialStepIndex);
-    };
-  }, []);
+  }, [steps.length]);
 
   return (
     <StepperContext.Provider value={{ previousStep, nextStep }}>
@@ -67,8 +60,7 @@ export function Stepper({
           alignSelf="center"
         />
 
-        <AnimatedBox
-          style={{ flex: 1 }}>
+        <AnimatedBox style={{ flex: 1 }}>
           {fixedRenderContent && fixedRenderContent}
           {steps[currentStepIndex].content}
         </AnimatedBox>
@@ -85,7 +77,7 @@ export function StepperHeader({
   subtitle: string;
 }) {
   return (
-    <Box alignItems="center" g="s4" backgroundColor='background' zIndex={2}>
+    <Box alignItems="center" g="s4" backgroundColor="background" zIndex={2}>
       <Text preset="headingMedium" textAlign="center">
         {title}
       </Text>
@@ -99,9 +91,7 @@ export function StepperHeader({
 export function StepperContent({ children }: { children: React.ReactNode }) {
   return (
     <Box justifyContent="center" flex={1}>
-      <AnimatedBox style={{ gap: 32 }}>
-        {children}
-      </AnimatedBox>
+      <AnimatedBox style={{ gap: 32 }}>{children}</AnimatedBox>
     </Box>
   );
 }

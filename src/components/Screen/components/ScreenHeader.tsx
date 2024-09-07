@@ -28,7 +28,11 @@ export function ScreenHeader({
           <Icon name="chevron" color="neutral700" />
         </Box>
 
-        {!title && !titleComponent && <Text semiBold color="neutral700">Back</Text>}
+        {!title && !titleComponent && (
+          <Text semiBold color="neutral700">
+            Back
+          </Text>
+        )}
       </TouchableOpacityBox>
     );
   }

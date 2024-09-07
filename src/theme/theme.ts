@@ -50,6 +50,7 @@ export const palette = {
   text: '#040415',
   subtext: '#9B9BA1',
   grayBackground: '#efeee1',
+  gray: '#f4f4f4',
   border: '#E9F1FF',
   white: '#fffdfe',
   success: '#4ABC86',

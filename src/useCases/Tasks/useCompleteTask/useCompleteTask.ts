@@ -14,9 +14,9 @@ export function useCompleteTaskUseCase(options?: MutationOptions<void>) {
   >({
     mutationKey: [StorageKeys.Tasks],
     mutationFn: taskProps => completeTask(taskProps.id, taskProps.author),
-    onSuccess() {
+    onSuccess(_, variables) {
       queryClient.invalidateQueries({
-        queryKey: [StorageKeys.Tasks],
+        queryKey: [`${StorageKeys.Tasks}-${variables.author}`],
       });
 
       if (options?.onSuccess) {

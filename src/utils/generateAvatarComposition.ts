@@ -1,10 +1,10 @@
 import { AvatarListPresetUI } from '@components';
-
 import { ThemeColors } from '@theme';
+
 import { images } from '../assets';
 
 export function generateAvatarComposition() {
-  const { length } = AvatarListPresets
+  const { length } = AvatarListPresets;
 
   const randomColorIndex = randomIndex(length);
   const randomIconIndex = randomIndex(length);

@@ -1,4 +1,9 @@
-import Animated, { FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
+import Animated, {
+  FadeOut,
+  LinearTransition,
+  ZoomInLeft,
+} from 'react-native-reanimated';
+
 import { AnimatedBox } from '../../Box/AnimatedBox';
 
 interface BaseView {
@@ -11,13 +16,12 @@ export function ScrollableViewContainer({
   children,
 }: BaseView) {
   return (
-    <Animated.ScrollView 
-      keyboardShouldPersistTaps="handled" 
+    <Animated.ScrollView
+      keyboardShouldPersistTaps="handled"
       style={{ backgroundColor, flex: 1 }}
-      entering={FadeIn}
+      entering={ZoomInLeft}
       exiting={FadeOut}
-      layout={LinearTransition.springify()}
-    >
+      layout={LinearTransition.springify()}>
       {children}
     </Animated.ScrollView>
   );
@@ -25,10 +29,6 @@ export function ScrollableViewContainer({
 
 export function ViewContainer({ backgroundColor, children }: BaseView) {
   return (
-    <AnimatedBox
-      style={{ backgroundColor, flex: 1 }}
-    >
-      {children}
-    </AnimatedBox>
-  )
+    <AnimatedBox style={{ backgroundColor, flex: 1 }}>{children}</AnimatedBox>
+  );
 }

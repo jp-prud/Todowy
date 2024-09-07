@@ -3,14 +3,16 @@ import { useNavigation } from '@react-navigation/native';
 import { useDeleteTaskById, useGetTaskById } from '@useCases';
 
 export function useTaskDetailsScreen(taskId: string) {
-  const { authCredentials } = useAuthContext()
-
-  const { task, isError, isLoading } = useGetTaskById(taskId, authCredentials!.email);
-  const { showToast } = useToastService();
-
+  const { authCredentials } = useAuthContext();
   const { reset } = useNavigation();
 
-  const { deleteTaskById } = useDeleteTaskById({
+  const { task, isError, isLoading } = useGetTaskById(
+    taskId,
+    authCredentials!.email,
+  );
+  const { showToast } = useToastService();
+
+  const { deleteTaskById, deleteTaskIsLoading } = useDeleteTaskById({
     onSuccess() {
       showToast({
         message: 'Task deleted',
@@ -29,7 +31,8 @@ export function useTaskDetailsScreen(taskId: string) {
 
   function handlePressDeleteTask(deleteTaskId: string) {
     deleteTaskById({
-      taskId: deleteTaskId, email: authCredentials!.email
+      taskId: deleteTaskId,
+      email: authCredentials!.email,
     });
 
     reset({
@@ -47,5 +50,6 @@ export function useTaskDetailsScreen(taskId: string) {
     isError,
     isLoading,
     handlePressDeleteTask,
+    deleteTaskIsLoading,
   };
 }

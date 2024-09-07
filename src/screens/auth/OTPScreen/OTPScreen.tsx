@@ -10,6 +10,7 @@ import {
   StepperNextButton,
 } from '@components';
 import { AuthScreenProps } from '@routes';
+
 import { useOTPScreen } from './useOTPScreen';
 
 export function OTPScreen({ route }: AuthScreenProps<'OTPScreen'>) {
@@ -19,7 +20,7 @@ export function OTPScreen({ route }: AuthScreenProps<'OTPScreen'>) {
 
   useEffect(() => {
     setValue('email', email);
-  }, [setValue])
+  }, [setValue, email]);
 
   return (
     <Screen canGoBack>
@@ -42,7 +43,12 @@ export function OTPScreen({ route }: AuthScreenProps<'OTPScreen'>) {
       </StepperContent>
 
       <StepperFooter>
-        <StepperNextButton text="Confirm code" loading={isSubmitting} onPress={onSubmit} disabled={isSubmitting} />
+        <StepperNextButton
+          text="Confirm code"
+          loading={isSubmitting}
+          onPress={onSubmit}
+          disabled={isSubmitting}
+        />
       </StepperFooter>
     </Screen>
   );

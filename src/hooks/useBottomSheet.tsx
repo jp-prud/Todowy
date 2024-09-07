@@ -23,7 +23,7 @@ export function useBottomSheet() {
   }, []);
 
   const onOpen = useCallback(() => {
-    bottomSheetRef.current?.expand();
+    bottomSheetRef.current?.present();
   }, []);
 
   const BOTTOM_SHEET_STYLES = StyleSheet.create({
@@ -35,11 +35,22 @@ export function useBottomSheet() {
     },
   });
 
+  const bottomSheetProps = {
+    enablePanDownToClose: true,
+    animationConfigs: {
+      duration: 400,
+    },
+    enableDynamicSizing: true,
+    backdropComponent: renderBackdrop,
+    containerStyle: BOTTOM_SHEET_STYLES.container,
+  };
+
   return {
     BOTTOM_SHEET_STYLES,
     bottomSheetRef,
     renderBackdrop,
     onClose,
     onOpen,
+    bottomSheetProps,
   };
 }

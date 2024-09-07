@@ -1,20 +1,20 @@
-import { TaskService } from '@services';
+import { FilterOptions, TaskService } from '@services';
 import { useQuery } from '@tanstack/react-query';
 import { StorageKeys } from '@types';
 
-export function useListTasks(email: string) {
+export function useListTasks(email: string, filterOptions?: FilterOptions) {
   const { listTasks } = TaskService();
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
-    queryKey: [`${StorageKeys.Tasks}-${email}`],
-    queryFn: () => listTasks(email),
-  });
+  const { data, isLoading, isPending, isFetching, isError, error, refetch } =
+    useQuery({
+      queryKey: [`${StorageKeys.Tasks}-${email}`, filterOptions],
+      queryFn: () => listTasks(email, filterOptions),
+      placeholderData: placeholderData => placeholderData,
+    });
 
   return {
     tasks: data,
-    numberOfCompletedTasks: 10,
-    numberOfTotalTasks: 10,
-    isLoading,
+    isLoading: isLoading || isPending || isFetching,
     isError,
     error,
     getLisTasks: refetch,

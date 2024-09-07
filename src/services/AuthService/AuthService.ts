@@ -5,10 +5,10 @@ import {
   SaveProfileAvatarDTO,
   SignInProps,
   SignUpProps,
-  StorageKeys
+  StorageKeys,
 } from '@types';
-
 import { AxiosRequestConfig } from 'axios';
+
 import { storage } from '../StorageService/storage';
 import { HttpClient } from '../utils/HttpClient';
 
@@ -17,7 +17,10 @@ export function AuthService() {
   const REFRESH_TOKEN_URL = '/auth/refresh-token';
 
   async function signIn(credentials: SignInProps) {
-    const { data } = await HttpClient.post<AuthCredentials>('/auth/sign-in', credentials);
+    const { data } = await HttpClient.post<AuthCredentials>(
+      '/auth/sign-in',
+      credentials,
+    );
 
     return data;
   }
@@ -32,29 +35,29 @@ export function AuthService() {
   }
 
   async function forgotPassword(email: string): Promise<void> {
-    await HttpClient.post<void>('/auth/forgot-password', { email});
+    await HttpClient.post<void>('/auth/forgot-password', { email });
 
-    return
+    return;
   }
-  
+
   async function resetPassword(data: ResetPasswordProps): Promise<void> {
     await HttpClient.post<void>('/auth/reset-password', data);
 
-    return
+    return;
   }
 
   async function accountConfirmation(credentials: AccountConfirmationProps) {
     await HttpClient.post<void>('/auth/confirmation-account', credentials);
 
-    return
+    return;
   }
 
   async function refreshToken(refreshToken: string) {
     const { data } = await HttpClient.post<string>(REFRESH_TOKEN_URL, {
-      refreshToken
+      refreshToken,
     });
 
-    return data
+    return data;
   }
 
   function isRefreshTokenRequest(request: AxiosRequestConfig): boolean {
@@ -72,7 +75,7 @@ export function AuthService() {
 
   async function save(authCredentials: AuthCredentials): Promise<void> {
     await storage.setItem(AUTH_KEY, authCredentials);
-  } 
+  }
 
   async function load(): Promise<AuthCredentials | null> {
     const authCredentials = await storage.getItem<AuthCredentials>(AUTH_KEY);
@@ -108,6 +111,6 @@ export function AuthService() {
     saveProfileImage,
     remove,
     updateToken,
-    removeToken
+    removeToken,
   };
 }
